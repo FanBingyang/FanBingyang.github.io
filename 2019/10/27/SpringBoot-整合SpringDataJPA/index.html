@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SpringBoot," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="范秉洋的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;JPA的全称是Java Persistence API，Persistence 是持久化的意思。所以，中文全称是【JAVA对象持久化的 API】。简单来说，可以理解为是一种JAVA的标准规范，这个规范为JAVA对象的持久化制定了一些标准的接口。要注意的是，JPA只是一个接口规范，而不是实现。具体实现由各">
+<meta name="keywords" content="SpringBoot">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot-整合SpringDataJPA">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;27&#x2F;SpringBoot-%E6%95%B4%E5%90%88SpringDataJPA&#x2F;index.html">
+<meta property="og:site_name" content="范秉洋的博客">
+<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;JPA的全称是Java Persistence API，Persistence 是持久化的意思。所以，中文全称是【JAVA对象持久化的 API】。简单来说，可以理解为是一种JAVA的标准规范，这个规范为JAVA对象的持久化制定了一些标准的接口。要注意的是，JPA只是一个接口规范，而不是实现。具体实现由各">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;27&#x2F;SpringBoot-%E6%95%B4%E5%90%88SpringDataJPA&#x2F;%E6%B5%8B%E8%AF%95%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;27&#x2F;SpringBoot-%E6%95%B4%E5%90%88SpringDataJPA&#x2F;%E8%A7%84%E5%88%99%E6%9F%A5%E8%AF%A2.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;27&#x2F;SpringBoot-%E6%95%B4%E5%90%88SpringDataJPA&#x2F;%E6%B5%8B%E8%AF%95%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2.png">
+<meta property="og:updated_time" content="2019-11-11T14:09:43.736Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;27&#x2F;SpringBoot-%E6%95%B4%E5%90%88SpringDataJPA&#x2F;%E6%B5%8B%E8%AF%95%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/10/27/SpringBoot-整合SpringDataJPA/"/>
+
+
+
+
+
+  <title>SpringBoot-整合SpringDataJPA | 范秉洋的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">范秉洋的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">It's not hard ro give up <br> but it's cool to stick with it</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/27/SpringBoot-%E6%95%B4%E5%90%88SpringDataJPA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="范秉洋">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/shenshi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="范秉洋的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SpringBoot-整合SpringDataJPA</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-27T10:36:04+08:00">
+                2019-10-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
+                    <span itemprop="name">SpringBoot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JPA的全称是<strong>Java Persistence API</strong>，Persistence 是持久化的意思。所以，中文全称是【JAVA对象持久化的 API】。简单来说，可以理解为是一种JAVA的标准规范，这个规范为JAVA对象的持久化制定了一些标准的接口。要注意的是，JPA只是一个接口规范，而不是实现。具体实现由各供应商来完成，例如Hibernate，TopLink,OpenJPA都很好地实现了JPA接口。</p>
+<a id="more"></a>
+<h1 id="SpringBoot整合SpringDataJPA"><a href="#SpringBoot整合SpringDataJPA" class="headerlink" title="SpringBoot整合SpringDataJPA"></a>SpringBoot整合SpringDataJPA</h1><h2 id="1-SpringBootDataJPA"><a href="#1-SpringBootDataJPA" class="headerlink" title="1. SpringBootDataJPA"></a>1. SpringBootDataJPA</h2><h3 id="1-1-简述"><a href="#1-1-简述" class="headerlink" title="1.1 简述"></a>1.1 简述</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SpringDataJPA是较大的SpringData系列的一部分，可轻松实现基于JPA的存储库。该模块处理对基于JPA的数据访问层的增强支持。它使构建使用数据访问技术的Spring支持的应用程序变得更加容易。默认底层是Hibernate，使用JPA的Repository能极大的减少对数据库的访问的代码量，仅仅使用内部接口就可以完成简单的CRUD等操作。</p>
+<h3 id="1-2-特征"><a href="#1-2-特征" class="headerlink" title="1.2 特征"></a>1.2 特征</h3><ul>
+<li>基于Spring和JPA构建存储库的先进支持。</li>
+<li>支持Querydsl谓词，从而支持类型安全的JPA查询。</li>
+<li>域类的透明审核。</li>
+<li>分页支持，动态查询支持，集成自定义数据访问代码的能力。</li>
+<li><code>@Query</code>引导时验证带注释的查询。</li>
+<li>支持基于XML的实体映射。</li>
+<li>通过引入JavaConfig的存储库配置<code>@EnableJpaReposituries</code>。</li>
+</ul>
+<h2 id="2-搭建项目"><a href="#2-搭建项目" class="headerlink" title="2. 搭建项目"></a>2. 搭建项目</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该项目是一个完整的开发项目，所有的逻辑代码都放在了Controller层，数据源使用alibaba的<em>Druid</em>数据源。</p>
+<h3 id="2-1-导入依赖-修改配置文件"><a href="#2-1-导入依赖-修改配置文件" class="headerlink" title="2.1 导入依赖/修改配置文件"></a>2.1 导入依赖/修改配置文件</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先在pom.xml文件原来的基础中添加依赖。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>druid<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-jpa<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;然后再修改application配置文件，添加关于Druid和SpringBootJPA的依赖。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="comment"># 配置视图解析</span></span><br><span class="line"><span class="attr">  mvc:</span></span><br><span class="line"><span class="attr">    view:</span></span><br><span class="line"><span class="attr">      prefix:</span> <span class="string">/WEB-INF/views/</span></span><br><span class="line"><span class="attr">      suffix:</span> <span class="string">.jsp</span></span><br><span class="line">  <span class="comment"># 配置数据源</span></span><br><span class="line"><span class="attr">  datasource:</span></span><br><span class="line"><span class="attr">    type:</span> <span class="string">com.alibaba.druid.pool.DruidDataSource</span></span><br><span class="line"><span class="attr">    url:</span> <span class="attr">jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&amp;serverTimezone=UTC</span></span><br><span class="line"><span class="attr">    username:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">    password:</span> <span class="string">admin</span></span><br><span class="line"><span class="attr">    driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br><span class="line">    <span class="comment">#最大活跃数</span></span><br><span class="line"><span class="attr">    maxaActive:</span> <span class="number">20</span></span><br><span class="line">    <span class="comment">#初始化数量</span></span><br><span class="line"><span class="attr">    InitialSize:</span> <span class="number">1</span></span><br><span class="line">    <span class="comment">#最大连接等待时间</span></span><br><span class="line"><span class="attr">    maxWait:</span> <span class="number">60000</span></span><br><span class="line">    <span class="comment">#打开PSCache，并指定大小</span></span><br><span class="line"><span class="attr">    poolPreparedStatements:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    maxPoolPreparedStatementPerConnectionSize:</span> <span class="number">20</span></span><br><span class="line"><span class="attr">    minIdle:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">    connectionProperties:</span> <span class="string">druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000</span></span><br><span class="line"><span class="attr">    timeBetweenEvictionRunsMillis:</span> <span class="number">60000</span></span><br><span class="line"><span class="attr">    minEvictableIdleTimeMillis:</span> <span class="number">300000</span></span><br><span class="line"><span class="attr">    validationQuery:</span> <span class="string">select</span> <span class="number">1</span> <span class="string">from</span> <span class="string">dual</span></span><br><span class="line"><span class="attr">    testWhileIdle:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    testOnBorrow:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">    testOnReturn:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">    filters:</span> <span class="string">stat,</span> <span class="string">wall,</span> <span class="string">log4j</span></span><br><span class="line">  <span class="comment"># 配置JPA</span></span><br><span class="line"><span class="attr">  jpa:</span></span><br><span class="line"><span class="attr">    database:</span> <span class="string">mysql</span></span><br><span class="line"><span class="attr">    show-sql:</span> <span class="literal">true</span>                 <span class="comment"># 是否打印sql</span></span><br><span class="line"><span class="attr">    generate-ddl:</span> <span class="literal">true</span>             <span class="comment"># 是否生成ddl</span></span><br><span class="line"><span class="attr">    hibernate:</span>                     <span class="comment"># 数据库表的创建方式:更新 </span></span><br><span class="line"><span class="attr">        ddl-auto:</span> <span class="string">update</span></span><br><span class="line"><span class="attr">    properties:</span></span><br><span class="line">        <span class="comment">### 数据库方言,告诉hibernate这是mysql</span></span><br><span class="line">        <span class="string">hibernate.dialect:</span> <span class="string">com.demo.mysql.MySQLDialectUTF8</span></span><br><span class="line">        <span class="comment">### 控制条打印sql格式化输出</span></span><br><span class="line">        <span class="string">hibernate.format_sql:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数据库方言设置，新建<code>mysql</code>包，创建<code>MySQLDialectUTF8</code>类。将默认的字符集编码设置为UTF8。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo.mysql;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.hibernate.dialect.MySQL5Dialect;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 重写数据库方言，设置默认字符集为utf8</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MySQLDialectUTF8</span> <span class="keyword">extends</span> <span class="title">MySQL5Dialect</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getTableTypeString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">" ENGINE=InnoDB DEFAULT CHARSET=utf8"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong><br>配置数据库连接，8.0以上的版本再写法上有些不一样，以下是新版写法。8.0以下版本的写法不变。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">url:</span> <span class="attr">jdbc:mysql://127.0.0.1:3306/test?characterEncoding=UTF-8&amp;serverTimezone=UTC</span></span><br><span class="line"><span class="attr">driver-class-name:</span> <span class="string">com.mysql.cj.jdbc.Driver</span></span><br></pre></td></tr></table></figure>
+<p>这时候mysql驱动也需要是8.0以上版本的。pom.xml依赖如下。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>8.0.16<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-使用JpaRepository"><a href="#2-2-使用JpaRepository" class="headerlink" title="2.2 使用JpaRepository"></a>2.2 使用JpaRepository</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为JPA的底层就是Hibernate，所以需要一个实体类对数据库表表结构进行映射，在启动项目时，会自动根据实体类创建相应的表结构。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo.domain;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.persistence.*;</span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: FBY</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2019/10/27 14:26</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="meta">@Table</span>(name = <span class="string">"stu"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)</span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"id"</span>)</span><br><span class="line">    <span class="keyword">private</span> Integer id;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"name"</span>)</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"age"</span>)</span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Column</span>(name = <span class="string">"address"</span>)</span><br><span class="line">    <span class="keyword">private</span> String address;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*getter and setter*/</span>    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下面对该类中用到的注解做一个简单说明：使用<code>@Entity</code>会对实体类进行持久化操作，当JPA检测到实体类中有<code>@Entity</code>注解时，会在数据库中生成相对应的表结构信息。<code>@Table</code>用来指定该实体类对应的表明。<code>@Id</code>用来指定主键，配合<code>@GeneratedValue(strategy = GenerationType.IDENTITY)</code>指定主键的自增策略，这里将主键自增交给数据库去做，所以使用<code>IDENTITY</code>。<code>@Column</code>用来指定对应表中的字段名。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;之后创建一个<code>jpa</code>包，然后在下面创建<code>StudentJPA</code>接口，继承<strong>JpaRepository</strong>，需要两个参数，一个时实体类对象，一个是主键类型。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> jpa;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.example.demo.domain.Student;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.jpa.repository.JpaRepository;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: FBY</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2019/10/27 14:53</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">StudentJPA</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">Student</span>,<span class="title">Integer</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;查看<code>JpaRepository</code>源码可以之后该接口又继承了<code>PagingAndSortingRepository</code>和<code>QueryByExampleExecutor</code>这两个接口，<code>PagingAndSortingRepository</code>又继承了<code>CrudRepository</code>接口。这些接口基本上看名字就知道这个接口大概实现了什么方法，这就是命名规范的好处啊。</p>
+<h4 id="2-2-1-CrudRepository"><a href="#2-2-1-CrudRepository" class="headerlink" title="2.2.1 CrudRepository"></a>2.2.1 CrudRepository</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;看名字可以知道，该接口包含饿了crud等操作，也就是<code>creat</code>、<code>select</code>、<code>delete</code>、<code>update</code>、<code>exist</code>、<code>count</code>。如果继承了该接口，就会拥有该接口所有的实现。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NoRepositoryBean</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CrudRepository</span>&lt;<span class="title">T</span>, <span class="title">ID</span>&gt; <span class="keyword">extends</span> <span class="title">Repository</span>&lt;<span class="title">T</span>, <span class="title">ID</span>&gt; </span>&#123;</span><br><span class="line">    &lt;S extends T&gt; <span class="function">S <span class="title">save</span><span class="params">(S var1)</span></span>;</span><br><span class="line">    &lt;S extends T&gt; <span class="function">Iterable&lt;S&gt; <span class="title">saveAll</span><span class="params">(Iterable&lt;S&gt; var1)</span></span>;</span><br><span class="line">    <span class="function">Optional&lt;T&gt; <span class="title">findById</span><span class="params">(ID var1)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">boolean</span> <span class="title">existsById</span><span class="params">(ID var1)</span></span>;</span><br><span class="line">    <span class="function">Iterable&lt;T&gt; <span class="title">findAll</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">Iterable&lt;T&gt; <span class="title">findAllById</span><span class="params">(Iterable&lt;ID&gt; var1)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">long</span> <span class="title">count</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">deleteById</span><span class="params">(ID var1)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">delete</span><span class="params">(T var1)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">deleteAll</span><span class="params">(Iterable&lt;? extends T&gt; var1)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">deleteAll</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-2-PagingAndSortingRepository"><a href="#2-2-2-PagingAndSortingRepository" class="headerlink" title="2.2.2 PagingAndSortingRepository"></a>2.2.2 PagingAndSortingRepository</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该接口时分页和排序，，而且继承了<code>CrudRepository</code>接口，拥有其所有的接口实现。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NoRepositoryBean</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">PagingAndSortingRepository</span>&lt;<span class="title">T</span>, <span class="title">ID</span>&gt; <span class="keyword">extends</span> <span class="title">CrudRepository</span>&lt;<span class="title">T</span>, <span class="title">ID</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function">Iterable&lt;T&gt; <span class="title">findAll</span><span class="params">(Sort var1)</span></span>;</span><br><span class="line">    <span class="function">Page&lt;T&gt; <span class="title">findAll</span><span class="params">(Pageable var1)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-3-QueryByExampleExecutor"><a href="#2-2-3-QueryByExampleExecutor" class="headerlink" title="2.2.3 QueryByExampleExecutor"></a>2.2.3 QueryByExampleExecutor</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这个接口实现了条件查询和复杂查询，可以使用exmple的方式查询。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">QueryByExampleExecutor</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    &lt;S extends T&gt; <span class="function">Optional&lt;S&gt; <span class="title">findOne</span><span class="params">(Example&lt;S&gt; var1)</span></span>;</span><br><span class="line">    &lt;S extends T&gt; <span class="function">Iterable&lt;S&gt; <span class="title">findAll</span><span class="params">(Example&lt;S&gt; var1)</span></span>;</span><br><span class="line">    &lt;S extends T&gt; <span class="function">Iterable&lt;S&gt; <span class="title">findAll</span><span class="params">(Example&lt;S&gt; var1, Sort var2)</span></span>;</span><br><span class="line">    &lt;S extends T&gt; <span class="function">Page&lt;S&gt; <span class="title">findAll</span><span class="params">(Example&lt;S&gt; var1, Pageable var2)</span></span>;</span><br><span class="line">    &lt;S extends T&gt; <span class="function"><span class="keyword">long</span> <span class="title">count</span><span class="params">(Example&lt;S&gt; var1)</span></span>;</span><br><span class="line">    &lt;S extends T&gt; <span class="function"><span class="keyword">boolean</span> <span class="title">exists</span><span class="params">(Example&lt;S&gt; var1)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-4-JpaRepository"><a href="#2-2-4-JpaRepository" class="headerlink" title="2.2.4 JpaRepository"></a>2.2.4 JpaRepository</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们用的就是这个接口，它拥有以上所有接口的方法实现，并且添加了条件查询和保存集合数据的方法，实现了该接口基本上简单的数据库操作就不需要我们自己写SQL语句了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NoRepositoryBean</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">JpaRepository</span>&lt;<span class="title">T</span>, <span class="title">ID</span>&gt; <span class="keyword">extends</span> <span class="title">PagingAndSortingRepository</span>&lt;<span class="title">T</span>, <span class="title">ID</span>&gt;, <span class="title">QueryByExampleExecutor</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="function">List&lt;T&gt; <span class="title">findAll</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">List&lt;T&gt; <span class="title">findAll</span><span class="params">(Sort var1)</span></span>;</span><br><span class="line">    <span class="function">List&lt;T&gt; <span class="title">findAllById</span><span class="params">(Iterable&lt;ID&gt; var1)</span></span>;</span><br><span class="line">    &lt;S extends T&gt; <span class="function">List&lt;S&gt; <span class="title">saveAll</span><span class="params">(Iterable&lt;S&gt; var1)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">flush</span><span class="params">()</span></span>;</span><br><span class="line">    &lt;S extends T&gt; <span class="function">S <span class="title">saveAndFlush</span><span class="params">(S var1)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">deleteInBatch</span><span class="params">(Iterable&lt;T&gt; var1)</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">deleteAllInBatch</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function">T <span class="title">getOne</span><span class="params">(ID var1)</span></span>;</span><br><span class="line">    &lt;S extends T&gt; <span class="function">List&lt;S&gt; <span class="title">findAll</span><span class="params">(Example&lt;S&gt; var1)</span></span>;</span><br><span class="line">    &lt;S extends T&gt; <span class="function">List&lt;S&gt; <span class="title">findAll</span><span class="params">(Example&lt;S&gt; var1, Sort var2)</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-使用JPA"><a href="#3-使用JPA" class="headerlink" title="3. 使用JPA"></a>3. 使用JPA</h2><h3 id="3-1-创建Service层"><a href="#3-1-创建Service层" class="headerlink" title="3.1 创建Service层"></a>3.1 创建Service层</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新建<code>jpa</code>包，在该包下创建<code>StudentuJpa</code>接口，并让其继承<code>JpaRepository</code>，这样该接口就拥有了它的所有方法实现。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo.jpa;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.example.demo.domain.Student;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.jpa.repository.JpaRepository;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: FBY</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2019/10/27 16:06</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">StudentJpa</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">Student</span>,<span class="title">Integer</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;新建<code>service</code>包，在该包<code>StudentService</code>接口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo.service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.example.demo.domain.Student;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: FBY</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2019/10/27 16:03</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">StudentService</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 增加/修改</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">save</span><span class="params">(Student student)</span></span>;</span><br><span class="line">    <span class="comment">// 删除</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">deleteById</span><span class="params">(Integer id)</span></span>;</span><br><span class="line">    <span class="comment">// id查询</span></span><br><span class="line">    <span class="function">Student <span class="title">findById</span><span class="params">(Integer id)</span></span>;</span><br><span class="line">    <span class="comment">// 查询所有</span></span><br><span class="line">    <span class="function">List&lt;Student&gt; <span class="title">findAll</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在<code>service</code>包下新建<code>Impl</code>包，在该包下创建<code>StudentServiceImpl</code>实现类。注入<code>StudentJpa</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo.service.Impl;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.example.demo.domain.Student;</span><br><span class="line"><span class="keyword">import</span> com.example.demo.jpa.StudentJpa;</span><br><span class="line"><span class="keyword">import</span> com.example.demo.service.StudentService;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Optional;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: FBY</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2019/10/27 16:04</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentServiceImpl</span> <span class="keyword">implements</span> <span class="title">StudentService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> StudentJpa studentJpa;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">save</span><span class="params">(Student student)</span> </span>&#123;</span><br><span class="line">        studentJpa.save(student);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteById</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">        studentJpa.deleteById(id);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Student <span class="title">findById</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">        Optional&lt;Student&gt; optional = studentJpa.findById(id);</span><br><span class="line">         <span class="keyword">if</span>(optional.isPresent())&#123;</span><br><span class="line">            <span class="keyword">return</span> optional.get();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;Student&gt; <span class="title">findAll</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> studentJpa.findAll();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>关于根据主键进行查找，<code>findById(Integer id)</code>返回封装后的对象<code>Optional&lt;T&gt;</code>，在Optional类中有很多内置的方法，其中<code>isPresen()</code>方法返回Optional对象是否为null的结果，如果当前对象有值就返回<code>true</code>，否则返回<code>false</code>，当结果有值时，然后调用它的<code>get()</code>方法，会返回一个<T>类型的实体类对象，即我们要查询的对象。</p>
+</blockquote>
+<blockquote>
+<p>根据主键查找提供的还有另一个方法，就是<code>getOne(Integer id)</code>，这个方法返回的时代理对象，无法直接操作，还有可能会出现<code>hibernate lazyxxx  no session</code>的错误，在测试方法上加上<code>@Transactional</code>注解可以解决报错的问题。</p>
+</blockquote>
+<h3 id="3-2-创建Controller层"><a href="#3-2-创建Controller层" class="headerlink" title="3.2 创建Controller层"></a>3.2 创建Controller层</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在<code>controller</code>包下创建<code>StudentJPAController</code>类，这次测试就不再使用页面了，只需要看到返回数据即可，所以注解使用<code>@RestControlle</code>，并注入<code>StudentService</code>。返回json格式验证数据。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.example.demo.service.StudentService;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: FBY</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2019/10/27 21:34</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StudentJPAController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> StudentService service;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-3-测试"><a href="#3-3-测试" class="headerlink" title="3.3 测试"></a>3.3 测试</h3><h4 id="3-3-1-增加-修改"><a href="#3-3-1-增加-修改" class="headerlink" title="3.3.1 增加/修改"></a>3.3.1 增加/修改</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;往数据库里添加数据只需要将实体类当作参数，调用JPA的<code>save</code>方法即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/add"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">add</span><span class="params">()</span></span>&#123;</span><br><span class="line">    Student stu = <span class="keyword">new</span> Student();</span><br><span class="line">    stu.setName(<span class="string">"fanfan"</span>);</span><br><span class="line">    stu.setAge(<span class="number">19</span>);</span><br><span class="line">    stu.setAddress(<span class="string">"郑州轻工业大学"</span>);</span><br><span class="line">    service.save(stu);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"添加成功"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>save方法不仅仅用于增加，如果传入的实体类中设置了主键，那么save方法就会变为根据主键更新数据库的操作。要注意的是save用于更新时，更新的是实体类里的所有字段，不设置值的字段会被更新成null。</p>
+</blockquote>
+<h4 id="3-3-2-删除"><a href="#3-3-2-删除" class="headerlink" title="3.3.2 删除"></a>3.3.2 删除</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>JpaRepository</code>提供的有根据主键删除的方法<code>deleteById</code>，直接在底层调用即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/delete.do"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">delete</span><span class="params">(Integer id)</span></span>&#123;</span><br><span class="line">    service.deleteById(id);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"删除成功"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-3-4-查询"><a href="#3-3-4-查询" class="headerlink" title="3.3.4 查询"></a>3.3.4 查询</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;查询全部直接在底层使用JpaRepository内部实现的<code>findAll</code>方法。在浏览器进行访问就可以看到数据库准备的数据。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/findAll.do"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Student&gt; <span class="title">findAll</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> service.findAll();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="%E6%B5%8B%E8%AF%95%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89.png" alt="测试查询所有"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;根据id查询一个也是调用底层方法<code>findById</code>就可以实现，具体上面已经详细介绍去了，在这里就不演示了。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于实例查询,需要用到这个<strong>ExampleMatcher</strong>——匹配器。</p>
+<blockquote>
+<p><strong>ExampleMatcher</strong>实例查询三要素：</p>
+<ul>
+<li>实体对象：在ORM框架中与Table对应的域对象，一个对象代表数据库表中的一条记录，如上例中User对象，对应user表。在构建查询条件时，一个实体对象代表的是查询条件中的“数值”部分。如：要查询姓“X”的客户，实体对象只需要存储条件值“X”。</li>
+<li>ExampleMatcher对象：它是匹配“实体对象”的，表示了如何使用“实体对象”中的“值”进行查询，它代表的是“查询方式”，解释了如何去查的问题。如：要查询姓“X”的客户，即姓名以“X”开头的客户，该对象就表示了“以某某开头的”这个查询方式，如上例中:withMatcher(“userName”, GenericPropertyMatchers.startsWith())</li>
+<li>实例：即Example对象，代表的是完整的查询条件。由实体对象（查询条件值）和匹配器（查询方式）共同创建。最终根据实例来findAll即可。</li>
+</ul>
+</blockquote>
+<p>示例：根据姓名、年龄、地址模糊查询。首先在<code>StudentService</code>接口里添加方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 实例查询</span></span><br><span class="line"><span class="function">List&lt;Student&gt; <span class="title">findByExample</span><span class="params">(Student student)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>然后在<code>StudentServiceImpl</code>类中添加实现。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Student&gt; <span class="title">findByExample</span><span class="params">(Student student)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 创建匹配器，即如何使用查询条件</span></span><br><span class="line">    ExampleMatcher matcher = ExampleMatcher.matching()      <span class="comment">//构建对象</span></span><br><span class="line">            .withMatcher(<span class="string">"name"</span>,ExampleMatcher.GenericPropertyMatchers.startsWith())       <span class="comment">// "姓名"采用模糊查询匹配开头，即&#123;name&#125;%</span></span><br><span class="line">            .withMatcher(<span class="string">"age"</span>,ExampleMatcher.GenericPropertyMatchers.contains())       <span class="comment">// "年龄"采用模糊查询，即%&#123;age&#125;%</span></span><br><span class="line">            .withMatcher(<span class="string">"address"</span>,ExampleMatcher.GenericPropertyMatchers.contains())  <span class="comment">// "地址"采用模糊查询，即%&#123;address&#125;%</span></span><br><span class="line">            .withIgnorePaths(<span class="string">"id"</span>,<span class="string">"xxx"</span>)    <span class="comment">// 忽略id和xxx字段，不管是什么值都不加入查询条件</span></span><br><span class="line">            .withIgnoreCase()               <span class="comment">// 忽略大小写</span></span><br><span class="line">            .withIgnoreNullValues();        <span class="comment">// 忽略空字段</span></span><br><span class="line">    <span class="comment">// 创建实例</span></span><br><span class="line">    Example&lt;Student&gt; example = Example.of(student,matcher);</span><br><span class="line">    <span class="keyword">return</span> studentJpa.findAll(example);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>之后在<code>StudentJPAController</code>类编写逻辑代码，打开浏览器访问即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/findByExample.do"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Student&gt; <span class="title">findByExample</span><span class="params">(Student student)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> service.findByExample(student);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>ExampleMatcher.GenericPropertyMatcher方法</strong></p>
+<ul>
+<li>caseSensitive(): 字符串区分大小写。</li>
+<li>contains(): 全字符模糊匹配。</li>
+<li>endsWith(): 结尾模糊匹配。</li>
+<li>starsWith(): 开头模糊匹配</li>
+<li>exact(): 精准匹配，也就是相等。</li>
+<li>ignoreCase(): 字符串不区分大小写</li>
+<li>storeDefaultMatching(): 默认匹配。</li>
+<li>regex(): 正则表达式匹配</li>
+</ul>
+<p><strong>StringMatcher参数</strong></p>
+<!-- Matching|生成语句|说明 -->
+<table>
+<thead>
+<tr>
+<th>Matching</th>
+<th align="center">生成语句</th>
+<th align="right">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>DEFAULT (case-sensitive)</td>
+<td align="center">firstname = ?0</td>
+<td align="right">默认（大小写敏感）</td>
+</tr>
+<tr>
+<td>DEFAULT (case-insensitive)</td>
+<td align="center">LOWER(firstname) = LOWER(?0)</td>
+<td align="right">默认（忽略大小写）</td>
+</tr>
+<tr>
+<td>EXACT (case-sensitive)</td>
+<td align="center">firstname = ?0</td>
+<td align="right">精确匹配（大小写敏感）</td>
+</tr>
+<tr>
+<td>EXACT (case-insensitive)</td>
+<td align="center">LOWER(firstname) = LOWER(?0)</td>
+<td align="right">精确匹配（忽略大小写）</td>
+</tr>
+<tr>
+<td>STARTING (case-sensitive)</td>
+<td align="center">firstname like ?0 + ‘%’</td>
+<td align="right">前缀匹配（大小写敏感）</td>
+</tr>
+<tr>
+<td>STARTING (case-insensitive)</td>
+<td align="center">LOWER(firstname) like LOWER(?0) + ‘%’</td>
+<td align="right">前缀匹配（忽略大小写）</td>
+</tr>
+<tr>
+<td>ENDING (case-sensitive)</td>
+<td align="center">firstname like ‘%’ + ?0</td>
+<td align="right">后缀匹配（大小写敏感）</td>
+</tr>
+<tr>
+<td>ENDING (case-insensitive)</td>
+<td align="center">LOWER(firstname) like ‘%’ + LOWER(?0)</td>
+<td align="right">后缀匹配（忽略大小写）</td>
+</tr>
+<tr>
+<td>CONTAINING (case-sensitive)</td>
+<td align="center">firstname like ‘%’ + ?0 + ‘%’</td>
+<td align="right">模糊查询（大小写敏感）</td>
+</tr>
+<tr>
+<td>CONTAINING (case-insensitive)</td>
+<td align="center">LOWER(firstname) like ‘%’ + LOWER(?0) + ‘%’</td>
+<td align="right">模糊查询（忽略大小写）</td>
+</tr>
+</tbody></table>
+<p>补充：官方创建ExampleMatcher例子(1.8 lambda)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ExampleMatcher matcher = ExampleMatcher.matching()</span><br><span class="line">  .withMatcher(<span class="string">"firstname"</span>, match -&gt; match.endsWith())</span><br><span class="line">  .withMatcher(<span class="string">"firstname"</span>, match -&gt; match.startsWith());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除此之外，只要继承了<code>JpaRepository</code>接口，我们还能使用方法规则进行查询。举个例子，我在<code>StudentJpa</code>接口中定义一个<code>Student findByNameAndAge(String name,Integer age);</code>方法，那么它就可以直接被解析成：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">from</span> stu <span class="keyword">where</span> <span class="keyword">name</span>=? <span class="keyword">and</span> age=?</span><br></pre></td></tr></table></figure>
+<p>是不是感觉很book思议？我第一次见也是感觉很神奇，一个简单的查询就这么在底层写个方法就被实现了，完全不用多写其他的东西，在这里提供了好多方法规则查询idea自带的方法提示，超级方便。只不过它的弊端就是对于复杂的操作语句，方法名会会变得很长，而且很难精准解析。<br><img src="%E8%A7%84%E5%88%99%E6%9F%A5%E8%AF%A2.png" alt="规则查询"></p>
+<h4 id="3-3-5-自定义语句"><a href="#3-3-5-自定义语句" class="headerlink" title="3.3.5 自定义语句"></a>3.3.5 自定义语句</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果想对SQL语句进行细致优化，我们还可以使用<code>@Query</code>注解自定义SQL语句。在<code>StudentJpa</code>接口中添加以下方法，并且自定义SQL语句。<code>nativeQuery</code>这个设置为true表明使用原生SQL，否则默认启用HQL。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query</span>(value = <span class="string">"select * from stu where age&gt;=?"</span>,nativeQuery = <span class="keyword">true</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Student&gt; <span class="title">SelectByAge</span><span class="params">(Integer age)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="meta">@Modifying</span></span><br><span class="line"><span class="meta">@Query</span>(value = <span class="string">"delete from stu where name=?"</span>,nativeQuery = <span class="keyword">true</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteByName</span><span class="params">(String name)</span></span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>@Query</code>只能用于查询，如果想用该注解实现其他操作类型就需要配合<code>@Modifying</code>注解一起使用，但是只是这么写的话会抛出一个<code>TranscationRequiredException</code>异常，意思就是当前操作需要开启事务，所以需要在这个前加上<code>@Transactional</code>注解开启自动化管理事务。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如同<code>@Query</code>注解一样，增删改查都可以使用原生SQL对数据库进行操作，所需要的注解分别是<code>@Insert</code>，<code>@Delete</code>，<code>@Update</code>，<code>@Select</code>。可以使用对应操作的注解，也可以使用<code>@Quey</code>加上另外两个注解配合使用。</p>
+<h4 id="3-3-6-自定义的BaseRepository"><a href="#3-3-6-自定义的BaseRepository" class="headerlink" title="3.3.6 自定义的BaseRepository"></a>3.3.6 自定义的BaseRepository</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正常情况下一个项目肯定不可能就继承一个<code>JpaRepository</code>接口，再使用其他模块时还需要多个接口继承，如果每一个业务数据接口都继承几个相同的接口的话也不是不可以，但是对于系统设计和代码复用性来说不是个好的选择，这是我们可与创建一个我们自定的基础Repository。新建一个<code>base</code>包，在该包下创建一个<code>BaseRepositury</code>接口，并继承<code>JpaRepository</code>，日后使用其他模块时，在该接口进行添加即可。以后再创建Jpa接口只需要继承<code>BaseRepository</code>就行了，它有了<code>JpaRepository</code>所有实现方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo.base;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.data.jpa.repository.JpaRepository;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.repository.NoRepositoryBean;</span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: FBY</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2019/10/28 21:33</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@NoRepositoryBean</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BaseRepository</span>&lt;<span class="title">T</span>,<span class="title">PK</span> <span class="keyword">extends</span> <span class="title">Serializable</span>&gt; <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">T</span>,<span class="title">PK</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>@NoRepositoryBean:这个注解如果配置在继承了JpaRepository接口以及其他SpringDataJpa内部的接口的子接口时，子接口不会 被作为一个Repository创建代理类。</p>
+</blockquote>
+<h4 id="3-3-6-分页查询"><a href="#3-3-6-分页查询" class="headerlink" title="3.3.6 分页查询"></a>3.3.6 分页查询</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在一般的项目中，分页总是必不可少的，SpringDataJpa也内置了分页的方法。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;先在<code>domian</code>包下创建一个<code>PageEntity</code>实体类，添加几个字段：当前页码、每页条数、排序列和排序方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo.domain;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: FBY</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2019/10/28 21:37</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PageEntity</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 默认页码</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">int</span> page=<span class="number">1</span>;</span><br><span class="line">    <span class="comment">// 默认每页数量</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">int</span> size=<span class="number">2</span>;</span><br><span class="line">    <span class="comment">// 排序列名为id</span></span><br><span class="line">    <span class="keyword">protected</span> String sidx=<span class="string">"id"</span>;</span><br><span class="line">    <span class="comment">// 排序规则</span></span><br><span class="line">    <span class="keyword">protected</span> String sord=<span class="string">"desc"</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/*getter and setter*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;修改<code>Student</code>类继承<code>PageEntity</code>类，由于数据不多，这里测试就设定每页显示三条数据。在<code>StudentService</code>里面添加方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//分页查询</span></span><br><span class="line"><span class="function">List&lt;Student&gt; <span class="title">findAllPage</span><span class="params">(PageRequest pageRequest)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>在<code>StudentServiceImpl</code>里添加实现。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Student&gt; <span class="title">findAllPage</span><span class="params">(PageRequest pageRequest)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> studentJpa.findAll(pageRequest).getContent();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在<code>StudentJPAController</code>中添加新的方法，并添加对应的分页逻辑，此处分页的页码是从<strong>0</strong>开是的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/page.do"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Student&gt; <span class="title">page</span><span class="params">(Integer page)</span></span>&#123;</span><br><span class="line">    Student student = <span class="keyword">new</span> Student();</span><br><span class="line">    student.setSize(<span class="number">3</span>);</span><br><span class="line">    student.setPage(page);</span><br><span class="line">    <span class="keyword">return</span> service.findAllPage(PageRequest.of(student.getPage()-<span class="number">1</span>,student.getSize()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下来重启项目并访问该方法。<br><img src="%E6%B5%8B%E8%AF%95%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2.png" alt="测试分页查询"></p>
+<h4 id="3-3-7-排序"><a href="#3-3-7-排序" class="headerlink" title="3.3.7 排序"></a>3.3.7 排序</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>PageEntity</code>已经预设好了对应的排序字段，所以重新编辑page方法，将Sort对象添加在<code>PageRequest.of()</code>方法中就可以实现排序。我们现在将顺序按照id倒序排序，SpringDataJPA对排序方式添加了一个枚举类型，创建<code>Sort</code>对象时也需要枚举对象，因为我们<code>PageEntity</code>配置的是字符串，所以上面多了一步判断排序方法返回枚举对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/page.do"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Student&gt; <span class="title">page</span><span class="params">(Integer page)</span></span>&#123;</span><br><span class="line">    Student student = <span class="keyword">new</span> Student();</span><br><span class="line">    student.setSize(<span class="number">3</span>);</span><br><span class="line">    student.setPage(page);</span><br><span class="line">    student.setSidx(<span class="string">"desc"</span>);</span><br><span class="line">    <span class="comment">// 获取排序对象</span></span><br><span class="line">    Sort.Direction sort_Direction = Sort.Direction.ASC.toString().equalsIgnoreCase(student.getSord()) ? Sort.Direction.ASC : Sort.Direction.DESC;</span><br><span class="line">    <span class="comment">// 设置排序对象</span></span><br><span class="line">    Sort sort = <span class="keyword">new</span> Sort(sort_Direction,student.getSidx());</span><br><span class="line">    <span class="comment">// 执行排序分页</span></span><br><span class="line">    <span class="keyword">return</span> service.findAllPage(PageRequest.of(student.getPage()-<span class="number">1</span>,student.getSize(),sort));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重启项目，刷新页面即可。</p>
+<!-- ![测试排序分页](测试排序分页.png) -->
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以上就是SpringBoot整合SpringDataJPA的全部过程了，看完这篇，你就能简单使用JPA来实现项目需求了。是不是感觉很好用？对，它就是很好用。对于我们简单的数据处理真的很方便，很省事。但是大型项目中一些复杂的查询，比如一对多、多对多等，这些底层实现还是要自己动手写的，这些应该也有封装好的更方便的方法，至少对于写这篇笔记时候的我还不知道，以后慢慢了解慢慢学呗。就这么多吧，继续加油！！！</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SpringBoot/" rel="tag"># SpringBoot</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/24/SpringBoot-%E6%95%B4%E5%90%88Thymeleaf/" rel="next" title="SpringBoot-整合Thymeleaf">
+                <i class="fa fa-chevron-left"></i> SpringBoot-整合Thymeleaf
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/shenshi.jpg"
+                alt="范秉洋" />
+            
+              <p class="site-author-name" itemprop="name">范秉洋</p>
+              <p class="site-description motion-element" itemprop="description">这个人很懒，什么也没有留下...</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SpringBoot整合SpringDataJPA"><span class="nav-text">SpringBoot整合SpringDataJPA</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-SpringBootDataJPA"><span class="nav-text">1. SpringBootDataJPA</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-简述"><span class="nav-text">1.1 简述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-特征"><span class="nav-text">1.2 特征</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-搭建项目"><span class="nav-text">2. 搭建项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-导入依赖-修改配置文件"><span class="nav-text">2.1 导入依赖/修改配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-使用JpaRepository"><span class="nav-text">2.2 使用JpaRepository</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-1-CrudRepository"><span class="nav-text">2.2.1 CrudRepository</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-2-PagingAndSortingRepository"><span class="nav-text">2.2.2 PagingAndSortingRepository</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-3-QueryByExampleExecutor"><span class="nav-text">2.2.3 QueryByExampleExecutor</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-4-JpaRepository"><span class="nav-text">2.2.4 JpaRepository</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-使用JPA"><span class="nav-text">3. 使用JPA</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-创建Service层"><span class="nav-text">3.1 创建Service层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-创建Controller层"><span class="nav-text">3.2 创建Controller层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-测试"><span class="nav-text">3.3 测试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-1-增加-修改"><span class="nav-text">3.3.1 增加/修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-2-删除"><span class="nav-text">3.3.2 删除</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-4-查询"><span class="nav-text">3.3.4 查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-5-自定义语句"><span class="nav-text">3.3.5 自定义语句</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-6-自定义的BaseRepository"><span class="nav-text">3.3.6 自定义的BaseRepository</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-6-分页查询"><span class="nav-text">3.3.6 分页查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-7-排序"><span class="nav-text">3.3.7 排序</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-总结"><span class="nav-text">4. 总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">范秉洋</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -81,13 +81,14 @@
 
 
 
-<meta name="description" content="这个人很懒，什么也没有留下...">
-<meta property="og:type" content="website">
-<meta property="og:title" content="范秉洋的博客">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;index.html">
+<meta name="description" content="@Scheduled注解详解&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;有时候项目中需要用到定时任务，在某个时间点执行特定的任务，这时我们就可以使用spring中的定时任务——@Scheduled注解。下面就简单介绍一下@Scheduledd注解的使用。在springMVC项目中使用spring的定时任务步骤如下。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring定时任务-@Scheduled注解">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;09&#x2F;02&#x2F;Spring%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1-@Scheduled%E6%B3%A8%E8%A7%A3&#x2F;index.html">
 <meta property="og:site_name" content="范秉洋的博客">
-<meta property="og:description" content="这个人很懒，什么也没有留下...">
+<meta property="og:description" content="@Scheduled注解详解&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;有时候项目中需要用到定时任务，在某个时间点执行特定的任务，这时我们就可以使用spring中的定时任务——@Scheduled注解。下面就简单介绍一下@Scheduledd注解的使用。在springMVC项目中使用spring的定时任务步骤如下。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-10-31T02:39:18.610Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -118,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/09/02/Spring定时任务-@Scheduled注解/"/>
 
 
 
 
 
-  <title>范秉洋的博客</title>
+  <title>Spring定时任务-@Scheduled注解 | 范秉洋的博客</title>
   
 
 
@@ -143,8 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -281,739 +281,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/27/SpringBoot-%E6%95%B4%E5%90%88SpringDataJPA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="范秉洋">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/shenshi.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="范秉洋的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/10/27/SpringBoot-%E6%95%B4%E5%90%88SpringDataJPA/" itemprop="url">SpringBoot-整合SpringDataJPA</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-27T10:36:04+08:00">
-                2019-10-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
-                    <span itemprop="name">SpringBoot</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JPA的全称是<strong>Java Persistence API</strong>，Persistence 是持久化的意思。所以，中文全称是【JAVA对象持久化的 API】。简单来说，可以理解为是一种JAVA的标准规范，这个规范为JAVA对象的持久化制定了一些标准的接口。要注意的是，JPA只是一个接口规范，而不是实现。具体实现由各供应商来完成，例如Hibernate，TopLink,OpenJPA都很好地实现了JPA接口。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/10/27/SpringBoot-%E6%95%B4%E5%90%88SpringDataJPA/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/24/SpringBoot-%E6%95%B4%E5%90%88Thymeleaf/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="范秉洋">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/shenshi.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="范秉洋的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/10/24/SpringBoot-%E6%95%B4%E5%90%88Thymeleaf/" itemprop="url">SpringBoot-整合Thymeleaf</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-24T19:16:20+08:00">
-                2019-10-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
-                    <span itemprop="name">SpringBoot</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学习完SpringBoot之后，以后写web项目就用它了，以前开发web项目使用的还是JSP页面，但是SpringBoot官方是不支持JSP的，它默认支持的模板是Thymeleaf，既然学习了SpringBoot，怎么的也要学习一下人家的官方”原配”啊。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/10/24/SpringBoot-%E6%95%B4%E5%90%88Thymeleaf/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/22/SpootBoot-%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="范秉洋">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/shenshi.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="范秉洋的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/10/22/SpootBoot-%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/" itemprop="url">SpootBoot-项目搭建</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-22T09:34:32+08:00">
-                2019-10-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
-                    <span itemprop="name">SpringBoot</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最近有一个项目用到了SpringBoot框架，这也是我第一次用这个框架，对于新手小白来说，不是怎么友好，但是一旦搭建好了，确实上手很快，不用管底层是怎么实现的，也不用问某些东西是干嘛的，问就是去百度。因为人家的规定的就是让那么写，咱就是个使用者，跟着写就对了。emmmmmmm，好了，不在这瞎白活了，下面进入正题，开始搭建一个SpringBoot项目。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/10/22/SpootBoot-%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/06/Tomcat%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2SSL%E8%AF%81%E4%B9%A6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="范秉洋">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/shenshi.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="范秉洋的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/10/06/Tomcat%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2SSL%E8%AF%81%E4%B9%A6/" itemprop="url">Tomcat服务器部署SSL证书</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-06T18:00:32+08:00">
-                2019-10-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/" itemprop="url" rel="index">
-                    <span itemprop="name">服务器</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Tomcat服务器部署SSL证书"><a href="#Tomcat服务器部署SSL证书" class="headerlink" title="Tomcat服务器部署SSL证书"></a>Tomcat服务器部署SSL证书</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有时候项目需要服务器的协议是<code>https</code>协议，比如微信小程序的后台接口；这个时候就不得不把服务器协议修改为<code>https</code>。<code>https</code>和<code>http</code>有什么区别呢？区别就在于<code>https</code>比<code>http</code>多一个SSL证书，下面就是怎么获取SSL证书和怎么部署到服务器上。(唉，这也是当年自己踩了两个小时坑踩出来的啊！)</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/10/06/Tomcat%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2SSL%E8%AF%81%E4%B9%A6/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/03/Mybatis%E5%B0%8F%E7%9F%A5%E8%AF%86%E7%82%B9/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="范秉洋">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/shenshi.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="范秉洋的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/03/Mybatis%E5%B0%8F%E7%9F%A5%E8%AF%86%E7%82%B9/" itemprop="url">Mybatis小知识点</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-03T23:32:32+08:00">
-                2019-09-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Mybatis/" itemprop="url" rel="index">
-                    <span itemprop="name">Mybatis</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="Mybatis小知识点"><a href="#Mybatis小知识点" class="headerlink" title="Mybatis小知识点"></a>Mybatis小知识点</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这简单介绍了一下mybatis里的几个小知识点，分别是<code>parameterMap</code>与<code>parameterTyppe</code>、<code>resultMap</code>与<code>resultType</code>的区别，以及在xml文件中获取传递过来的值。同时讲解了一下怎么自定义多参数进行传值等。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/09/03/Mybatis%E5%B0%8F%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
 
   
 
@@ -1043,9 +313,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/02/Spring%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1-@Scheduled%E6%B3%A8%E8%A7%A3/" itemprop="url">Spring定时任务-@Scheduled注解</a></h1>
+          <h1 class="post-title" itemprop="name headline">Spring定时任务-@Scheduled注解</h1>
         
 
         <div class="post-meta">
@@ -1117,16 +385,150 @@
       
 
       
-        
-          <h1 id="Scheduled注解详解"><a href="#Scheduled注解详解" class="headerlink" title="@Scheduled注解详解"></a>@Scheduled注解详解</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有时候项目中需要用到定时任务，在某个时间点执行特定的任务，这时我们就可以使用spring中的定时任务——<strong>@Scheduled注解</strong>。下面就简单介绍一下<code>@Scheduledd</code>注解的使用。在springMVC项目中使用spring的定时任务步骤如下。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/09/02/Spring%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1-@Scheduled%E6%B3%A8%E8%A7%A3/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <h1 id="Scheduled注解详解"><a href="#Scheduled注解详解" class="headerlink" title="@Scheduled注解详解"></a>@Scheduled注解详解</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有时候项目中需要用到定时任务，在某个时间点执行特定的任务，这时我们就可以使用spring中的定时任务——<strong>@Scheduled注解</strong>。下面就简单介绍一下<code>@Scheduledd</code>注解的使用。在springMVC项目中使用spring的定时任务步骤如下。</p>
+<a id="more"></a>
+<h2 id="1-配置springMVC-xml文件"><a href="#1-配置springMVC-xml文件" class="headerlink" title="1. 配置springMVC.xml文件"></a>1. 配置springMVC.xml文件</h2><p>加入tesk的命名空间:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xmlns:task = &quot;http://www.springframework.org/schema/task&quot;</span><br></pre></td></tr></table></figure>
+
+<p>在xsi:schemaLocation中添加以下依赖:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//www.springframework.org/schema/task</span></span><br><span class="line">http:<span class="comment">//www.springframework.org/schema/task/spring-task-4.0.xsd"</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="2-配置定时任务的线程池"><a href="#2-配置定时任务的线程池" class="headerlink" title="2. 配置定时任务的线程池"></a>2. 配置定时任务的线程池</h2><p>推荐配置线程池，若不配置，多任务下会有问题。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">task:scheduler</span> <span class="attr">id</span>=<span class="string">"myScheduler"</span> <span class="attr">pool-size</span>=<span class="string">"5"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>id是该线程池的唯一标识，用于启动该线程池的注解驱动。poo-size是线程池的容量。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;spring的定时任务默认是单线程，多个任务执行起来时间会有问题。在下面定时任务的示例代码中，A任务中设置的有<code>TimeUnit.SECONDS.sleep(20);</code>那么如存在B任务，B任务会因为A任务执行起来需要20s二被延后20s执行。当我们配置了线程池之后，多线程下B任务就不会因为A任务执行起来要20s而别延后执行了。</p>
+<h2 id="3-启动注解驱动的定时任务"><a href="#3-启动注解驱动的定时任务" class="headerlink" title="3. 启动注解驱动的定时任务"></a>3. 启动注解驱动的定时任务</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">task:annotation-driven</span> <span class="attr">scheduler</span>=<span class="string">"myScheduler"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>scheduler指的是我们配置线程池的id名称，如果没有配置线程池，那么该元素可以不写。</p>
+</blockquote>
+<h2 id="4-配置扫描包"><a href="#4-配置扫描包" class="headerlink" title="4. 配置扫描包"></a>4. 配置扫描包</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"test"</span>/&gt;</span>--&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>base-package元素是配置定时任务所在的包名。</p>
+</blockquote>
+<h2 id="5-编写定时任务"><a href="#5-编写定时任务" class="headerlink" title="5. 编写定时任务"></a>5. 编写定时任务</h2><p><code>@Scheduled</code>注解为定时任务，<code>cron</code>表达式里写执行的时机。以下代码是示例代码。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> test;</span><br><span class="line"><span class="keyword">import</span> java.text.DateFormat;</span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"><span class="keyword">import</span> org.joda.time.DateTime;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.annotation.Scheduled;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ATask</span></span>&#123;</span><br><span class="line">       <span class="meta">@Scheduled</span>(cron=<span class="string">"0/10 * *  * * ? "</span>)   <span class="comment">//每10秒执行一次  </span></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">aTask</span><span class="params">()</span></span>&#123; </span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                    TimeUnit.SECONDS.sleep(<span class="number">20</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            DateFormat sdf = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>);  </span><br><span class="line">            System.out.println(sdf.format(DateTime.now().toDate())+<span class="string">"*********A任务每10秒执行一次进入测试"</span>);    </span><br><span class="line">       &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>@Component泛指组件，当组件不好归类的时候，我们可以使用这个注解进行标注。    </p>
+</blockquote>
+<blockquote>
+<p>有时候启动web项目发现随着服务器启动的定时任务没有执行，这是因为xml的头文件<code>&lt;beans&gt;</code>里面的一个配置default-lazy-init=”true”。此处配置为懒加载，所以所有的bean都是懒加载，导致定时任务所在的bean根本没有实例化，里面的定时任务也没有执行，修改为default-lazy-init=”false”即可。 </p>
+</blockquote>
+<h2 id="6-Scheduled注解各参数详解"><a href="#6-Scheduled注解各参数详解" class="headerlink" title="6. @Scheduled注解各参数详解"></a>6. @Scheduled注解各参数详解</h2><h3 id="6-1-cron表达式详解"><a href="#6-1-cron表达式详解" class="headerlink" title="6.1 cron表达式详解"></a>6.1 cron表达式详解</h3><p>该参数接收一个<code>cron表达式</code>，<code>cron表达式</code>是一个字符串，字符串以5个或6个空格隔开，分开共6个或7个域，每个域代表一个含义</p>
+<h4 id="6-1-1-cron表达式语法"><a href="#6-1-1-cron表达式语法" class="headerlink" title="6.1.1 cron表达式语法"></a>6.1.1 cron表达式语法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[秒] [分] [时] [日] [月] [周] [年]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：[年]不是必须的域，可以省略年，则一共6个域。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">序号</th>
+<th align="center">说明</th>
+<th align="center">必填</th>
+<th align="center">允许填写的值</th>
+<th align="center">允许的通配符</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="center">秒</td>
+<td align="center">是</td>
+<td align="center">0-59</td>
+<td align="center">, - * /</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="center">分</td>
+<td align="center">是</td>
+<td align="center">0-59</td>
+<td align="center">, - * /</td>
+</tr>
+<tr>
+<td align="center">3</td>
+<td align="center">时</td>
+<td align="center">是</td>
+<td align="center">0-23</td>
+<td align="center">, - * /</td>
+</tr>
+<tr>
+<td align="center">4</td>
+<td align="center">日</td>
+<td align="center">是</td>
+<td align="center">1-31</td>
+<td align="center">, - * / L W</td>
+</tr>
+<tr>
+<td align="center">5</td>
+<td align="center">月</td>
+<td align="center">是</td>
+<td align="center">1-12/JAN-DEC</td>
+<td align="center">, - * /</td>
+</tr>
+<tr>
+<td align="center">6</td>
+<td align="center">周</td>
+<td align="center">是</td>
+<td align="center">1-7/SUN-SAT</td>
+<td align="center">, - * / L #</td>
+</tr>
+<tr>
+<td align="center">7</td>
+<td align="center">年</td>
+<td align="center">否</td>
+<td align="center">1970-2099</td>
+<td align="center">, - * /</td>
+</tr>
+</tbody></table>
+<h4 id="6-1-2-通配符说明"><a href="#6-1-2-通配符说明" class="headerlink" title="6.1.2 通配符说明"></a>6.1.2 通配符说明</h4><ul>
+<li><code>*</code> 表示所有值。 例如:在分的字段上设置 *,表示每一分钟都会触发。</li>
+<li><code>?</code> 表示不指定值。使用的场景为不需要关心当前设置这个字段的值。例如:要在每月的10号触发一个操作，但不关心是周几，所以需要周位置的那个字段设置为”?” 具体设置为 0 0 0 10 * ?</li>
+<li><code>-</code> 表示区间。例如 在小时上设置 “10-12”,表示 10,11,12点都会触发。</li>
+<li><code>,</code> 表示指定多个值，例如在周字段上设置 “MON,WED,FRI” 表示周一，周三和周五触发</li>
+<li><code>/</code> 用于递增触发。如在秒上面设置”5/15” 表示从5秒开始，每增15秒触发(5,20,35,50)。 在月字段上设置’1/3’所示每月1号开始，每隔三天触发一次。</li>
+<li><code>L</code> 表示最后的意思。在日字段设置上，表示当月的最后一天(依据当前月份，如果是二月还会依据是否是润年[leap]), 在周字段上表示星期六，相当于“7”或“SAT”。如果在“L”前加上数字，则表示该数据的最后一个。例如在周字段上设置“6L”这样的格式,则表示“本月最后一个星期五”</li>
+<li><code>W</code> 表示离指定日期的最近那个工作日(周一至周五). 例如在日字段上置“15W”，表示离每月15号最近的那个工作日触发。如果15号正好是周六，则找最近的周五(14号)触发, 如果15号是周未，则找最近的下周一(16号)触发.如果15号正好在工作日(周一至周五)，则就在该天触发。如果指定格式为 “1W”,它则表示每月1号往后最近的工作日触发。如果1号正是周六，则将在3号下周一触发。(注，“W”前只能设置具体的数字,不允许区间“-”)。</li>
+<li><code>#</code> 序号(表示每月的第几个周几)，例如在周字段上设置“6#3”表示在每月的第三个周六.注意如果指定“#5”,正好第五周没有周六，则不会触发该配置(用在母亲节和父亲节再合适不过了) ；小提示：‘L’和 ‘W’可以一组合使用。如果在日字段上设置“LW”,则表示在本月的最后一个工作日触发；周字段的设置，若使用英文字母是不区分大小写的，即MON与mon相同。</li>
+</ul>
+<p><strong>示例:</strong></p>
+<ul>
+<li><p>每隔5秒执行一次：*/5 * * * * ?</p>
+</li>
+<li><p>每隔1分钟执行一次：0 */1 * * * ?</p>
+</li>
+<li><p>每天23点执行一次：0 0 23 * * ?</p>
+</li>
+<li><p>每天凌晨1点执行一次：0 0 1 * * ?</p>
+</li>
+<li><p>每月1号凌晨1点执行一次：0 0 1 1 * ?</p>
+</li>
+<li><p>每月最后一天23点执行一次：0 0 23 L * ?</p>
+</li>
+<li><p>每周星期天凌晨1点实行一次：0 0 1 ? * L</p>
+</li>
+<li><p>在26分、29分、33分执行一次：0 26,29,33 * * * ?</p>
+</li>
+<li><p>每天的0点、13点、18点、21点都执行一次：0 0 0,13,18,21 * * ?</p>
+</li>
+</ul>
+<h3 id="6-2-zone"><a href="#6-2-zone" class="headerlink" title="6.2 zone"></a>6.2 zone</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;时区。接收一个<code>java.util.TimeZone#ID</code>。<code>cron表达式</code>会基于该时区解析。默认是一个空字符串，即取服务器所在地的时区。比如我们一般使用的时区<code>Asia/Shanghai</code>。该字段我们一般留空。</p>
+<h3 id="6-3-fixedDelay"><a href="#6-3-fixedDelay" class="headerlink" title="6.3 fixedDelay"></a>6.3 fixedDelay</h3><p>上一次执行完毕时间点之后多长时间再执行。如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Scheduled</span>(fixedDelay = <span class="number">5000</span>) <span class="comment">//上一次执行完毕时间点之后5秒再执行</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="6-4-fixedDelayString"><a href="#6-4-fixedDelayString" class="headerlink" title="6.4 fixedDelayString"></a>6.4 fixedDelayString</h3><p>与<code>fixedDelay</code>意思相同，只是使用字符串的形式。唯一不同的是支持占位符。如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Scheduled</span>(fixedDelayString = <span class="string">"5000"</span>) <span class="comment">//上一次执行完毕时间点之后5秒再执行</span></span><br></pre></td></tr></table></figure>
+<p>占位符的使用(配置文件中有配置：time.fixedDelay=5000)：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Scheduled</span>(fixedDelayString = <span class="string">"$&#123;time.fixedDelay&#125;"</span>)</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testFixedDelayString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"Execute at "</span> + System.currentTimeMillis());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-5-fixedRate"><a href="#6-5-fixedRate" class="headerlink" title="6.5 fixedRate"></a>6.5 fixedRate</h3><p>上一次开始执行时间点之后多长时间再执行。如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Scheduled</span>(fixedRate = <span class="number">5000</span>) <span class="comment">//上一次开始执行时间点之后5秒再执行</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="6-6-fixedRateString"><a href="#6-6-fixedRateString" class="headerlink" title="6.6 fixedRateString"></a>6.6 fixedRateString</h3><p>与<code>fixedRate</code>意思相同，只是使用字符串的形式。唯一不同的是支持占位符。</p>
+<h3 id="6-7-initialDelay"><a href="#6-7-initialDelay" class="headerlink" title="6.7 initialDelay"></a>6.7 initialDelay</h3><p>第一次延迟多长时间后再执行。如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Scheduled</span>(initialDelay=<span class="number">1000</span>, fixedRate=<span class="number">5000</span>) <span class="comment">//第一次延迟1秒后执行，之后按fixedRate的规则每5秒执行一次</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="6-8-initialDelayString"><a href="#6-8-initialDelayString" class="headerlink" title="6.8 initialDelayString"></a>6.8 initialDelayString</h3><p>与<code>initialDelay</code>意思相同，只是使用字符串的形式。唯一不同的是支持占位符。</p>
+
       
     </div>
     
@@ -1143,158 +545,32 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/01/Spring-@RequestMapping%E6%B3%A8%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="范秉洋">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/shenshi.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="范秉洋的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/09/01/Spring-@RequestMapping%E6%B3%A8%E8%A7%A3/" itemprop="url">Spring-@RequestMapping注解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-01T18:00:32+08:00">
-                2019-09-01
-              </time>
+              <a href="/2019/09/01/Spring-@RequestMapping%E6%B3%A8%E8%A7%A3/" rel="next" title="Spring-@RequestMapping注解">
+                <i class="fa fa-chevron-left"></i> Spring-@RequestMapping注解
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
+              <a href="/2019/09/03/Mybatis%E5%B0%8F%E7%9F%A5%E8%AF%86%E7%82%B9/" rel="prev" title="Mybatis小知识点">
+                Mybatis小知识点 <i class="fa fa-chevron-right"></i>
+              </a>
             
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h1 id="RequestMapping注解"><a href="#RequestMapping注解" class="headerlink" title="@RequestMapping注解"></a>@RequestMapping注解</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@RequestMapping 是 Spring Web 应用程序中最常被用到的注解之一。这个注解会将 HTTP 请求映射到 MVC 和 REST 控制器的处理方法上。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/09/01/Spring-@RequestMapping%E6%B3%A8%E8%A7%A3/" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -1304,10 +580,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -1315,6 +592,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -1335,8 +616,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1407,6 +697,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Scheduled注解详解"><span class="nav-text">@Scheduled注解详解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-配置springMVC-xml文件"><span class="nav-text">1. 配置springMVC.xml文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-配置定时任务的线程池"><span class="nav-text">2. 配置定时任务的线程池</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-启动注解驱动的定时任务"><span class="nav-text">3. 启动注解驱动的定时任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-配置扫描包"><span class="nav-text">4. 配置扫描包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-编写定时任务"><span class="nav-text">5. 编写定时任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Scheduled注解各参数详解"><span class="nav-text">6. @Scheduled注解各参数详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#6-1-cron表达式详解"><span class="nav-text">6.1 cron表达式详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-1-cron表达式语法"><span class="nav-text">6.1.1 cron表达式语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-1-2-通配符说明"><span class="nav-text">6.1.2 通配符说明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-2-zone"><span class="nav-text">6.2 zone</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-3-fixedDelay"><span class="nav-text">6.3 fixedDelay</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-4-fixedDelayString"><span class="nav-text">6.4 fixedDelayString</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-5-fixedRate"><span class="nav-text">6.5 fixedRate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-6-fixedRateString"><span class="nav-text">6.6 fixedRateString</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-7-initialDelay"><span class="nav-text">6.7 initialDelay</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-8-initialDelayString"><span class="nav-text">6.8 initialDelayString</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1550,6 +856,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
