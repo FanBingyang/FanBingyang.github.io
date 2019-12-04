@@ -88,7 +88,7 @@
 <meta property="og:site_name" content="范秉洋的博客">
 <meta property="og:description" content="Mybatis小知识点&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在这简单介绍了一下mybatis里的几个小知识点，分别是parameterMap与parameterTyppe、resultMap与resultType的区别，以及在xml文件中获取传递过来的值。同时讲解了一下怎么自定义多参数进行传值等。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-12-01T10:31:32.028Z">
+<meta property="og:updated_time" content="2019-12-04T14:41:00.033Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -409,7 +409,7 @@
 <p>因为<code>#</code>表示注释，所以执行效果相当于</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">name</span>=<span class="string">'hh'</span></span><br></pre></td></tr></table></figure>
 
-<p><strong><code>#{}</code>可以指定其他属性</strong><br>如果name传入参数的值为null，mybatis会默认name值为other类型，但是oracle数据库不能处理other类型，因为会报不能识别的错误。此使就可以用jdbcType属性指定类型。</p>
+<p><strong><code>#{}</code>可以指定其他属性</strong><br>        如果name传入参数的值为null，mybatis会默认name值为other类型，但是oracle数据库不能处理other类型，因为会报不能识别的错误。此使就可以用jdbcType属性指定类型。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">name</span>=<span class="comment">#&#123;name,jdbcType=null&#125; and id=$&#123;ID&#125;</span></span><br></pre></td></tr></table></figure>
 <p>当然也可以在mybatis配置文件中进行配置。</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"jdbcTypeForNull"</span> <span class="attr">value</span>=<span class="string">"NULL"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>

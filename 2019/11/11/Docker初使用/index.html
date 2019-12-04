@@ -99,7 +99,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;11&#x2F;Docker%E5%88%9D%E4%BD%BF%E7%94%A8&#x2F;images.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;11&#x2F;Docker%E5%88%9D%E4%BD%BF%E7%94%A8&#x2F;ps-a.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;11&#x2F;Docker%E5%88%9D%E4%BD%BF%E7%94%A8&#x2F;search-s.png">
-<meta property="og:updated_time" content="2019-12-03T11:07:13.109Z">
+<meta property="og:updated_time" content="2019-12-04T14:40:24.241Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;11&#x2F;Docker%E5%88%9D%E4%BD%BF%E7%94%A8&#x2F;Docker%E9%95%9C%E5%83%8F.png">
 
@@ -492,57 +492,37 @@
 <td align="left">Docker Machine是一个简化Docker安装的命令行工具，通过一个简单的命令行即可在相应的平台上安装Docker，比如VirtualBox、 Digital Ocean、Microsoft Azure。</td>
 </tr>
 </tbody></table>
-<h2 id="2-安装Docker"><a href="#2-安装Docker" class="headerlink" title="2. 安装Docker"></a>2. 安装Docker</h2><h3 id="2-1-开始安装"><a href="#2-1-开始安装" class="headerlink" title="2.1 开始安装"></a>2.1 开始安装</h3><ul>
-<li>由于apt官方库的docker版本可能比较旧，所以先卸载可能存在的旧版本：</li>
-</ul>
+<h2 id="2-安装Docker"><a href="#2-安装Docker" class="headerlink" title="2. 安装Docker"></a>2. 安装Docker</h2><h3 id="2-1-开始安装"><a href="#2-1-开始安装" class="headerlink" title="2.1 开始安装"></a>2.1 开始安装</h3><p>由于apt官方库的docker版本可能比较旧，所以先卸载可能存在的旧版本：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get remove docker docker-engine docker-ce docker.io</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>更新apt包索引：</li>
-</ul>
+<p>更新apt包索引：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>安装以下包以使apt可以通过HTTPS使用存储库(repository):</li>
-</ul>
+<p>安装以下包以使apt可以通过HTTPS使用存储库(repository):</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>添加Docker软件源的官方GPG密钥:</li>
-</ul>
+<p>添加Docker软件源的官方GPG密钥:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -</span><br><span class="line"></span><br><span class="line"><span class="comment"># 国内源</span></span><br><span class="line"><span class="comment"># $ curl -fsSL https://mirrors.ustc.edu.cn/linux/ubuntu/gpg | sudo apt-key add -</span></span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>使用下面命令来设置stable存储库</li>
-</ul>
+<p>使用下面命令来设置stable存储库</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo add-apt-repository <span class="string">"deb [arch=amd64] https://download.docker.com/linux/ubuntu <span class="variable">$(lsb_release -cs)</span> stable"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 国内源</span></span><br><span class="line"><span class="comment"># $ sudo add-apt-repository "deb [arch=amd64] https://mirrors.ustc.edu.cn/linux/ubuntu $(lsb_release -cs) stable"</span></span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>再更新一下apt包索引：</li>
-</ul>
+<p>再更新一下apt包索引：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>安装最新版本的Docker CE：</li>
-</ul>
+<p>安装最新版本的Docker CE：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install -y docker-ce</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>因为对docker操作需要的是管理员权限,所以普通用户操作时需要加上sudo命令,如果是管理员,,则正常输入命令,不用带sudo。</p>
 </blockquote>
-<h3 id="2-2-验证docker"><a href="#2-2-验证docker" class="headerlink" title="2.2 验证docker"></a>2.2 验证docker</h3><ul>
-<li>查看docker版本:</li>
-</ul>
+<h3 id="2-2-验证docker"><a href="#2-2-验证docker" class="headerlink" title="2.2 验证docker"></a>2.2 验证docker</h3><p>查看docker版本:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker version</span><br></pre></td></tr></table></figure>
 
 <p><img src="docker%E7%89%88%E6%9C%AC.png" alt="版本"></p>
-<ul>
-<li>启动docker服务</li>
-</ul>
+<p>启动docker服务</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl start docker</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>查看docker服务是否启动:</li>
-</ul>
+<p>查看docker服务是否启动:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl status docker</span><br></pre></td></tr></table></figure>
 
 <p><img src="docker%E8%BF%90%E8%A1%8C%E7%8A%B6%E6%80%81.png" alt="运行状态"></p>
@@ -698,6 +678,7 @@
 <li><strong>-f：</strong>强制删除</li>
 <li><strong>-no-prune：</strong>不移除该镜像的过程镜像，默认移除</li>
 </ul>
+<h2 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h2><p>​        本篇主要讲的就是Docker的初步使用，具体的部署项目阶段和将自己的项目打包成Docker镜像进行运行将在以后进行具体说明。以上的给出的只是部分常用的命令和常用参数，具体更多命令和用法请参考<a href="https://www.runoob.com/docker/docker-command-manual.html" target="_blank" rel="noopener">菜鸟教程</a>。(ps：不是打广告，只是觉得整理的比较全)</p>
 
       
     </div>
@@ -881,7 +862,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker初使用"><span class="nav-text">Docker初使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Dcoker"><span class="nav-text">1. Dcoker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-什么是Docker"><span class="nav-text">1.1 什么是Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Docker的应用场景"><span class="nav-text">1.2 Docker的应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Docker的优势"><span class="nav-text">1.3 Docker的优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-Docker架构"><span class="nav-text">1.4 Docker架构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-安装Docker"><span class="nav-text">2. 安装Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-开始安装"><span class="nav-text">2.1 开始安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-验证docker"><span class="nav-text">2.2 验证docker</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-使用Docker"><span class="nav-text">3. 使用Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-MySql镜像"><span class="nav-text">3.1 MySql镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Tomcat镜像"><span class="nav-text">3.2 Tomcat镜像</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-一些常用命令"><span class="nav-text">4. 一些常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建容器并运行"><span class="nav-text">创建容器并运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看运行的容器："><span class="nav-text">查看运行的容器：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询现有镜像"><span class="nav-text">查询现有镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-关闭-重启容器"><span class="nav-text">启动/关闭/重启容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除容器"><span class="nav-text">删除容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除镜像"><span class="nav-text">删除镜像</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker初使用"><span class="nav-text">Docker初使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Dcoker"><span class="nav-text">1. Dcoker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-什么是Docker"><span class="nav-text">1.1 什么是Docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Docker的应用场景"><span class="nav-text">1.2 Docker的应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-Docker的优势"><span class="nav-text">1.3 Docker的优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-Docker架构"><span class="nav-text">1.4 Docker架构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-安装Docker"><span class="nav-text">2. 安装Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-开始安装"><span class="nav-text">2.1 开始安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-验证docker"><span class="nav-text">2.2 验证docker</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-使用Docker"><span class="nav-text">3. 使用Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-MySql镜像"><span class="nav-text">3.1 MySql镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Tomcat镜像"><span class="nav-text">3.2 Tomcat镜像</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-一些常用命令"><span class="nav-text">4. 一些常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建容器并运行"><span class="nav-text">创建容器并运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看运行的容器："><span class="nav-text">查看运行的容器：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询现有镜像"><span class="nav-text">查询现有镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动-关闭-重启容器"><span class="nav-text">启动/关闭/重启容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除容器"><span class="nav-text">删除容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除镜像"><span class="nav-text">删除镜像</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-总结"><span class="nav-text">5. 总结</span></a></li></ol></li></ol></div>
             
 
           </div>
