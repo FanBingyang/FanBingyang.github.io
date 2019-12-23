@@ -134,9 +134,9 @@
       <category term="SpringBoot" scheme="http://yoursite.com/categories/SpringBoot/"/>
     
     
-      <category term="SpringBoot" scheme="http://yoursite.com/tags/SpringBoot/"/>
-    
       <category term="Spring" scheme="http://yoursite.com/tags/Spring/"/>
+    
+      <category term="SpringBoot" scheme="http://yoursite.com/tags/SpringBoot/"/>
     
   </entry>
   
