@@ -70,9 +70,9 @@
       
         <tags>
             
-            <tag> 微信小程序 </tag>
-            
             <tag> Java </tag>
+            
+            <tag> 微信小程序 </tag>
             
         </tags>
       
@@ -122,9 +122,9 @@
       
         <tags>
             
-            <tag> SpringBoot </tag>
-            
             <tag> 服务器 </tag>
+            
+            <tag> SpringBoot </tag>
             
         </tags>
       
@@ -178,6 +178,8 @@
             
             <tag> SpringBoot </tag>
             
+            <tag> Java </tag>
+            
         </tags>
       
     </entry>
@@ -202,6 +204,10 @@
         <tags>
             
             <tag> SpringBoot </tag>
+            
+            <tag> Java </tag>
+            
+            <tag> 前端 </tag>
             
         </tags>
       
@@ -229,6 +235,8 @@
             <tag> Spring </tag>
             
             <tag> SpringBoot </tag>
+            
+            <tag> Java </tag>
             
         </tags>
       
