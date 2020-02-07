@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="微信小程序,Java," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="范秉洋的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;之前没事写了一个微信小程序玩，刚起步就碰壁，因为要获取用户授权，然后请求用户的个人信息，由于微信官方api的更改,wx.getUserInfo()方法无法在无授权的情况下直接使用，而且只能获取到基本的一些微信用户的信息，不包含我们需要的openId以及unionId。几经折腾，才把这个第一步给迈过去，来">
+<meta name="keywords" content="微信小程序,Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信小程序-登录操作">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;03&#x2F;%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F-%E7%99%BB%E5%BD%95%E6%93%8D%E4%BD%9C&#x2F;index.html">
+<meta property="og:site_name" content="范秉洋的博客">
+<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;之前没事写了一个微信小程序玩，刚起步就碰壁，因为要获取用户授权，然后请求用户的个人信息，由于微信官方api的更改,wx.getUserInfo()方法无法在无授权的情况下直接使用，而且只能获取到基本的一些微信用户的信息，不包含我们需要的openId以及unionId。几经折腾，才把这个第一步给迈过去，来">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;03&#x2F;%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F-%E7%99%BB%E5%BD%95%E6%93%8D%E4%BD%9C&#x2F;%E7%99%BB%E5%BD%95%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
+<meta property="og:updated_time" content="2020-02-04T12:37:24.537Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;03&#x2F;%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F-%E7%99%BB%E5%BD%95%E6%93%8D%E4%BD%9C&#x2F;%E7%99%BB%E5%BD%95%E6%B5%81%E7%A8%8B%E5%9B%BE.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/02/03/微信小程序-登录操作/"/>
+
+
+
+
+
+  <title>微信小程序-登录操作 | 范秉洋的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">范秉洋的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">It's not hard ro give up <br> but it's cool to stick with it</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/03/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F-%E7%99%BB%E5%BD%95%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="范秉洋">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/shenshi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="范秉洋的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">微信小程序-登录操作</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-03T16:58:24+08:00">
+                2020-02-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">微信小程序</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;之前没事写了一个微信小程序玩，刚起步就碰壁，因为要获取用户授权，然后请求用户的个人信息，由于微信官方api的更改,<code>wx.getUserInfo()</code>方法无法在无授权的情况下直接使用，而且只能获取到基本的一些微信用户的信息，不包含我们需要的<code>openId</code>以及<code>unionId</code>。几经折腾，才把这个第一步给迈过去，来记录一下。</p>
+<a id="more"></a>
+
+<h1 id="小程序-登录操作"><a href="#小程序-登录操作" class="headerlink" title="小程序-登录操作"></a>小程序-登录操作</h1><h2 id="1-登录流程"><a href="#1-登录流程" class="headerlink" title="1. 登录流程"></a>1. 登录流程</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;想要获取用户的登录信息，首先要先知道小程序的登录流程是什么，下面是官方给出的流程图。</p>
+<p><img src="%E7%99%BB%E5%BD%95%E6%B5%81%E7%A8%8B%E5%9B%BE.png" alt="登录流程图"></p>
+<h3 id="1-1-第一步：获取code"><a href="#1-1-第一步：获取code" class="headerlink" title="1.1 第一步：获取code"></a>1.1 第一步：获取code</h3><p>1、小程序调用wx.login() 获取<strong>临时登录凭证code</strong>，并回传到开发者服务器。</p>
+<p>2、开发者服务器以code换取<strong>用户唯一标识openid</strong>和<strong>会话密钥session_key</strong>。</p>
+<p>3、之后开发者服务器可以根据用户标识来生成自定义登录态，用于后续业务逻辑中前后端交互时识别用户身份。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关于unionId，这里需要说明一下，如果应用只限于小程序内则不需要unionId,直接通过openId可以确定用户身份，但是如果需要跨应用，如：网页应用，app应用时则需要使用到unionId作为身份标识。</p>
+<p>UnionID获取途径：绑定了开发者帐号的小程序，可以通过下面3种途径获取UnionID。</p>
+<p>1、调用接口wx.getUserInfo，从解密数据中获取UnionID。注意本接口需要用户授权，请开发者妥善处理用户拒绝授权后的情况。</p>
+<p>2、如果开发者帐号下存在同主体的公众号，并且该用户已经关注了该公众号。开发者可以直接通过wx.login获取到该用户UnionID，无须用户再次授权。</p>
+<p>3、如果开发者帐号下存在同主体的公众号或移动应用，并且该用户已经授权登录过该公众号或移动应用。开发者也可以直接通过wx.login获取到该用户UnionID，无须用户再次授权。</p>
+<h3 id="1-2-第二步：通过code换取个人信息"><a href="#1-2-第二步：通过code换取个人信息" class="headerlink" title="1.2 第二步：通过code换取个人信息"></a>1.2 第二步：通过code换取个人信息</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前台获得了用户的授权后，我们就可以获得用户的个人信息以及unionId。</p>
+<p>前台接口：<strong>wx.getUserInfo(Object)</strong>。</p>
+<p><strong>注意：</strong>此接口现在经果调整之后，使用该接口将不再出现授权弹窗，需要使用<code>&lt;button open-type=&quot;getUserInfo&quot;&gt;&lt;/button&gt;</code>引导用户主动进行授权操作。详情见、查看<a href="https://developers.weixin.qq.com/community/develop/doc/000aee01f98fc0cbd4b6ce43b56c01" target="_blank" rel="noopener">官方文档</a>。</p>
+<p><strong>Object参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">参数名</th>
+<th align="center">类型</th>
+<th align="center">必填</th>
+<th>说明</th>
+<th align="center">最低版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">withCredentials</td>
+<td align="center">Boolean</td>
+<td align="center">否</td>
+<td>是否带上登录信息</td>
+<td align="center">1.1.0</td>
+</tr>
+<tr>
+<td align="center">lang</td>
+<td align="center">String</td>
+<td align="center">否</td>
+<td>指定返回用户信息的语言，zh_CN：简体中文，zh_TW：繁体中文，en：英文。默认en</td>
+<td align="center">1.3.0</td>
+</tr>
+<tr>
+<td align="center">timeout</td>
+<td align="center">Number</td>
+<td align="center">否</td>
+<td>超时时间，单位ms</td>
+<td align="center">1.9.90</td>
+</tr>
+<tr>
+<td align="center">success</td>
+<td align="center">Function</td>
+<td align="center">否</td>
+<td>接口调用成功的回调函数</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">fail</td>
+<td align="center">Function</td>
+<td align="center">否</td>
+<td>接口调用失败的回调函数</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">complete</td>
+<td align="center">Function</td>
+<td align="center">否</td>
+<td>接口调用结束的回调函数(调用成功、失败都会执行)</td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>注：当 withCredentials 为 true 时，要求此前有调用过 wx.login 且登录态尚未过期，此时返回的数据会包含 encryptedData, iv 等敏感信息；当 withCredentials 为 false 时，不要求有登录态，返回的数据不包含 encryptedData, iv 等敏感信息。</p>
+</blockquote>
+<p><strong>success返回参数说明：</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">参数</th>
+<th align="center">类型</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">userInfo</td>
+<td align="center">Object</td>
+<td align="left">用户信息对象，不包括openid等敏感信息</td>
+</tr>
+<tr>
+<td align="center">rawData</td>
+<td align="center">String</td>
+<td align="left">不包括敏感信息的原始数据字符串，用于计算签名</td>
+</tr>
+<tr>
+<td align="center">signature</td>
+<td align="center">String</td>
+<td align="left">使用sha1( rawData + sessionkey ) 得到字符串，用于校验用户信息。</td>
+</tr>
+<tr>
+<td align="center">encryptedData</td>
+<td align="center">String</td>
+<td align="left">包括敏感数据在内的完整用户信息的加密数据，详细见[<a href="https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/signature.html#加密数据解密算法" target="_blank" rel="noopener">用户数据的签名验证和加解密</a></td>
+</tr>
+<tr>
+<td align="center">iv</td>
+<td align="center">String</td>
+<td align="left">加密算法的初始向量，详见 <a href="https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/signature.html#加密数据解密算法" target="_blank" rel="noopener">用户数据的签名验证和加解密</a></td>
+</tr>
+</tbody></table>
+<h2 id="2-代码解析"><a href="#2-代码解析" class="headerlink" title="2. 代码解析"></a>2. 代码解析</h2><h3 id="2-1-微信端代码"><a href="#2-1-微信端代码" class="headerlink" title="2.1 微信端代码"></a>2.1 微信端代码</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//index.js</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 自定义的登录方法，判断用户登录，是否授权</span></span><br><span class="line">login: <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> that = <span class="keyword">this</span></span><br><span class="line">    wx.login(&#123;</span><br><span class="line">        success: <span class="function"><span class="keyword">function</span> (<span class="params">r</span>) </span>&#123;</span><br><span class="line">            <span class="comment">//获取登录凭证</span></span><br><span class="line">            <span class="keyword">var</span> code = r.code; </span><br><span class="line">            <span class="keyword">if</span> (code) &#123;</span><br><span class="line">                <span class="comment">// 获取用户设置信息</span></span><br><span class="line">                wx.getSetting(&#123;</span><br><span class="line">                    success: <span class="function"><span class="keyword">function</span> (<span class="params">re</span>) </span>&#123;</span><br><span class="line">                        <span class="comment">// 判断用户是否授权</span></span><br><span class="line">                        <span class="keyword">if</span> (re.authSetting[<span class="string">'scope.userInfo'</span>]) &#123;</span><br><span class="line">                            <span class="comment">// 已经授权了，就进行后台用户数据写入</span></span><br><span class="line">                            that.register(code)</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            <span class="comment">//未授权，跳转到登录页面</span></span><br><span class="line">                            wx.redirectTo(&#123;</span><br><span class="line">                                url:<span class="string">'XXX/XXX'</span>,</span><br><span class="line">                            &#125;)</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;)</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">"获取用户登录状态失败！"</span> + r.errMsg)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        fail: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"登录失败"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取到用户的登录授权，请求后台，进行用户信息的操作</span></span><br><span class="line">register: <span class="function"><span class="keyword">function</span> (<span class="params">code</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//2.调用获取用户信息接口</span></span><br><span class="line">    wx.getUserInfo(&#123;</span><br><span class="line">        success: <span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;</span><br><span class="line">            <span class="comment">//3.请求自己的服务器，解密用户信息，获取unionld等加密信息</span></span><br><span class="line">            wx.request(&#123;</span><br><span class="line">                url: <span class="string">'XXX/login.do'</span>,	<span class="comment">//自己后台服务器接口地址</span></span><br><span class="line">                method: <span class="string">'POST'</span>, 		<span class="comment">//请求方式</span></span><br><span class="line">                <span class="comment">// 请求头消息</span></span><br><span class="line">                header: &#123;</span><br><span class="line">                    <span class="string">'content-type'</span>: <span class="string">'application/x-www-form-urlencoded'</span></span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="comment">// 请求接口时传的参数</span></span><br><span class="line">                data: &#123;</span><br><span class="line">                    encryptedData: res.encryptedData,	<span class="comment">//加密数据</span></span><br><span class="line">                    iv: res.iv,				<span class="comment">//加密算法的初使向量</span></span><br><span class="line">                    code: code		<span class="comment">//登录凭证</span></span><br><span class="line">                &#125;,</span><br><span class="line">                success: <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</span><br><span class="line">                    <span class="comment">//4.解密成功后，获取自己服务器返回的结果</span></span><br><span class="line">                    <span class="keyword">if</span> (data.data.status == <span class="number">1</span>) &#123;</span><br><span class="line">                        <span class="comment">// 解密成功之后更换登录状态</span></span><br><span class="line">                        app.globalData.checkLogin = <span class="literal">true</span></span><br><span class="line">                        <span class="comment">// 接收请求数据</span></span><br><span class="line">                        <span class="keyword">var</span> userInfo_ = data.data.userInfo;</span><br><span class="line">                        <span class="comment">// 设置用户信息</span></span><br><span class="line">                        app.globalData.userInfo = userInfo_;</span><br><span class="line">                        app.globalData.openId = userInfo_.openId</span><br><span class="line">                        <span class="built_in">console</span>.log(<span class="string">"用户信息："</span>, userInfo_);</span><br><span class="line">                        </span><br><span class="line">                        <span class="comment">//由于这里是网络请求，可能会在 Page.onLoad 之后才返回</span></span><br><span class="line">                        <span class="comment">// 所以此处加入 callback 以防止这种情况</span></span><br><span class="line">                        <span class="keyword">if</span> (app.checkLoginReadyCallback) &#123;</span><br><span class="line">                            app.checkLoginReadyCallback(data);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="built_in">console</span>.log(<span class="string">"解密失败"</span>)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;,</span><br><span class="line">                fail: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">"系统错误"</span>)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;,</span><br><span class="line">        fail: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"获取用户信息失败"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-服务器端Java代码"><a href="#2-2-服务器端Java代码" class="headerlink" title="2.2 服务器端Java代码"></a>2.2 服务器端Java代码</h3><p>控制层：WXLoginController .java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> mapper.UserMapper;</span><br><span class="line"><span class="keyword">import</span> org.json.JSONObject;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.ResponseBody;</span><br><span class="line"><span class="keyword">import</span> util.HttpRequest;		<span class="comment">//自定义的网络请求的工具类(见下)</span></span><br><span class="line"><span class="keyword">import</span> util.RegisterUser;		<span class="comment">//自定义的注册的工具类</span></span><br><span class="line"><span class="keyword">import</span> util.AesCbcUtil;			<span class="comment">//自定义的AES解密工具类(见下)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>:范秉洋</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>:2019/8/25 17:00</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WXLoginController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserMapper userMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/login.do"</span>)</span><br><span class="line">    <span class="meta">@ResponseBody</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map <span class="title">decodeUserInfo</span><span class="params">(String encryptedData,String iv,String code)</span></span>&#123;</span><br><span class="line">        Map map = <span class="keyword">new</span> HashMap();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//登录凭证不能为空</span></span><br><span class="line">        <span class="keyword">if</span>(code == <span class="keyword">null</span> || code.length() == <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            map.put(<span class="string">"status"</span>,<span class="number">0</span>);</span><br><span class="line">            map.put(<span class="string">"msg"</span>,<span class="string">"code不能为空"</span>);</span><br><span class="line">            <span class="keyword">return</span> map;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//小程序唯一标识(在微信小程序管理后台获取)</span></span><br><span class="line">        String wxspAppid = <span class="string">"XXXXXXXXX"</span>;</span><br><span class="line">        <span class="comment">//小程序的app secret(在微信小程序管理后台获取)</span></span><br><span class="line">        String wxspSecret = <span class="string">"XXXXXXXXX"</span>;</span><br><span class="line">        <span class="comment">//授权(必填)</span></span><br><span class="line">        String grant_type = <span class="string">"authorization_code"</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//********1.向微信服务器使用登录凭证code获取session_key和openid****************//</span></span><br><span class="line">        <span class="comment">//拼接请求参数</span></span><br><span class="line">        String params = <span class="string">"appid="</span>+wxspAppid + <span class="string">"&amp;secret="</span>+wxspSecret </span><br><span class="line">            + <span class="string">"&amp;js_code="</span>+code + <span class="string">"&amp;grant_type="</span>+grant_type;</span><br><span class="line">        <span class="comment">//请求的URL</span></span><br><span class="line">        String url = <span class="string">"https://api.weixin.qq.com/sns/jscode2session"</span>;</span><br><span class="line">        <span class="comment">//通过请求工具类发送请求</span></span><br><span class="line">        String sr = HttpRequest.sendGet(url,params);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//解析相应内容(转换成json对象)</span></span><br><span class="line">        JSONObject json = <span class="keyword">new</span> JSONObject(sr);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取会话密钥(session_key)</span></span><br><span class="line">        String session_key = json.get(<span class="string">"session_key"</span>).toString();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//用户的唯一标识(openid)</span></span><br><span class="line">        String openid = (String)json.get(<span class="string">"openid"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//*********2.对encryptedData加密数据进行AES解密***************************//</span></span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="comment">// 根据加密数据，加密算法初始向量和session_key(密钥)通过AES解密工具类进行解密</span></span><br><span class="line">            String result = AesCbcUtil.decrypt(encryptedData,session_key,iv,<span class="string">"UTF-8"</span>);</span><br><span class="line">			<span class="comment">// 如果解密的结果不为空或者长度大于0，则解密成功</span></span><br><span class="line">            <span class="keyword">if</span>(<span class="keyword">null</span> != result &amp;&amp; result.length() &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                map.put(<span class="string">"status"</span>,<span class="number">1</span>);</span><br><span class="line">                map.put(<span class="string">"msg"</span>,<span class="string">"解密成功"</span>);</span><br><span class="line">				<span class="comment">// 将解密结果转换成json格式</span></span><br><span class="line">                JSONObject userInfoJSON = <span class="keyword">new</span> JSONObject(result);</span><br><span class="line">                Map userInfo = <span class="keyword">new</span> HashMap();</span><br><span class="line">                <span class="comment">//用户openId</span></span><br><span class="line">                userInfo.put(<span class="string">"openId"</span>,userInfoJSON.get(<span class="string">"openId"</span>));</span><br><span class="line">                <span class="comment">//用户昵称</span></span><br><span class="line">                userInfo.put(<span class="string">"nickName"</span>,userInfoJSON.get(<span class="string">"nickName"</span>));</span><br><span class="line">                <span class="comment">//用户性别，0：未知，1：男；2：女。</span></span><br><span class="line">                userInfo.put(<span class="string">"gender"</span>,userInfoJSON.get(<span class="string">"gender"</span>));</span><br><span class="line">                <span class="comment">//用户所在城市</span></span><br><span class="line">                userInfo.put(<span class="string">"city"</span>,userInfoJSON.get(<span class="string">"city"</span>));</span><br><span class="line">                <span class="comment">//用户所在省份</span></span><br><span class="line">                userInfo.put(<span class="string">"province"</span>,userInfoJSON.get(<span class="string">"province"</span>));</span><br><span class="line">                <span class="comment">//用户所在国家</span></span><br><span class="line">                userInfo.put(<span class="string">"country"</span>,userInfoJSON.get(<span class="string">"country"</span>));</span><br><span class="line">                <span class="comment">//用户头像地址</span></span><br><span class="line">                userInfo.put(<span class="string">"avatarUrl"</span>,userInfoJSON.get(<span class="string">"avatarUrl"</span>));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                <span class="comment">//注册验证，如果是首次登录，将信息通过注册工具类写入数据库，如果不是，则进行信息更新</span></span><br><span class="line">                <span class="comment">//这个就不在给出具体代码，根据个人的具体情况进行将用户信息封装好写入数据库</span></span><br><span class="line">                RegisterUser.Register(userMapper,userInfoJSON);</span><br><span class="line"></span><br><span class="line">                <span class="comment">//解密unionId &amp; openId</span></span><br><span class="line">                <span class="comment">//这个信息是只给符合条件的用户下发,如不符合,则没有这个数据,</span></span><br><span class="line">                <span class="comment">//在调用时需要做相应的判断,否则直接取值会报错,</span></span><br><span class="line">                <span class="keyword">if</span>(!userInfoJSON.isNull(<span class="string">"unionId"</span>))&#123;</span><br><span class="line">                    userInfo.put(<span class="string">"unionID"</span>,userInfoJSON.get(<span class="string">"unionId"</span>));</span><br><span class="line">                &#125;</span><br><span class="line">                map.put(<span class="string">"userInfo"</span>,userInfo);</span><br><span class="line"></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                map.put(<span class="string">"status"</span>,<span class="number">0</span>);</span><br><span class="line">                map.put(<span class="string">"msg"</span>,<span class="string">"解密失败"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//将结果返回给微信端</span></span><br><span class="line">        <span class="keyword">return</span> map;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>网络请求工具类：HttpRequest.java</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.io.PrintWriter;</span><br><span class="line"><span class="keyword">import</span> java.net.URL;</span><br><span class="line"><span class="keyword">import</span> java.net.URLConnection;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>:范秉洋</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>:2019/8/25 17:31</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpRequest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 向指定url发送GTE方法的请求</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> url   发送请求的url</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> param   请求参数，参数形式是name1=value1&amp;name2=value2</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> URL  所代表远程资源的响应结果</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">sendGet</span><span class="params">(String url,String param)</span></span>&#123;</span><br><span class="line">        String result = <span class="string">""</span>;</span><br><span class="line">        BufferedReader in = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            String urlNameString = url + <span class="string">"?"</span> + param;</span><br><span class="line">            URL realUrl = <span class="keyword">new</span> URL(urlNameString);</span><br><span class="line">            <span class="comment">//打开和URL之间的链接</span></span><br><span class="line">            URLConnection connection = realUrl.openConnection();</span><br><span class="line">            <span class="comment">//设置通用的请求属性</span></span><br><span class="line">            connection.setRequestProperty(<span class="string">"accept"</span>,<span class="string">"*/*"</span>);</span><br><span class="line">            connection.setRequestProperty(<span class="string">"connection"</span>,<span class="string">"Keep-Alive"</span>);</span><br><span class="line">            connection.setRequestProperty(<span class="string">"user-agent"</span>,<span class="string">"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)"</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//建立实际的链接</span></span><br><span class="line">            connection.connect();</span><br><span class="line">            <span class="comment">//获取所用响应头字段</span></span><br><span class="line">            Map&lt;String, List&lt;String&gt;&gt; map = connection.getHeaderFields();</span><br><span class="line">            <span class="comment">//遍历所有的响应头字段</span></span><br><span class="line">            <span class="comment">//for(String key:map.keySet())&#123;</span></span><br><span class="line">            <span class="comment">//    System.out.println(key + "---&gt;" + map.get(key));</span></span><br><span class="line">            <span class="comment">//&#125;</span></span><br><span class="line">            <span class="comment">//定义BufferedReader输入流来读取URL的响应</span></span><br><span class="line">            in = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(connection.getInputStream()));</span><br><span class="line">            String line;</span><br><span class="line">            <span class="keyword">while</span> ((line = in.readLine()) != <span class="keyword">null</span>)&#123;</span><br><span class="line">                result += line;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            System.out.println(<span class="string">"发送GET请求出现异常！"</span> + e);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//使用finally块来关闭输入流</span></span><br><span class="line">        <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(in != <span class="keyword">null</span>)&#123;</span><br><span class="line">                    in.close();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 向指定url发送POST方法的请求</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> url   发送请求的url</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> param   请求参数，参数形式是name1=value1&amp;name2=value2</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> URL  所代表远程资源的响应结果</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">sendPost</span><span class="params">(String url,String param)</span></span>&#123;</span><br><span class="line">        PrintWriter out = <span class="keyword">null</span>;</span><br><span class="line">        BufferedReader in = <span class="keyword">null</span>;</span><br><span class="line">        String result = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            URL realURl = <span class="keyword">new</span> URL(url);</span><br><span class="line">            <span class="comment">//打开和URL之间的链接</span></span><br><span class="line">            URLConnection conn = realURl.openConnection();</span><br><span class="line">            <span class="comment">//设置通用的请求属性</span></span><br><span class="line">            conn.setRequestProperty(<span class="string">"accept"</span>,<span class="string">"*/*"</span>);</span><br><span class="line">            conn.setRequestProperty(<span class="string">"connection"</span>,<span class="string">"Keep-Alive"</span>);</span><br><span class="line">            conn.setRequestProperty(<span class="string">"user-agent"</span>,<span class="string">"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)"</span>);</span><br><span class="line">            <span class="comment">//发送POST请求必须设置如下两行</span></span><br><span class="line">            conn.setDoOutput(<span class="keyword">true</span>);</span><br><span class="line">            conn.setDoInput(<span class="keyword">true</span>);</span><br><span class="line">            <span class="comment">//获取URLConnection对象对应的输入流</span></span><br><span class="line">            out = <span class="keyword">new</span> PrintWriter((conn.getOutputStream()));</span><br><span class="line">            <span class="comment">//发送请求参数</span></span><br><span class="line">            out.print(param);</span><br><span class="line">            <span class="comment">//flush输出流的缓冲</span></span><br><span class="line">            out.flush();</span><br><span class="line">            <span class="comment">//定义BufferedReader输入流来读取URL的响应</span></span><br><span class="line">            in = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(conn.getInputStream()));</span><br><span class="line">            String line;</span><br><span class="line">            <span class="keyword">while</span>((line = in.readLine()) != <span class="keyword">null</span>)&#123;</span><br><span class="line">                result += line;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            System.out.println(<span class="string">"发送POST请求出现异常！"</span> + e);</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">try</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(out != <span class="keyword">null</span>)&#123;</span><br><span class="line">                    out.close();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(in != <span class="keyword">null</span>)&#123;</span><br><span class="line">                    in.close();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;<span class="keyword">catch</span> (IOException ex)&#123;</span><br><span class="line">                ex.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>AES解密工具类：AesCbcUtil.java</p>
+<blockquote>
+<p>注意：重点标识的这个jar包commons.codec.jar，需要根据自己的jdk版本做对应的引入，我的是1.8的jdk，引入的是1.6的版本。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> util;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.commons.codec.binary.Base64;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.crypto.BadPaddingException;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.Cipher;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.IllegalBlockSizeException;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.NoSuchPaddingException;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.spec.IvParameterSpec;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.spec.SecretKeySpec;</span><br><span class="line"><span class="keyword">import</span> java.io.UnsupportedEncodingException;</span><br><span class="line"><span class="keyword">import</span> java.security.AlgorithmParameters;</span><br><span class="line"><span class="keyword">import</span> java.security.InvalidAlgorithmParameterException;</span><br><span class="line"><span class="keyword">import</span> java.security.NoSuchAlgorithmException;</span><br><span class="line"><span class="keyword">import</span> java.security.Security;</span><br><span class="line"><span class="keyword">import</span> java.security.spec.InvalidParameterSpecException;</span><br><span class="line"><span class="keyword">import</span> java.security.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.bouncycastle.jce.provider.BouncyCastleProvider;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>:范秉洋</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>:2019/8/25 17:25</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AesCbcUtil</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="comment">//BouncyCastle是一个开源的加解密解决方案，主页在http://www.bouncycastle.org/</span></span><br><span class="line">        Security.addProvider(<span class="keyword">new</span> BouncyCastleProvider());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * AES解密</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> data           //密文，被加密的数据</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> key            //秘钥</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> iv             //偏移量</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> encodingFormat //解密后的结果需要进行的编码</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">decrypt</span><span class="params">(String data, String key, String iv, String encodingFormat)</span> <span class="keyword">throws</span> Exception </span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">        <span class="comment">//被加密的数据</span></span></span><br><span class="line"><span class="function">        <span class="keyword">byte</span>[] dataByte </span>= Base64.decodeBase64(data);</span><br><span class="line">        <span class="comment">//加密秘钥</span></span><br><span class="line">        <span class="keyword">byte</span>[] keyByte = Base64.decodeBase64(key);</span><br><span class="line">        <span class="comment">//偏移量</span></span><br><span class="line">        <span class="keyword">byte</span>[] ivByte = Base64.decodeBase64(iv);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Cipher cipher = Cipher.getInstance(<span class="string">"AES/CBC/PKCS7Padding"</span>);</span><br><span class="line"></span><br><span class="line">            SecretKeySpec spec = <span class="keyword">new</span> SecretKeySpec(keyByte, <span class="string">"AES"</span>);</span><br><span class="line"></span><br><span class="line">            AlgorithmParameters parameters = AlgorithmParameters.getInstance(<span class="string">"AES"</span>);</span><br><span class="line">            parameters.init(<span class="keyword">new</span> IvParameterSpec(ivByte));</span><br><span class="line"></span><br><span class="line">            cipher.init(Cipher.DECRYPT_MODE, spec, parameters);<span class="comment">// 初始化</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">byte</span>[] resultByte = cipher.doFinal(dataByte);</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">null</span> != resultByte &amp;&amp; resultByte.length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">                String result = <span class="keyword">new</span> String(resultByte, encodingFormat);</span><br><span class="line">                <span class="keyword">return</span> result;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NoSuchAlgorithmException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NoSuchPaddingException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InvalidParameterSpecException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InvalidKeyException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InvalidAlgorithmParameterException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IllegalBlockSizeException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (BadPaddingException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (UnsupportedEncodingException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以上就是关于小程序登录过程的解析，最主要的就是通过用户授权之后获取用户的加密信息，通过加密数据、加密算法初始向量和登录凭证在后台进行解密，从而获得用户的完成信息，之后在进行开发者的逻辑操作对用户的个人信息进行操作和处理。上面提到的还有一点就是<code>wx.getUserInfo(Object)</code>方法不会在自动弹出授权窗口了，需要开发者自定义登录按钮来引导用户进行登录授权。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/" rel="tag"># 微信小程序</a>
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/03/Python%E7%A8%8B%E5%BA%8F%E6%89%93%E5%8C%85%E6%88%90exe%E6%96%87%E4%BB%B6/" rel="next" title="Python程序打包成exe文件">
+                <i class="fa fa-chevron-left"></i> Python程序打包成exe文件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/05/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F-%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84/" rel="prev" title="微信小程序-项目目录结构">
+                微信小程序-项目目录结构 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/shenshi.jpg"
+                alt="范秉洋" />
+            
+              <p class="site-author-name" itemprop="name">范秉洋</p>
+              <p class="site-description motion-element" itemprop="description">这个人很懒，什么也没有留下...</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#小程序-登录操作"><span class="nav-text">小程序-登录操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-登录流程"><span class="nav-text">1. 登录流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-第一步：获取code"><span class="nav-text">1.1 第一步：获取code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-第二步：通过code换取个人信息"><span class="nav-text">1.2 第二步：通过code换取个人信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-代码解析"><span class="nav-text">2. 代码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-微信端代码"><span class="nav-text">2.1 微信端代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-服务器端Java代码"><span class="nav-text">2.2 服务器端Java代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-总结"><span class="nav-text">3. 总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">范秉洋</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
