@@ -115,7 +115,7 @@
       
       <categories>
           
-          <category> Spring </category>
+          <category> SpringBoot </category>
           
       </categories>
       
@@ -175,6 +175,8 @@
       
       
         <tags>
+            
+            <tag> Spring </tag>
             
             <tag> SpringBoot </tag>
             
@@ -259,6 +261,14 @@
       </categories>
       
       
+        <tags>
+            
+            <tag> 服务器 </tag>
+            
+            <tag> 其他 </tag>
+            
+        </tags>
+      
     </entry>
     
     
@@ -277,6 +287,14 @@
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+            <tag> Mybatis </tag>
+            
+        </tags>
       
     </entry>
     
@@ -297,6 +315,14 @@
       </categories>
       
       
+        <tags>
+            
+            <tag> Spring </tag>
+            
+            <tag> Java </tag>
+            
+        </tags>
+      
     </entry>
     
     
@@ -315,6 +341,14 @@
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> Spring </tag>
+            
+            <tag> Java </tag>
+            
+        </tags>
       
     </entry>
     
