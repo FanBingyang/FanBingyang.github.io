@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>范秉洋的博客</title>
   
-  <subtitle>It&#39;s not hard ro give up &lt;br&gt; but it&#39;s cool to stick with it</subtitle>
+  <subtitle>It&#39;s not hard to give up &lt;br&gt; but it&#39;s cool to stick with it</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
@@ -182,11 +182,11 @@
       <category term="SpringBoot" scheme="http://yoursite.com/categories/SpringBoot/"/>
     
     
-      <category term="Spring" scheme="http://yoursite.com/tags/Spring/"/>
+      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
     
       <category term="SpringBoot" scheme="http://yoursite.com/tags/SpringBoot/"/>
     
-      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
+      <category term="Spring" scheme="http://yoursite.com/tags/Spring/"/>
     
   </entry>
   
@@ -209,9 +209,9 @@
       <category term="SpringBoot" scheme="http://yoursite.com/categories/SpringBoot/"/>
     
     
-      <category term="SpringBoot" scheme="http://yoursite.com/tags/SpringBoot/"/>
-    
       <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
+    
+      <category term="SpringBoot" scheme="http://yoursite.com/tags/SpringBoot/"/>
     
       <category term="前端" scheme="http://yoursite.com/tags/%E5%89%8D%E7%AB%AF/"/>
     
@@ -236,11 +236,11 @@
       <category term="SpringBoot" scheme="http://yoursite.com/categories/SpringBoot/"/>
     
     
-      <category term="Spring" scheme="http://yoursite.com/tags/Spring/"/>
+      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
     
       <category term="SpringBoot" scheme="http://yoursite.com/tags/SpringBoot/"/>
     
-      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
+      <category term="Spring" scheme="http://yoursite.com/tags/Spring/"/>
     
   </entry>
   
@@ -288,9 +288,9 @@
       <category term="Mybatis" scheme="http://yoursite.com/categories/Mybatis/"/>
     
     
-      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
-    
       <category term="Mybatis" scheme="http://yoursite.com/tags/Mybatis/"/>
+    
+      <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
     
   </entry>
   
@@ -313,9 +313,9 @@
       <category term="Spring" scheme="http://yoursite.com/categories/Spring/"/>
     
     
-      <category term="Spring" scheme="http://yoursite.com/tags/Spring/"/>
-    
       <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
+    
+      <category term="Spring" scheme="http://yoursite.com/tags/Spring/"/>
     
   </entry>
   
@@ -338,9 +338,9 @@
       <category term="Spring" scheme="http://yoursite.com/categories/Spring/"/>
     
     
-      <category term="Spring" scheme="http://yoursite.com/tags/Spring/"/>
-    
       <category term="Java" scheme="http://yoursite.com/tags/Java/"/>
+    
+      <category term="Spring" scheme="http://yoursite.com/tags/Spring/"/>
     
   </entry>
   
