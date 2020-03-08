@@ -525,8 +525,8 @@
         <category>SpringBoot</category>
       </categories>
       <tags>
-        <tag>服务器</tag>
         <tag>SpringBoot</tag>
+        <tag>服务器</tag>
       </tags>
   </entry>
   <entry>
@@ -1008,7 +1008,7 @@
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/page.do"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Student&gt; <span class="title">page</span><span class="params">(Integer page)</span></span>&#123;</span><br><span class="line">    Student student = <span class="keyword">new</span> Student();</span><br><span class="line">    student.setSize(<span class="number">3</span>);</span><br><span class="line">    student.setPage(page);</span><br><span class="line">    <span class="keyword">return</span> service.findAllPage(PageRequest.of(student.getPage()-<span class="number">1</span>,student.getSize()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>接下来重启项目并访问该方法。<br><img src="%E6%B5%8B%E8%AF%95%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2.png" alt="测试分页查询"></p>
 <h4 id="3-3-7-排序"><a href="#3-3-7-排序" class="headerlink" title="3.3.7 排序"></a>3.3.7 排序</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>PageEntity</code>已经预设好了对应的排序字段，所以重新编辑page方法，将Sort对象添加在<code>PageRequest.of()</code>方法中就可以实现排序。我们现在将顺序按照id倒序排序，SpringDataJPA对排序方式添加了一个枚举类型，创建<code>Sort</code>对象时也需要枚举对象，因为我们<code>PageEntity</code>配置的是字符串，所以上面多了一步判断排序方法返回枚举对象。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/page.do"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Student&gt; <span class="title">page</span><span class="params">(Integer page)</span></span>&#123;</span><br><span class="line">    Student student = <span class="keyword">new</span> Student();</span><br><span class="line">    student.setSize(<span class="number">3</span>);</span><br><span class="line">    student.setPage(page);</span><br><span class="line">    student.setSidx(<span class="string">"desc"</span>);</span><br><span class="line">    <span class="comment">// 获取排序对象</span></span><br><span class="line">    Sort.Direction sort_Direction = Sort.Direction.ASC.toString().equalsIgnoreCase(student.getSord()) ? Sort.Direction.ASC : Sort.Direction.DESC;</span><br><span class="line">    <span class="comment">// 设置排序对象</span></span><br><span class="line">    Sort sort = <span class="keyword">new</span> Sort(sort_Direction,student.getSidx());</span><br><span class="line">    <span class="comment">// 执行排序分页</span></span><br><span class="line">    <span class="keyword">return</span> service.findAllPage(PageRequest.of(student.getPage()-<span class="number">1</span>,student.getSize(),sort));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/page.do"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Student&gt; <span class="title">page</span><span class="params">(Integer page)</span></span>&#123;</span><br><span class="line">    Student student = <span class="keyword">new</span> Student();</span><br><span class="line">    student.setSize(<span class="number">3</span>);</span><br><span class="line">    student.setPage(page);</span><br><span class="line">    student.setSord(<span class="string">"id"</span>);</span><br><span class="line">    <span class="comment">// 获取排序对象</span></span><br><span class="line">    Sort.Direction sort_Direction = Sort.Direction.ASC.toString().equalsIgnoreCase(student.getSord()) ? Sort.Direction.ASC : Sort.Direction.DESC;</span><br><span class="line">    <span class="comment">// 设置排序对象</span></span><br><span class="line">    Sort sort = <span class="keyword">new</span> Sort(sort_Direction,student.getSidx());</span><br><span class="line">    <span class="comment">// 执行排序分页</span></span><br><span class="line">    <span class="keyword">return</span> service.findAllPage(PageRequest.of(student.getPage()-<span class="number">1</span>,student.getSize(),sort));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>重启项目，刷新页面即可。</p>
 <!-- ![测试排序分页](测试排序分页.png) -->
 <h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以上就是SpringBoot整合SpringDataJPA的全部过程了，看完这篇，你就能简单使用JPA来实现项目需求了。是不是感觉很好用？对，它就是很好用。对于我们简单的数据处理真的很方便，很省事。但是大型项目中一些复杂的查询，比如一对多、多对多等，这些底层实现还是要自己动手写的，这些应该也有封装好的更方便的方法，至少对于写这篇笔记时候的我还不知道，以后慢慢了解慢慢学呗。就这么多吧，继续加油！！！</p>
@@ -1017,8 +1017,8 @@
         <category>SpringBoot</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>SpringBoot</tag>
+        <tag>Java</tag>
         <tag>Spring</tag>
       </tags>
   </entry>
@@ -1232,8 +1232,8 @@
         <category>SpringBoot</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>SpringBoot</tag>
+        <tag>Java</tag>
         <tag>前端</tag>
       </tags>
   </entry>
@@ -1315,19 +1315,19 @@
         <category>SpringBoot</category>
       </categories>
       <tags>
-        <tag>Java</tag>
         <tag>SpringBoot</tag>
+        <tag>Java</tag>
         <tag>Spring</tag>
       </tags>
   </entry>
   <entry>
-    <title>Tomcat服务器部署SSL证书</title>
-    <url>/2019/10/06/Tomcat%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2SSL%E8%AF%81%E4%B9%A6/</url>
-    <content><![CDATA[<h1 id="Tomcat服务器部署SSL证书"><a href="#Tomcat服务器部署SSL证书" class="headerlink" title="Tomcat服务器部署SSL证书"></a>Tomcat服务器部署SSL证书</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有时候项目需要服务器的协议是<code>https</code>协议，比如微信小程序的后台接口；这个时候就不得不把服务器协议修改为<code>https</code>。<code>https</code>和<code>http</code>有什么区别呢？区别就在于<code>https</code>比<code>http</code>多一个SSL证书，下面就是怎么获取SSL证书和怎么部署到服务器上。(唉，这也是当年自己踩了两个小时坑踩出来的啊！)</p>
+    <title>服务器部署SSL证书</title>
+    <url>/2019/10/06/%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%83%A8%E7%BD%B2SSL%E8%AF%81%E4%B9%A6/</url>
+    <content><![CDATA[<h1 id="服务器部署SSL证书"><a href="#服务器部署SSL证书" class="headerlink" title="服务器部署SSL证书"></a>服务器部署SSL证书</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有时候项目需要服务器的协议是<code>https</code>协议，比如微信小程序的后台接口；这个时候就不得不把服务器协议修改为<code>https</code>。<code>https</code>和<code>http</code>有什么区别呢？区别就在于<code>https</code>比<code>http</code>多一个SSL证书，下面就是怎么获取SSL证书和怎么部署到服务器上。(唉，这也是当年自己踩了两个小时坑踩出来的啊！)</p>
 <a id="more"></a>
 
-<h2 id="1-获取SSL证书"><a href="#1-获取SSL证书" class="headerlink" title="1. 获取SSL证书"></a>1. 获取SSL证书</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为当初我是服务器是在阿里云上租的，所以SSL证书也是在阿里云上面获取的，当然，不要想着我会用钱去买这玩意，主要是太贵了，不过阿里云也算良心，能在上面免费获取一个一年的SSL证书。在这免费获取<a href="https://www.aliyun.com/product/cas?spm=5176.12825654.eofdhaal5.19.3dbd2c4ayD5k2Q&aly_as=nsmL9Pxx" target="_blank" rel="noopener">阿里云SSL证书</a>，打开连接之后选择<strong>证书对比</strong>，里面有一个免费证书可以立即购买。购买之后在SSL证书控制台进行查看自己的证书，然后提交审核，有时很几分钟就审核完了，有时候要好几天，这就要看运气了。审核通过之后在SSL证书列表最后面点击下载，然后选择自己对应的服务器类型。下载下来的是一个压缩包，里面有两个文件，一个是<code>.pfx</code>文件，这个就是我们的SSL证书；一个是<code>.txt</code>文件，这个是证书所对应的密码。此时SSL证书就到手了，接下来就可以进行部署了。</p>
-<h2 id="2-部署到Tomcat"><a href="#2-部署到Tomcat" class="headerlink" title="2. 部署到Tomcat"></a>2. 部署到Tomcat</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将我们下载的证书部署到Tomcat上，首先需要通过Java jdk将<strong>pfx</strong>证书转换为<strong>jks</strong>证书，先将我们的<strong>prx</strong>证书放到jdk的bin目录下。然后通过cmd打开命令行窗口，进入到jdk的bin目录下，假设我们的证书是<strong>a.pfx</strong>，输入以下命令：</p>
+<h2 id="1-获取SSL证书"><a href="#1-获取SSL证书" class="headerlink" title="1. 获取SSL证书"></a>1. 获取SSL证书</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为当初我是服务器是在阿里云上租的，是<strong>Window Server</strong>所以SSL证书也是在阿里云上面获取的，当然，不要想着我会用钱去买这玩意，主要是太贵了，不过阿里云也算良心，能在上面免费获取一个一年的SSL证书。在这免费获取<a href="https://www.aliyun.com/product/cas?spm=5176.12825654.eofdhaal5.19.3dbd2c4ayD5k2Q&aly_as=nsmL9Pxx" target="_blank" rel="noopener">阿里云SSL证书</a>，打开连接之后选择<strong>证书对比</strong>，里面有一个免费证书可以立即购买。购买之后在SSL证书控制台进行查看自己的证书，然后提交审核，有时很几分钟就审核完了，有时候要好几天，这就要看运气了。审核通过之后在SSL证书列表最后面点击下载，然后选择自己对应的服务器类型。下载下来的是一个压缩包，</p>
+<h2 id="2-部署到Tomcat"><a href="#2-部署到Tomcat" class="headerlink" title="2. 部署到Tomcat"></a>2. 部署到Tomcat</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下载的压缩包里面有两个文件，一个是<code>.pfx</code>文件，这个就是我们的SSL证书；一个是<code>.txt</code>文件，这个是证书所对应的密码。此时SSL证书就到手了，接下来就可以进行部署了。将我们下载的证书部署到Tomcat上，首先需要通过Java jdk将<strong>pfx</strong>证书转换为<strong>jks</strong>证书，先将我们的<strong>prx</strong>证书放到jdk的bin目录下。然后通过cmd打开命令行窗口，进入到jdk的bin目录下，假设我们的证书是<strong>a.pfx</strong>，输入以下命令：</p>
 <figure class="highlight cmd"><table><tr><td class="code"><pre><span class="line">keytool -importkeystore -srckeystore a.pfx -destkeystore a.jks -srcstoretype PKCS12 -deststoretype JKS</span><br></pre></td></tr></table></figure>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;回车后输入JKS证书密码和PFX证书密码，强烈推荐将JKS密码与PFX证书密码相同，否则可能会导致Tomcat启动失败。<br>运行截图如下：<br><img src="jks.png" alt=""></p>
 <blockquote>
@@ -1337,7 +1337,7 @@
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">"8080"</span> <span class="attr">protocol</span>=<span class="string">"HTTP/1.1"</span> <span class="attr">address</span>=<span class="string">"0.0.0.0"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">connectionTimeout</span>=<span class="string">"20000"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">redirectPort</span>=<span class="string">"8443"</span>  /&gt;</span></span><br></pre></td></tr></table></figure>
 <p>改成</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">"80"</span> <span class="attr">protocol</span>=<span class="string">"HTTP/1.1"</span> <span class="attr">address</span>=<span class="string">"0.0.0.0"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">connectionTimeout</span>=<span class="string">"20000"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">redirectPort</span>=<span class="string">"443"</span>  /&gt;</span></span><br></pre></td></tr></table></figure>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其中第一个80端口是为HTTP(HyperText Transport Protocol)即超文本传输协议开放的，此为上网冲浪使用次数最多的协议，第二个443端口是SSL的专用端口。<br>2.把</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其中第一个80端口是为HTTP(HyperText Transport Protocol)即超文本传输协议开放的，此为上网冲浪使用次数最多的协议，第二个443端口是SSL的专用端口，HTTPS监听的端口是443端口。<br>2.把</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">"8009"</span> <span class="attr">protocol</span>=<span class="string">"AJP/1.3"</span> <span class="attr">redirectPort</span>=<span class="string">"8443"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 <p>改成</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">"8009"</span> <span class="attr">protocol</span>=<span class="string">"AJP/1.3"</span> <span class="attr">redirectPort</span>=<span class="string">"443"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
@@ -1346,7 +1346,18 @@
 <p>改成</p>
 <figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> <span class="attr">port</span>=<span class="string">"443"</span> <span class="attr">protocol</span>=<span class="string">"org.apache.coyote.http11.Http11NioProtocol"</span></span></span><br><span class="line"><span class="tag">               <span class="attr">maxThreads</span>=<span class="string">"150"</span> <span class="attr">SSLEnabled</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">SSLHostConfig</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">Certificate</span> <span class="attr">certificateKeystoreFile</span>=<span class="string">"conf/a.jks"</span></span></span><br><span class="line"><span class="tag">                     <span class="attr">certificateKeystorePassword</span>=<span class="string">"IBdiYc8W"</span></span></span><br><span class="line"><span class="tag">                     <span class="attr">type</span>=<span class="string">"RSA"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">SSLHostConfig</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Connector</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先去掉注释，然后certificateKeystoreFile属性是让你告诉服务器需要哪个SSL证书，后面就填复制过去的那个jks文件的名字（记得带上jks后缀），然后加上certificateKeystorePassword这个属性，后面的属性值填秘钥。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到这，关于server.xml文件的配置就完成了。</p>
-<h2 id="3-附加：开启SSL443端口"><a href="#3-附加：开启SSL443端口" class="headerlink" title="3.附加：开启SSL443端口"></a>3.附加：开启SSL443端口</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有时候我们完成以上工作之后，启动服务器依然没有办法访问到，这可能是因为云服务器的SSL端口没有打开。<br>1.打开”控制面板”–&gt;”系统和安全”–&gt;”Windows防火墙”</p>
+<h2 id="3-部署到Nginx"><a href="#3-部署到Nginx" class="headerlink" title="3. 部署到Nginx"></a>3. 部署到Nginx</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下载的压缩包里面有两个文件，一个是<code>.pem</code>文件，一个是<code>.key</code>文件。进入到nginx的安装目录下，在<code>conf</code>目录下创建<code>cert</code>目录，然后将解压之后的文件放到该目录下。</p>
+<p><img src="nginxSSL.png" alt=""></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;打开<code>nginx.conf</code>配置文件，添加以下配置：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line"></span><br><span class="line">        listen 443 ssl;  #新版本启用SSL功能。</span><br><span class="line">    	# ssl on;   旧版本设置为on开启ssl功能</span><br><span class="line">        server_name example.com;  # 替换成你的域名</span><br><span class="line">        ssl_certificate cert/2837922_example.com.pem;   #替换成你的pem文件名称</span><br><span class="line">        ssl_certificate_key cert/2837922_example.com.key;   #替换成你的key文件名称</span><br><span class="line">        ssl_session_timeout 5m;</span><br><span class="line">        ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;  #使用此加密套件。</span><br><span class="line">        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;   #使用该协议进行配置。</span><br><span class="line">        ssl_prefer_server_ciphers on;  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        # listen       80;</span><br><span class="line">        # server_name  localhost;</span><br><span class="line"></span><br><span class="line">        #charset koi8-r;</span><br><span class="line"></span><br><span class="line">        #access_log  logs/host.access.log  main;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后重启nginx服务器即可通过https访问服务器。</p>
+<p>也可以使用全站加密，对于用户不知道网站可以进行 https 访问的情况下，让服务器自动把 http 的请求重定向到 https。在<code>nginx.conf</code>文件中添加以下配置：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  example.com;#替换成你的域名</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            # 配置请求转发，将http的请求转发到https上面</span><br><span class="line">            rewrite ^(.*)$ https://example.com/$1 permanent;#替换成你的域名</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="4-附加：开启SSL443端口"><a href="#4-附加：开启SSL443端口" class="headerlink" title="4.附加：开启SSL443端口"></a>4.附加：开启SSL443端口</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有时候我们完成以上工作之后，启动服务器依然没有办法访问到，这可能是因为云服务器的SSL端口没有打开。<br>1.打开”控制面板”–&gt;”系统和安全”–&gt;”Windows防火墙”</p>
 <p>2.选择打开活关闭防火墙<br><img src="1.png" alt="开启防火墙" title="开启防火墙"></p>
 <p>3.启用Windows防火墙<br><img src="2.png" alt="启用防火墙" title="启用防火墙"></p>
 <p>4.选择”高级设置”<br><img src="3.png" alt="高级设置" title="高级设置"></p>
@@ -1433,8 +1444,8 @@
         <category>Mybatis</category>
       </categories>
       <tags>
-        <tag>Mybatis</tag>
         <tag>Java</tag>
+        <tag>Mybatis</tag>
       </tags>
   </entry>
   <entry>

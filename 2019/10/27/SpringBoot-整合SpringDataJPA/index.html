@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Java,SpringBoot,Spring," />
+  <meta name="keywords" content="SpringBoot,Java,Spring," />
 
 
 
@@ -82,7 +82,7 @@
 
 
 <meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;JPA的全称是Java Persistence API，Persistence 是持久化的意思。所以，中文全称是【JAVA对象持久化的 API】。简单来说，可以理解为是一种JAVA的标准规范，这个规范为JAVA对象的持久化制定了一些标准的接口。要注意的是，JPA只是一个接口规范，而不是实现。具体实现由各">
-<meta name="keywords" content="Java,SpringBoot,Spring">
+<meta name="keywords" content="SpringBoot,Java,Spring">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringBoot-整合SpringDataJPA">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;27&#x2F;SpringBoot-%E6%95%B4%E5%90%88SpringDataJPA&#x2F;index.html">
@@ -92,7 +92,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;27&#x2F;SpringBoot-%E6%95%B4%E5%90%88SpringDataJPA&#x2F;%E6%B5%8B%E8%AF%95%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;27&#x2F;SpringBoot-%E6%95%B4%E5%90%88SpringDataJPA&#x2F;%E8%A7%84%E5%88%99%E6%9F%A5%E8%AF%A2.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;27&#x2F;SpringBoot-%E6%95%B4%E5%90%88SpringDataJPA&#x2F;%E6%B5%8B%E8%AF%95%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2.png">
-<meta property="og:updated_time" content="2020-02-07T05:20:45.133Z">
+<meta property="og:updated_time" content="2020-02-27T08:41:36.577Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;27&#x2F;SpringBoot-%E6%95%B4%E5%90%88SpringDataJPA&#x2F;%E6%B5%8B%E8%AF%95%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89.png">
 
@@ -572,7 +572,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/page.do"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Student&gt; <span class="title">page</span><span class="params">(Integer page)</span></span>&#123;</span><br><span class="line">    Student student = <span class="keyword">new</span> Student();</span><br><span class="line">    student.setSize(<span class="number">3</span>);</span><br><span class="line">    student.setPage(page);</span><br><span class="line">    <span class="keyword">return</span> service.findAllPage(PageRequest.of(student.getPage()-<span class="number">1</span>,student.getSize()));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>接下来重启项目并访问该方法。<br><img src="%E6%B5%8B%E8%AF%95%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2.png" alt="测试分页查询"></p>
 <h4 id="3-3-7-排序"><a href="#3-3-7-排序" class="headerlink" title="3.3.7 排序"></a>3.3.7 排序</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>PageEntity</code>已经预设好了对应的排序字段，所以重新编辑page方法，将Sort对象添加在<code>PageRequest.of()</code>方法中就可以实现排序。我们现在将顺序按照id倒序排序，SpringDataJPA对排序方式添加了一个枚举类型，创建<code>Sort</code>对象时也需要枚举对象，因为我们<code>PageEntity</code>配置的是字符串，所以上面多了一步判断排序方法返回枚举对象。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/page.do"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Student&gt; <span class="title">page</span><span class="params">(Integer page)</span></span>&#123;</span><br><span class="line">    Student student = <span class="keyword">new</span> Student();</span><br><span class="line">    student.setSize(<span class="number">3</span>);</span><br><span class="line">    student.setPage(page);</span><br><span class="line">    student.setSidx(<span class="string">"desc"</span>);</span><br><span class="line">    <span class="comment">// 获取排序对象</span></span><br><span class="line">    Sort.Direction sort_Direction = Sort.Direction.ASC.toString().equalsIgnoreCase(student.getSord()) ? Sort.Direction.ASC : Sort.Direction.DESC;</span><br><span class="line">    <span class="comment">// 设置排序对象</span></span><br><span class="line">    Sort sort = <span class="keyword">new</span> Sort(sort_Direction,student.getSidx());</span><br><span class="line">    <span class="comment">// 执行排序分页</span></span><br><span class="line">    <span class="keyword">return</span> service.findAllPage(PageRequest.of(student.getPage()-<span class="number">1</span>,student.getSize(),sort));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(value = <span class="string">"/page.do"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Student&gt; <span class="title">page</span><span class="params">(Integer page)</span></span>&#123;</span><br><span class="line">    Student student = <span class="keyword">new</span> Student();</span><br><span class="line">    student.setSize(<span class="number">3</span>);</span><br><span class="line">    student.setPage(page);</span><br><span class="line">    student.setSord(<span class="string">"id"</span>);</span><br><span class="line">    <span class="comment">// 获取排序对象</span></span><br><span class="line">    Sort.Direction sort_Direction = Sort.Direction.ASC.toString().equalsIgnoreCase(student.getSord()) ? Sort.Direction.ASC : Sort.Direction.DESC;</span><br><span class="line">    <span class="comment">// 设置排序对象</span></span><br><span class="line">    Sort sort = <span class="keyword">new</span> Sort(sort_Direction,student.getSidx());</span><br><span class="line">    <span class="comment">// 执行排序分页</span></span><br><span class="line">    <span class="keyword">return</span> service.findAllPage(PageRequest.of(student.getPage()-<span class="number">1</span>,student.getSize(),sort));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>重启项目，刷新页面即可。</p>
 <!-- ![测试排序分页](测试排序分页.png) -->
 <h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以上就是SpringBoot整合SpringDataJPA的全部过程了，看完这篇，你就能简单使用JPA来实现项目需求了。是不是感觉很好用？对，它就是很好用。对于我们简单的数据处理真的很方便，很省事。但是大型项目中一些复杂的查询，比如一对多、多对多等，这些底层实现还是要自己动手写的，这些应该也有封装好的更方便的方法，至少对于写这篇笔记时候的我还不知道，以后慢慢了解慢慢学呗。就这么多吧，继续加油！！！</p>
@@ -593,11 +593,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Java/" rel="tag"># Java</a>
+            <a href="/tags/SpringBoot/" rel="tag"><i class="fa fa-tag"></i> SpringBoot</a>
           
-            <a href="/tags/SpringBoot/" rel="tag"># SpringBoot</a>
+            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
           
-            <a href="/tags/Spring/" rel="tag"># Spring</a>
+            <a href="/tags/Spring/" rel="tag"><i class="fa fa-tag"></i> Spring</a>
           
         </div>
       
