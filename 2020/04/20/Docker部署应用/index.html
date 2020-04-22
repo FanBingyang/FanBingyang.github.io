@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="服务器,Docker," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="范秉洋的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;之前写过一篇关于Docker初使用的笔记，简单介绍了Docker和基本使用。这里记录一下怎么将自己的项目打包成Docker镜像然后部署在服务器的Docker里。">
+<meta name="keywords" content="服务器,Docker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Docker部署应用">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;04&#x2F;20&#x2F;Docker%E9%83%A8%E7%BD%B2%E5%BA%94%E7%94%A8&#x2F;index.html">
+<meta property="og:site_name" content="范秉洋的博客">
+<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;之前写过一篇关于Docker初使用的笔记，简单介绍了Docker和基本使用。这里记录一下怎么将自己的项目打包成Docker镜像然后部署在服务器的Docker里。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;04&#x2F;20&#x2F;Docker%E9%83%A8%E7%BD%B2%E5%BA%94%E7%94%A8&#x2F;image-20200421115234434.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;04&#x2F;20&#x2F;Docker%E9%83%A8%E7%BD%B2%E5%BA%94%E7%94%A8&#x2F;image-20200421115653201.png">
+<meta property="og:updated_time" content="2020-04-22T01:30:36.650Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;04&#x2F;20&#x2F;Docker%E9%83%A8%E7%BD%B2%E5%BA%94%E7%94%A8&#x2F;image-20200421115234434.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/04/20/Docker部署应用/"/>
+
+
+
+
+
+  <title>Docker部署应用 | 范秉洋的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">范秉洋的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">It's not hard to give up <br> but it's cool to stick with it</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/20/Docker%E9%83%A8%E7%BD%B2%E5%BA%94%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="范秉洋">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/shenshi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="范秉洋的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Docker部署应用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-20T10:41:53+08:00">
+                2020-04-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9C%8D%E5%8A%A1%E5%99%A8/" itemprop="url" rel="index">
+                    <span itemprop="name">服务器</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;之前写过一篇关于<a href="/2019/11/11/Docker初使用/">Docker初使用</a>的笔记，简单介绍了Docker和基本使用。这里记录一下怎么将自己的项目打包成Docker镜像然后部署在服务器的Docker里。</p>
+<a id="more"></a>
+
+<h1 id="Docker部署应用"><a href="#Docker部署应用" class="headerlink" title="Docker部署应用"></a>Docker部署应用</h1><h2 id="1-制作镜像"><a href="#1-制作镜像" class="headerlink" title="1. 制作镜像"></a>1. 制作镜像</h2><h3 id="1-1-准备项目"><a href="#1-1-准备项目" class="headerlink" title="1.1 准备项目"></a>1.1 准备项目</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;打包镜像首先需要将自己的项目打包成jar包，我这里准备的是一个SpringBoot项目打包成的jar包。</p>
+<h3 id="1-2-编写Dockerfile"><a href="#1-2-编写Dockerfile" class="headerlink" title="1.2 编写Dockerfile"></a>1.2 编写Dockerfile</h3><h4 id="1-2-1-关于Dockerfile"><a href="#1-2-1-关于Dockerfile" class="headerlink" title="1.2.1 关于Dockerfile"></a>1.2.1 关于Dockerfile</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Dockerfile是一个包含用于组合映像的命令的文本文档。可以使用在命令行中调用任何命令。 Docker通过读取<code>Dockerfile</code>中的指令自动生成映像。一般包含四部分：基础镜像信息、维护者信息、镜像操作指令和容器启动时执行指令。Docker以从上到下的顺序运行Dockerfile的指令。为了指定基本映像，第一条指令必须是<strong><em>FROM</em></strong>。一个声明以<code>＃</code>字符开头则被视为注释。可以在Docker文件中使用<code>RUN</code>，<code>CMD</code>，<code>FROM</code>，<code>EXPOSE</code>，<code>ENV</code>等指令。</p>
+<h4 id="1-2-2-演示文件"><a href="#1-2-2-演示文件" class="headerlink" title="1.2.2 演示文件"></a>1.2.2 演示文件</h4><p>这次演示的Dockerfile文件内容如下：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># This my first testapp Dockerfile</span></span><br><span class="line"><span class="comment"># Version 1.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Base images 基础镜像</span></span><br><span class="line"><span class="keyword">FROM</span> java:<span class="number">8</span></span><br><span class="line"><span class="comment"># 挂载目录</span></span><br><span class="line"><span class="keyword">VOLUME</span><span class="bash"> /tmp</span></span><br><span class="line"><span class="comment"># 文件放在当前目录下，拷过去会自动解压</span></span><br><span class="line"><span class="keyword">ADD</span><span class="bash"> testapp-0.0.1-SNAPSHOT.jar /app.jar</span></span><br><span class="line"><span class="comment"># 配置容器，使其可执行化。配合CMD可省去"application"，只使用参数。</span></span><br><span class="line"><span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">"java"</span>,<span class="string">"-Djava.security.edg=file:/dev/./urandom"</span>,<span class="string">"-jar"</span>,<span class="string">"/app.jar"</span>]</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>#</strong>： 为 Dockerfile 中的注释。</p>
+</blockquote>
+<h4 id="1-2-3-Dockerfile详解"><a href="#1-2-3-Dockerfile详解" class="headerlink" title="1.2.3 Dockerfile详解"></a>1.2.3 Dockerfile详解</h4><ul>
+<li><strong>FROM</strong>：指定基础镜像，需要在哪个镜像建立。必须为第一个命令。</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line">　　<span class="keyword">FROM</span> &lt;image&gt;</span><br><span class="line">　　<span class="keyword">FROM</span> &lt;image&gt;:&lt;tag&gt;</span><br><span class="line">　　<span class="keyword">FROM</span> &lt;image&gt;@&lt;digest&gt;</span><br><span class="line"><span class="comment"># 示例</span></span><br><span class="line">   <span class="keyword">FROM</span> mysql：<span class="number">5.6</span></span><br><span class="line"><span class="comment"># 提示</span></span><br><span class="line">   tag或digest是可选的，如果不使用这两个值时，会使用latest版本的基础镜像</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>MAINTAINER</strong>：指定维护者信息。</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line">   <span class="keyword">MAINTAINER</span> &lt;name&gt;</span><br><span class="line"><span class="comment"># 示例</span></span><br><span class="line">   <span class="keyword">MAINTAINER</span> byFan</span><br><span class="line">   <span class="keyword">MAINTAINER</span> byfanx@<span class="number">163</span>.com</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>RUN</strong>：构建镜像时执行的命令。</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">RUN</span><span class="bash">用于在镜像容器中执行命令，其有以下两种命令执行方式：</span></span><br><span class="line"><span class="keyword">shell</span><span class="bash">执行</span></span><br><span class="line"><span class="comment"># 格式</span></span><br><span class="line">   <span class="keyword">RUN</span><span class="bash"> &lt;<span class="built_in">command</span>&gt;</span></span><br><span class="line"><span class="comment"># 示例</span></span><br><span class="line">   <span class="keyword">RUN</span><span class="bash"> apk update</span></span><br><span class="line">   </span><br><span class="line">exec执行</span><br><span class="line"><span class="comment"># 格式</span></span><br><span class="line">   <span class="keyword">RUN</span><span class="bash"> [<span class="string">"executable"</span>, <span class="string">"param1"</span>, <span class="string">"param2"</span>]</span></span><br><span class="line"><span class="comment"># 示例</span></span><br><span class="line">   <span class="keyword">RUN</span><span class="bash"> [<span class="string">"/bin/bash"</span>,<span class="string">"-c"</span>,<span class="string">"echo hello"</span>]</span></span><br><span class="line"><span class="comment"># 提示</span></span><br><span class="line">   <span class="keyword">RUN</span><span class="bash">指令创建的中间镜像会被缓存，并会在下次构建中使用。如果不想使用这些缓存镜像，可以在构建时指定--no-cache参数，如：docker build --no-cache</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>WORKDIR</strong>：指定当前工作目录，相当于 <code>cd</code>。</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line">   <span class="keyword">WORKDIR</span><span class="bash"> /path/to/workdir</span></span><br><span class="line"><span class="comment"># 示例</span></span><br><span class="line">   <span class="keyword">WORKDIR</span><span class="bash"> /a  (这时工作目录为/a)</span></span><br><span class="line">   <span class="keyword">WORKDIR</span><span class="bash"> b  (这时工作目录为/a/b)</span></span><br><span class="line">   <span class="keyword">WORKDIR</span><span class="bash"> c  (这时工作目录为/a/b/c)</span></span><br><span class="line"><span class="comment"># 提示</span></span><br><span class="line">   通过<span class="keyword">WORKDIR</span><span class="bash">设置工作目录后，Dockerfile中其后的命令RUN、CMD、ENTRYPOINT、ADD、COPY等命令都会在该目录下执行。在使用docker run运行容器时，可以通过-w参数覆盖构建时所设置的工作目录。</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>EXPOSE</strong>：指定容器要打开的端口。</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line">   <span class="keyword">EXPOSE</span> &lt;port&gt; [&lt;port&gt;...]</span><br><span class="line"><span class="comment"># 示例</span></span><br><span class="line">   <span class="keyword">EXPOSE</span> <span class="number">80</span> <span class="number">443</span></span><br><span class="line">   <span class="keyword">EXPOSE</span> <span class="number">11211</span>/tcp</span><br><span class="line"><span class="comment"># 提示</span></span><br><span class="line">   <span class="keyword">EXPOSE</span>并不会让容器的端口访问到主机。要使其可访问，需要在docker <span class="keyword">run</span><span class="bash">运行容器时通过-p来发布这些端口，或通过-P参数来发布EXPOSE导出的所有端口</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>ENV</strong>：定义环境变量</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line">   <span class="keyword">ENV</span> &lt;key&gt; &lt;value&gt;    <span class="comment"># 会被后续 RUN 指令使用，并在容器运行时保持。&lt;key&gt;之后的所有内容均会被视为其&lt;value&gt;的组成部分，因此，一次只能设置一个变量</span></span><br><span class="line">   <span class="keyword">ENV</span> &lt;key&gt;=&lt;value&gt; ...   <span class="comment"># 可以设置多个变量，每个变量为一个"&lt;key&gt;=&lt;value&gt;"的键值对，如果&lt;key&gt;中包含空格，可以使用\来进行转义，也可以通过""来进行标示；另外，反斜线也可以用于续行</span></span><br><span class="line"><span class="comment"># 示例</span></span><br><span class="line">   <span class="keyword">ENV</span> myName byFan</span><br><span class="line">   <span class="keyword">ENV</span> mySex Man</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>ADD</strong>：将本地文件添加到容器中，tar类型文件会自动解压(网络压缩资源不会被解压)，可以访问网络资源，类似wget。</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line">   <span class="keyword">ADD</span><span class="bash"> &lt;src&gt; &lt;dest&gt;</span></span><br><span class="line">   <span class="keyword">ADD</span><span class="bash"> [<span class="string">"&lt;src&gt;"</span>,<span class="string">"&lt;dest&gt;"</span>]  <span class="comment"># 用于支持包含空格的路径</span></span></span><br><span class="line"><span class="comment"># 示例</span></span><br><span class="line">   <span class="keyword">ADD</span><span class="bash"> hom* /mydir/         <span class="comment"># 添加所有以"hom"开头的文件</span></span></span><br><span class="line">    <span class="keyword">ADD</span><span class="bash"> hom?.txt /mydir/    <span class="comment"># ? 替代一个单字符,例如："home.txt"</span></span></span><br><span class="line">    <span class="keyword">ADD</span><span class="bash"> <span class="built_in">test</span> relativeDir/   <span class="comment"># 添加 "test" 到 `WORKDIR`/relativeDir/</span></span></span><br><span class="line">    <span class="keyword">ADD</span><span class="bash"> <span class="built_in">test</span> /absoluteDir/  <span class="comment"># 添加 "test" 到 /absoluteDir/</span></span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>COPY</strong>：复制本地主机的 （为 Dockerfile 所在目录的相对路径）到容器中的。功能类似ADD，但是是不会自动解压文件，也不能访问网络资源。</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line">   <span class="keyword">COPY</span><span class="bash"> &lt;src&gt; &lt;dest&gt;</span></span><br><span class="line">   <span class="keyword">COPY</span><span class="bash"> [<span class="string">"&lt;src&gt;"</span>,<span class="string">"&lt;dest&gt;"</span>]  <span class="comment"># 用于支持包含空格的路径</span></span></span><br><span class="line"><span class="comment"># 示例</span></span><br><span class="line">   <span class="keyword">COPY</span><span class="bash"> test.txt /tmp</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>VOLUME</strong>：挂载目录，创建一个可以从本地主机或其他容器挂载的挂载点，一般用来存放数据库和需要保持的数据等。</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line">   <span class="keyword">VOLUME</span><span class="bash"> [<span class="string">"/path/to/dir"</span>]</span></span><br><span class="line"><span class="comment"># 示例</span></span><br><span class="line">   <span class="keyword">VOLUME</span><span class="bash"> [<span class="string">"/data"</span>]</span></span><br><span class="line">   <span class="keyword">VOLUME</span><span class="bash"> [<span class="string">"/var/www"</span>, <span class="string">"/var/log/apache2"</span>, <span class="string">"/etc/apache2"</span></span></span><br><span class="line"><span class="comment"># 提示</span></span><br><span class="line">   一个卷可以存在于一个或多个容器的指定目录，该目录可以绕过联合文件系统，并具有以下功能：</span><br><span class="line">   (<span class="number">1</span>) 卷可以容器间共享和重用</span><br><span class="line">   (<span class="number">2</span>) 容器并不一定要和其它容器共享卷</span><br><span class="line">   (<span class="number">3</span>) 修改卷后会立即生效</span><br><span class="line">   (<span class="number">4</span>) 对卷的修改不会对镜像产生影响</span><br><span class="line">   (<span class="number">5</span>) 卷会一直存在，直到没有任何容器在使用它</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>USER</strong>：指定运行容器时的用户名或 UID，后续的 RUN 也会使用指定用户。使用USER指定用户时，可以使用用户名、UID或GID，或是两者的组合。当服务不需要管理员权限时，可以通过该命令指定运行用户。并且可以在之前创建所需要的用户。</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line">   <span class="keyword">USER</span> <span class="keyword">user</span></span><br><span class="line">　　<span class="keyword">USER</span> <span class="keyword">user</span>:group</span><br><span class="line">　　<span class="keyword">USER</span> uid</span><br><span class="line">　　<span class="keyword">USER</span> uid:gid</span><br><span class="line">　　<span class="keyword">USER</span> <span class="keyword">user</span>:gid</span><br><span class="line">　　<span class="keyword">USER</span> uid:group</span><br><span class="line"><span class="comment"># 示例</span></span><br><span class="line">   <span class="keyword">USER</span> byfan</span><br><span class="line"><span class="comment"># 提示</span></span><br><span class="line">   使用<span class="keyword">USER</span>指定用户后，Dockerfile中其后的命令<span class="keyword">RUN</span><span class="bash">、CMD、ENTRYPOINT都将使用该用户。镜像构建完成后，通过docker run运行容器时，可以通过-u参数来覆盖所指定的用户。</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>ENTRYPOINT</strong>：配置容器，使其可执行化。配合CMD可省去”application”，只使用参数。</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line">   <span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">"executable"</span>, <span class="string">"param1"</span>, <span class="string">"param2"</span>]   <span class="comment"># (可执行文件, 优先)</span></span></span><br><span class="line">    <span class="keyword">ENTRYPOINT</span><span class="bash"> <span class="built_in">command</span> param1 param2   <span class="comment"># (shell内部命令)</span></span></span><br><span class="line"><span class="comment"># 示例</span></span><br><span class="line">   <span class="keyword">FROM</span> ubuntu</span><br><span class="line">   <span class="keyword">ENTRYPOINT</span><span class="bash"> [<span class="string">"top"</span>,<span class="string">"-b"</span>]</span></span><br><span class="line">   <span class="keyword">CMD</span><span class="bash"> [<span class="string">"-c"</span>]</span></span><br><span class="line"><span class="comment"># 提示</span></span><br><span class="line">   <span class="keyword">ENTRYPOINT</span><span class="bash">与CMD非常类似，不同的是通过docker run执行的命令不会覆盖ENTRYPOINT，而docker run命令中指定的任何参数，都会被当做参数再次传递给ENTRYPOINT。Dockerfile中只允许有一个ENTRYPOINT命令，多指定时会覆盖前面的设置，而只执行最后的ENTRYPOINT指令。</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>CMD</strong>：构建容器后调用，也就是在容器启动时才进行调用。</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line">   <span class="keyword">CMD</span><span class="bash"> [<span class="string">"executable"</span>,<span class="string">"param1"</span>,<span class="string">"param2"</span>]   <span class="comment"># (执行可执行文件，优先)</span></span></span><br><span class="line">    <span class="keyword">CMD</span><span class="bash"> [<span class="string">"param1"</span>,<span class="string">"param2"</span>]   <span class="comment"># (设置了ENTRYPOINT，则直接调用ENTRYPOINT添加参数)</span></span></span><br><span class="line">    <span class="keyword">CMD</span><span class="bash"> <span class="built_in">command</span> param1 param2   <span class="comment"># (执行shell内部命令)</span></span></span><br><span class="line"><span class="comment"># 示例</span></span><br><span class="line">   <span class="keyword">CMD</span><span class="bash"> <span class="built_in">echo</span> <span class="string">"This is a test."</span> | wc -</span></span><br><span class="line">   <span class="keyword">CMD</span><span class="bash"> [<span class="string">"/usr/bin/wc"</span>,<span class="string">"--help"</span>]</span></span><br><span class="line"><span class="comment"># 提示</span></span><br><span class="line">   <span class="keyword">CMD</span><span class="bash">不同于RUN，CMD用于指定在容器启动时所要执行的命令，而RUN用于指定镜像构建时所要执行的命令。每个 Dockerfile 只能有一条 CMD 命令。如果指定了多条命令，只有最后一条会被执行。如果用户启动容器时候指定了运行的命令，则会覆盖掉 CMD 指定的命令。</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>ENTRYPOINT 和 CMD 的区别：ENTRYPOINT 指定了该镜像启动时的入口，CMD 则指定了容器启动时的命令，当两者共用时，完整的启动命令像是 ENTRYPOINT + CMD 这样。使用 ENTRYPOINT 的好处是在我们启动镜像就像是启动了一个可执行程序，在 CMD 上仅需要指定参数；另外在我们需要自定义 CMD 时不容易出错。</p>
+<p>可以使用以下命令覆盖默认的参数，方便调试 Dockerfile 中的 bug：</p>
+<p><code>docker run -it --entrypoint=/bin/dockerfile feiyu/entrypoint:1</code></p>
+</blockquote>
+<ul>
+<li><strong>ONBUILD</strong>：用于设置镜像触发器。</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line">   <span class="keyword">ONBUILD</span> [INSTRUCTION]</span><br><span class="line"><span class="comment"># 示例</span></span><br><span class="line">   <span class="keyword">ONBUILD</span> <span class="keyword">ADD</span><span class="bash"> . /app/src</span></span><br><span class="line">　　<span class="keyword">ONBUILD</span> <span class="keyword">RUN</span><span class="bash"> /usr/<span class="built_in">local</span>/bin/python-build --dir /app/src</span></span><br><span class="line"><span class="comment"># 提示</span></span><br><span class="line">   在构建本镜像时不生效，在基于此镜像构建镜像时生效。</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>LABLE</strong>：用于为镜像添加元数据。</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line">   <span class="keyword">LABEL</span><span class="bash"> &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; &lt;key&gt;=&lt;value&gt; ...</span></span><br><span class="line"><span class="comment"># 示例</span></span><br><span class="line">   <span class="keyword">LABEL</span><span class="bash"> version=<span class="string">"1.0"</span> description=<span class="string">"这是一个Web服务器"</span> by=<span class="string">"IT笔录"</span></span></span><br><span class="line"><span class="comment"># 提示</span></span><br><span class="line">   使用<span class="keyword">LABEL</span><span class="bash">指定元数据时，一条LABEL指定可以指定一或多条元数据，指定多条元数据时不同元数据之间通过空格分隔。推荐将所有的元数据通过一条LABEL指令指定，以免生成过多的中间镜像。</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>ARG</strong>：用于指定传递给构建运行时的变量。</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式</span></span><br><span class="line">   <span class="keyword">ARG</span> &lt;name&gt;[=&lt;default value&gt;]</span><br><span class="line"><span class="comment"># 示例</span></span><br><span class="line">   <span class="keyword">ARG</span> site</span><br><span class="line">   <span class="keyword">ARG</span> build_user=www</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-3-创建镜像"><a href="#1-3-创建镜像" class="headerlink" title="1.3 创建镜像"></a>1.3 创建镜像</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将准备好的项目jar包和Dockerfile文件上传到你的Linux服务器的同一目录下。然后执行下面命令来创建一个镜像。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t testapp:1.0 .</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>-t</strong>：指定镜像名字和TAG。</p>
+<p><strong>注意</strong>：这里最后面有一个 ’   <strong>.</strong>   ‘，代表的是Dockerfile文件所在的路径(当前目录)，也可以替换为一个具体的Dockerfile的路径。</p>
+</blockquote>
+<p>然后就可以看到下面的执行过程。</p>
+<p><img src="image-20200421115234434.png" alt=""></p>
+<p>接下来通过<code>docker images</code>命令进行查看，就可以看到我们刚刚创建的镜像。</p>
+<p><img src="image-20200421115653201.png" alt=""></p>
+<h3 id="1-4-运行项目"><a href="#1-4-运行项目" class="headerlink" title="1.4 运行项目"></a>1.4 运行项目</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;运行项目就是通过刚刚我们制作的镜像来创建一个容器，然后进行运行，运行成功返回容器的id。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8080:8080  --name testApp testapp:1.0</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>-d：</strong>标识是让docker容器在后台运行。</p>
+<p><strong>-p：</strong>标识端口映射，前面是主机对外服务端口，后面是映射到docker容器的端口。</p>
+<p><strong>–name：</strong>定义一个容器的名字，方便后面执行操作。如果没有指定name，那么deamon会自动生成一个随机数字符串当作UUID。</p>
+<p>最后一个是你创建容器使用的镜像名称和TAG。</p>
+</blockquote>
+<p>然后就可以运行<code>docker ps -a</code>命令进行查看运行的容器了。</p>
+<h2 id="2-部署Nginx"><a href="#2-部署Nginx" class="headerlink" title="2. 部署Nginx"></a>2. 部署Nginx</h2><h3 id="2-1-拉取Nginx镜像"><a href="#2-1-拉取Nginx镜像" class="headerlink" title="2.1 拉取Nginx镜像"></a>2.1 拉取Nginx镜像</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;拉取当前最新的Nginx的镜像。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull nginx</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-2-运行Nginx"><a href="#2-2-运行Nginx" class="headerlink" title="2.2 运行Nginx"></a>2.2 运行Nginx</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;根据刚刚拉取下来的nginx镜像，运行一个容器。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 80:80 --name nginxV1 nginx</span><br></pre></td></tr></table></figure>
+
+<p>这样nginx服务器就运行完成了，就可以进行访问了。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为要对容器内部的配置文件进行编辑，而容器内部是没有<code>vim</code>编辑器的，可以下载一个，但是每次配置都学要进入到容器内部操作。显得太麻烦。也可以使用目录挂载的形式。首先创建本地目录，用于存放Nginx容器的相关文件信息。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /home/nginx/html /home/nginx/logs /home/nginx/conf</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>-p</strong>：确保目录名称存在，不存在的就建一个。</p>
+</blockquote>
+<p>其中：</p>
+<ul>
+<li>html：目录将映射为nginx容器配置的虚拟目录。</li>
+<li>logs：目录将映射为nginx容器目录的日志内容。</li>
+<li>conf：目录里的配置文件将映射为nginx容器的配置文件。</li>
+</ul>
+<p>将nginxV1容器内nginx默认的配置文件拷贝到当前目录下的conf目录。也可以通过容器id进行复制，容器id可以通过<code>docker ps -a</code>命令进行查看。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp nginxV1:/etc/nginx/nginx.conf /home/nginx/conf/</span><br></pre></td></tr></table></figure>
+
+<p>然后进行部署:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 80:80 --name nginxV2 -v /home/nginx/html:/usr/share/nginx/html -v /home/nginx/logs:/var/log/nginx -v /home/nginx/conf/nginx.conf:/etc/nginx/nginx.conf nginx</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>-v /home/nginx/www:/usr/share/nginx/html</strong>：将我们自己创建的 www 目录挂载到容器的 /usr/share/nginx/html。</p>
+<p><strong>-v /home/nginx/conf/nginx.conf:/etc/nginx/nginx.conf</strong>：将我们自己创建的 nginx.conf 挂载到容器的 /etc/nginx/nginx.conf。</p>
+<p><strong>-v /home/nginx/logs:/var/log/nginx</strong>：将我们自己创建的 logs 挂载到容器的 /var/log/nginx。</p>
+</blockquote>
+<p>启动成功之后，就可以在本地配置我们的nginx,conf了，配置好之后重新启动容器即可生效。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart nginx</span><br></pre></td></tr></table></figure>
+
+<p>在nginx原来的配置文件中，它的<code>server</code>块没有直接写在nginx.conf里，而是通过<code>include /etc/nginx/conf.d/*.conf;</code>引入的。在容器的<code>/etc/nginx/conf.d/</code>目录下，有一个<code>default.conf</code>文件，进入容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it nginxV2 /bin/bash</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>上述操作也可以将容器名替换成容器id，退出容器时执行<strong>exit</strong>就行。</p>
+</blockquote>
+<p>查看<code>default.conf</code>文件内容如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  localhost;</span><br><span class="line"></span><br><span class="line">    #charset koi8-r;</span><br><span class="line">    #access_log  /var/log/nginx/host.access.log  main;</span><br><span class="line"></span><br><span class="line">    location / &#123;</span><br><span class="line">        root   /usr/share/nginx/html;</span><br><span class="line">        index  index.html index.htm;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    #error_page  404              /404.html;</span><br><span class="line"></span><br><span class="line">    # redirect server error pages to the static page /50x.html</span><br><span class="line">    #</span><br><span class="line">    error_page   500 502 503 504  /50x.html;</span><br><span class="line">    location = /50x.html &#123;</span><br><span class="line">        root   /usr/share/nginx/html;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    # proxy the PHP scripts to Apache listening on 127.0.0.1:80</span><br><span class="line">    #</span><br><span class="line">    #location ~ \.php$ &#123;</span><br><span class="line">    #    proxy_pass   http://127.0.0.1;</span><br><span class="line">    #&#125;</span><br><span class="line"></span><br><span class="line">    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000</span><br><span class="line">    #</span><br><span class="line">    #location ~ \.php$ &#123;</span><br><span class="line">    #    root           html;</span><br><span class="line">    #    fastcgi_pass   127.0.0.1:9000;</span><br><span class="line">    #    fastcgi_index  index.php;</span><br><span class="line">    #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;</span><br><span class="line">    #    include        fastcgi_params;</span><br><span class="line">    #&#125;</span><br><span class="line"></span><br><span class="line">    # deny access to .htaccess files, if Apache's document root</span><br><span class="line">    # concurs with nginx's one</span><br><span class="line">    #</span><br><span class="line">    #location ~ /\.ht &#123;</span><br><span class="line">    #    deny  all;</span><br><span class="line">    #&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以看到这里就是一个<code>server</code>块。如果不使用想外部引入，那么就可以把上面nginx.conf文件中的<code>include</code>那一句给去掉，然后直接在nginx.conf里进行<code>server</code>块的配置。每次重新配置完nginx.conf文件之后，都需要重启容器。</p>
+<h3 id="2-4-部署SSL证书"><a href="#2-4-部署SSL证书" class="headerlink" title="2.4 部署SSL证书"></a>2.4 部署SSL证书</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先获取SSL证书，<a href="https://www.aliyun.com/product/cas?spm=5176.12825654.eofdhaal5.19.3dbd2c4ayD5k2Q&aly_as=nsmL9Pxx" target="_blank" rel="noopener">阿里云免费证书</a>是<em>Symantec</em>颁发的，下载的压缩包里面有两个文件，一个是<code>.pem</code>文件，一个是<code>.key</code>文件。<a href="https://console.cloud.tencent.com/ssl/apply" target="_blank" rel="noopener">腾讯云的免费证书</a>是<em>TrustAsia</em>颁发的，下载的压缩包里面有两个文件，一个是<code>.crt</code>文件，一个是<code>.key</code>文件。二者只是证书颁发商不同，实际都是可以满足需求的。这里选用腾讯云申请的证书。因为我们之前启动容器时只映射了80端口，而<code>https</code>默认的时443端口，所以我们现在重新启动一个容器。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 80:80 -p 443:443 --name nginxV3 -v /home/nginx/html:/usr/share/nginx/html -v /home/nginx/logs:/var/log/nginx -v /home/nginx/conf/nginx.conf:/etc/nginx/nginx.conf nginx</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先将下载到的两个证书文件上传到Linux服务器，然后在nginx配置文件目录下创建<code>cert</code>目录，将证书文件放到该目录下。然后将存放证书文件的目录复制到容器中存放nginx配置文件的目录下。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp /home/nginx/conf/cert nginxV3:/etc/nginx/</span><br></pre></td></tr></table></figure>
+
+<p>然后修改配置文件。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line"></span><br><span class="line">        listen 443 ssl;  #新版本启用SSL功能。</span><br><span class="line">    	# ssl on;   旧版本设置为on开启ssl功能</span><br><span class="line">        server_name example.com;  # 替换成你的域名</span><br><span class="line">        ssl_certificate cert/example.com.crt;   #替换成你的pem/crt文件名称</span><br><span class="line">        ssl_certificate_key cert/example.com.key;   #替换成你的key文件名称</span><br><span class="line">        ssl_session_timeout 5m;</span><br><span class="line">        ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;  #使用此加密套件。</span><br><span class="line">        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;   #使用该协议进行配置。</span><br><span class="line">        ssl_prefer_server_ciphers on;  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        # listen       80;</span><br><span class="line">        # server_name  localhost;</span><br><span class="line"></span><br><span class="line">        #charset koi8-r;</span><br><span class="line"></span><br><span class="line">        #access_log  logs/host.access.log  main;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>对于用户不知道网站可以进行 https 访问的情况下，可以使用全站加密，让服务器自动把 <code>http</code> 的请求重定向到 <code>https</code>。在<code>nginx.conf</code>文件中添加以下配置：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  example.com;#替换成你的域名</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            # 配置请求转发，将http的请求转发到https上面</span><br><span class="line">            rewrite ^(.*)$ https://example.com/$1 permanent;#替换成你的域名</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后重启容器即可。</p>
+<h2 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本篇主要记录了一下如何将自己的项目制作成Docker镜像，然后能在docker运行。以及Nginx的相关部署。关于docker还有很多东西要学，这里就对自己学的一点点东西做一个笔记，以方便下次使用。其余的等啥时候用到了在进行学习，这次就到这吧。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag"><i class="fa fa-tag"></i> 服务器</a>
+          
+            <a href="/tags/Docker/" rel="tag"><i class="fa fa-tag"></i> Docker</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/06/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F-%E6%95%B0%E6%8D%AE%E6%93%8D%E4%BD%9C/" rel="next" title="微信小程序-数据操作">
+                <i class="fa fa-chevron-left"></i> 微信小程序-数据操作
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/shenshi.jpg"
+                alt="范秉洋" />
+            
+              <p class="site-author-name" itemprop="name">范秉洋</p>
+              <p class="site-description motion-element" itemprop="description">这个人很懒，什么也没有留下...</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker部署应用"><span class="nav-text">Docker部署应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-制作镜像"><span class="nav-text">1. 制作镜像</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-准备项目"><span class="nav-text">1.1 准备项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-编写Dockerfile"><span class="nav-text">1.2 编写Dockerfile</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-关于Dockerfile"><span class="nav-text">1.2.1 关于Dockerfile</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-2-演示文件"><span class="nav-text">1.2.2 演示文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-3-Dockerfile详解"><span class="nav-text">1.2.3 Dockerfile详解</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-创建镜像"><span class="nav-text">1.3 创建镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-运行项目"><span class="nav-text">1.4 运行项目</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-部署Nginx"><span class="nav-text">2. 部署Nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-拉取Nginx镜像"><span class="nav-text">2.1 拉取Nginx镜像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-运行Nginx"><span class="nav-text">2.2 运行Nginx</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-部署SSL证书"><span class="nav-text">2.4 部署SSL证书</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-总结"><span class="nav-text">3. 总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">范秉洋</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
