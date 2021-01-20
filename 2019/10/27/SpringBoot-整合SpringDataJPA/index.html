@@ -92,7 +92,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;27&#x2F;SpringBoot-%E6%95%B4%E5%90%88SpringDataJPA&#x2F;%E6%B5%8B%E8%AF%95%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;27&#x2F;SpringBoot-%E6%95%B4%E5%90%88SpringDataJPA&#x2F;%E8%A7%84%E5%88%99%E6%9F%A5%E8%AF%A2.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;27&#x2F;SpringBoot-%E6%95%B4%E5%90%88SpringDataJPA&#x2F;%E6%B5%8B%E8%AF%95%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2.png">
-<meta property="og:updated_time" content="2020-02-27T08:41:36.577Z">
+<meta property="og:updated_time" content="2020-06-09T14:53:46.747Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;10&#x2F;27&#x2F;SpringBoot-%E6%95%B4%E5%90%88SpringDataJPA&#x2F;%E6%B5%8B%E8%AF%95%E6%9F%A5%E8%AF%A2%E6%89%80%E6%9C%89.png">
 
@@ -554,9 +554,11 @@
 <h4 id="3-3-5-自定义语句"><a href="#3-3-5-自定义语句" class="headerlink" title="3.3.5 自定义语句"></a>3.3.5 自定义语句</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果想对SQL语句进行细致优化，我们还可以使用<code>@Query</code>注解自定义SQL语句。在<code>StudentJpa</code>接口中添加以下方法，并且自定义SQL语句。<code>nativeQuery</code>这个设置为true表明使用原生SQL，否则默认启用HQL。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query</span>(value = <span class="string">"select * from stu where age&gt;=?"</span>,nativeQuery = <span class="keyword">true</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> List&lt;Student&gt; <span class="title">SelectByAge</span><span class="params">(Integer age)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Transactional</span></span><br><span class="line"><span class="meta">@Modifying</span></span><br><span class="line"><span class="meta">@Query</span>(value = <span class="string">"delete from stu where name=?"</span>,nativeQuery = <span class="keyword">true</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deleteByName</span><span class="params">(String name)</span></span>;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p><code>@Query</code>只能用于查询，如果想用该注解实现其他操作类型就需要配合<code>@Modifying</code>注解一起使用，但是只是这么写的话会抛出一个<code>TranscationRequiredException</code>异常，意思就是当前操作需要开启事务，所以需要在这个前加上<code>@Transactional</code>注解开启自动化管理事务。</p>
+<p>在@Query 注解里设置value ，?1、?2 分别代表第一第二个参数。<code>@Query</code>只能用于查询，如果想用该注解实现其他操作类型就需要配合<code>@Modifying</code>注解一起使用，但是只是这么写的话会抛出一个<code>TranscationRequiredException</code>异常，意思就是当前操作需要开启事务，所以需要在这个前加上<code>@Transactional</code>注解开启自动化管理事务。</p>
 </blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如同<code>@Query</code>注解一样，增删改查都可以使用原生SQL对数据库进行操作，所需要的注解分别是<code>@Insert</code>，<code>@Delete</code>，<code>@Update</code>，<code>@Select</code>。可以使用对应操作的注解，也可以使用<code>@Quey</code>加上另外两个注解配合使用。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如同<code>@Query</code>注解一样，增删改查都可以使用原生SQL对数据库进行操作，所需要的注解分别是<code>@Insert</code>，<code>@Delete</code>，<code>@Update</code>，<code>@Select</code>。他们的在写SQL语句的时候取值可以使用<code>#{}</code>进行取值，内容下形参变量名。这几个属于<strong>Mybatis</strong>的注解，所以在使用的时候需要引入以下依赖。可以使用对应操作的注解，也可以使用<code>@Quey</code>加上另外两个注解配合使用。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- mybatis依赖坐标 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
 <h4 id="3-3-6-自定义的BaseRepository"><a href="#3-3-6-自定义的BaseRepository" class="headerlink" title="3.3.6 自定义的BaseRepository"></a>3.3.6 自定义的BaseRepository</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正常情况下一个项目肯定不可能就继承一个<code>JpaRepository</code>接口，再使用其他模块时还需要多个接口继承，如果每一个业务数据接口都继承几个相同的接口的话也不是不可以，但是对于系统设计和代码复用性来说不是个好的选择，这是我们可与创建一个我们自定的基础Repository。新建一个<code>base</code>包，在该包下创建一个<code>BaseRepositury</code>接口，并继承<code>JpaRepository</code>，日后使用其他模块时，在该接口进行添加即可。以后再创建Jpa接口只需要继承<code>BaseRepository</code>就行了，它有了<code>JpaRepository</code>所有实现方法。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo.base;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.data.jpa.repository.JpaRepository;</span><br><span class="line"><span class="keyword">import</span> org.springframework.data.repository.NoRepositoryBean;</span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span>: FBY</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span>: 2019/10/28 21:33</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Version</span> 1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@NoRepositoryBean</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">BaseRepository</span>&lt;<span class="title">T</span>,<span class="title">PK</span> <span class="keyword">extends</span> <span class="title">Serializable</span>&gt; <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">T</span>,<span class="title">PK</span>&gt; </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
@@ -703,7 +705,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -714,7 +716,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -725,7 +727,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -785,7 +787,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
