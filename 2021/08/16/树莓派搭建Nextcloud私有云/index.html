@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="服务器,树莓派,Linux," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="范秉洋的博客" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;距离树莓派入手时间已经半年多，由于时间问题，也一直没有部署过像样的东西，刚好最近入手了一块硬盘，所以就用树莓派加移动硬盘来搭建一个个人的私有云吧。这里以树莓派raspbain 10 buster系统为例，安装Nextcloud私有云。">
+<meta name="keywords" content="服务器,树莓派,Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树莓派搭建Nextcloud私有云">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2021&#x2F;08&#x2F;16&#x2F;%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BANextcloud%E7%A7%81%E6%9C%89%E4%BA%91&#x2F;index.html">
+<meta property="og:site_name" content="范秉洋的博客">
+<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;距离树莓派入手时间已经半年多，由于时间问题，也一直没有部署过像样的东西，刚好最近入手了一块硬盘，所以就用树莓派加移动硬盘来搭建一个个人的私有云吧。这里以树莓派raspbain 10 buster系统为例，安装Nextcloud私有云。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2021&#x2F;08&#x2F;16&#x2F;%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BANextcloud%E7%A7%81%E6%9C%89%E4%BA%91&#x2F;%E6%9F%A5%E7%9C%8B%E7%89%88%E6%9C%AC.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2021&#x2F;08&#x2F;16&#x2F;%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BANextcloud%E7%A7%81%E6%9C%89%E4%BA%91&#x2F;%E4%B8%8B%E8%BD%BDnextcloud.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2021&#x2F;08&#x2F;16&#x2F;%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BANextcloud%E7%A7%81%E6%9C%89%E4%BA%91&#x2F;%E5%88%9D%E5%A7%8B%E5%8C%96nextcloud.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2021&#x2F;08&#x2F;16&#x2F;%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BANextcloud%E7%A7%81%E6%9C%89%E4%BA%91&#x2F;%E4%B8%8D%E4%BF%A1%E4%BB%BB%E5%9F%9F%E5%90%8D%E8%AE%BF%E9%97%AE.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2021&#x2F;08&#x2F;16&#x2F;%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BANextcloud%E7%A7%81%E6%9C%89%E4%BA%91&#x2F;%E9%A6%96%E9%A1%B5.png">
+<meta property="og:updated_time" content="2021-08-17T14:09:10.202Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2021&#x2F;08&#x2F;16&#x2F;%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BANextcloud%E7%A7%81%E6%9C%89%E4%BA%91&#x2F;%E6%9F%A5%E7%9C%8B%E7%89%88%E6%9C%AC.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/08/16/树莓派搭建Nextcloud私有云/"/>
+
+
+
+
+
+  <title>树莓派搭建Nextcloud私有云 | 范秉洋的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">范秉洋的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">It's not hard to give up <br> but it's cool to stick with it</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/08/16/%E6%A0%91%E8%8E%93%E6%B4%BE%E6%90%AD%E5%BB%BANextcloud%E7%A7%81%E6%9C%89%E4%BA%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="范秉洋">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/shenshi.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="范秉洋的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">树莓派搭建Nextcloud私有云</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-16T16:04:17+08:00">
+                2021-08-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%A0%91%E8%8E%93%E6%B4%BE/" itemprop="url" rel="index">
+                    <span itemprop="name">树莓派</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;距离树莓派入手时间已经半年多，由于时间问题，也一直没有部署过像样的东西，刚好最近入手了一块硬盘，所以就用树莓派加移动硬盘来搭建一个个人的私有云吧。这里以树莓派raspbain 10 buster系统为例，安装Nextcloud私有云。</p>
+<a id="more"></a>
+
+<h1 id="1-树莓派换源"><a href="#1-树莓派换源" class="headerlink" title="1. 树莓派换源"></a>1. 树莓派换源</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于国内环境，软件的下载安装相对比较慢，所以更换安装源来提高下载速度，更换下载源后更新软件的速度相对比较慢，其中很快做其他的事情，自行怎么方便怎么来。</p>
+<h2 id="1-1-查看版本"><a href="#1-1-查看版本" class="headerlink" title="1.1 查看版本"></a>1.1 查看版本</h2><p>网上许多教程都不是基于最新的raspbain buster来进行更换的，这里需要注意一下，更换源之前先查看一下系统版本。</p>
+<p><img src="%E6%9F%A5%E7%9C%8B%E7%89%88%E6%9C%AC.png" alt=""></p>
+<h2 id="1-2-修改源"><a href="#1-2-修改源" class="headerlink" title="1.2 修改源"></a>1.2 修改源</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 备份并编辑source.listwenjian </span></span><br><span class="line">$ cp /etc/apt/sources.list /etc/apt/sources.back.list</span><br><span class="line">$ vim /etc/apt/sources.list</span><br><span class="line"><span class="comment"># 注释所有内容，添加以下内容</span></span><br><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ buster main non-free contrib</span><br><span class="line">deb-src http://mirrors.tuna.tsinghua.edu.cn/raspbian/raspbian/ buster main non-free contrib</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 备份并编辑raspi.list文件</span></span><br><span class="line">$ cp /etc/apt/sources.list.d/raspi.list /etc/apt/sources.list.d/raspi.back.list</span><br><span class="line">$ vim /etc/apt/sources.list.d/raspi.list</span><br><span class="line"><span class="comment"># 注释所有内容，替换如下内容</span></span><br><span class="line">deb http://mirrors.tuna.tsinghua.edu.cn/raspberrypi/ buster main</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-3-更新源和软件"><a href="#1-3-更新源和软件" class="headerlink" title="1.3 更新源和软件"></a>1.3 更新源和软件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get upgrade -y</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这个更新过程比较慢，建议这段时间可以到nextcloud官网中同时下载安装包，或进行其他不使用apt-get操作。</p>
+</blockquote>
+<h1 id="2-安装软件"><a href="#2-安装软件" class="headerlink" title="2. 安装软件"></a>2. 安装软件</h1><h2 id="2-1-安装apache"><a href="#2-1-安装apache" class="headerlink" title="2.1 安装apache"></a>2.1 安装apache</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.安装命令</span></span><br><span class="line">sudo apt-get install apache2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.启动apache2</span></span><br><span class="line">systemctl start apache2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.设置apache2开机自启</span></span><br><span class="line">systemctl <span class="built_in">enable</span> apache2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 附上其他命令</span></span><br><span class="line"><span class="comment"># 查看运行状态</span></span><br><span class="line">systemctl status apache2</span><br><span class="line"><span class="comment"># 重启</span></span><br><span class="line">systemctl restart apache2</span><br><span class="line"><span class="comment"># 停止</span></span><br><span class="line">systemctl stop apache2</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-2-安装php"><a href="#2-2-安装php" class="headerlink" title="2.2 安装php"></a>2.2 安装php</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.安装php</span></span><br><span class="line">sudo apt-get install php libapache2-mod-php -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.安装其他组件</span></span><br><span class="line">sudo apt-get -y install php-fpm php-cli php-json php-curl php-imap php-gd php-mysql php-xml php-zip php-intl php-imagick php-mbstring -y</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-3-安装mariadb"><a href="#2-3-安装mariadb" class="headerlink" title="2.3 安装mariadb"></a>2.3 安装mariadb</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.安装</span></span><br><span class="line">$ sudo apt-get install mariadb-server -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.开启远程登陆权限</span></span><br><span class="line"><span class="comment"># 2.1 切换目录</span></span><br><span class="line">$ <span class="built_in">cd</span> /etc/mysql/mariadb.conf.d</span><br><span class="line"><span class="comment"># 2.2 找到修改权限的文件</span></span><br><span class="line">$ grep -rn <span class="string">"skip-networking"</span> *</span><br><span class="line"><span class="comment"># 显示如下：在50-server.cnf文件的第26行</span></span><br><span class="line">50-server.cnf:26:<span class="comment"># Instead of skip-networking the default is now to listen only on</span></span><br><span class="line"><span class="comment"># 2.3 编辑文件，注释掉  bind-address = 127.0.0.1</span></span><br><span class="line">$ vim 50-server.cnf</span><br></pre></td></tr></table></figure>
+
+<p>接下来是修改数据库配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 直接回车 不需要输入密码</span></span><br><span class="line">$ mysql -uroot -p</span><br><span class="line"></span><br><span class="line"><span class="comment"># oc_admin可替换成自定义的用户名，password可替换成自定义的密码</span></span><br><span class="line">&gt; create database nextcloud;</span><br><span class="line">&gt; CREATE USER <span class="string">'oc_admin'</span>@<span class="string">'%'</span> IDENTIFIED BY <span class="string">'password'</span>;</span><br><span class="line">&gt; GRANT ALL PRIVILEGES ON *.* TO <span class="string">'oc_admin'</span>@<span class="string">'%'</span> WITH GRANT OPTION;</span><br><span class="line"></span><br><span class="line">&gt; flush privileges;</span><br><span class="line">&gt; CREATE USER <span class="string">'oc_admin'</span>@<span class="string">'localhost'</span> IDENTIFIED BY <span class="string">'password'</span>;</span><br><span class="line">&gt; GRANT ALL PRIVILEGES ON *.* TO <span class="string">'oc_admin'</span>@<span class="string">'localhost'</span> WITH GRANT OPTION;</span><br><span class="line">&gt; flush privileges;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-4-安装Nextcloud"><a href="#2-4-安装Nextcloud" class="headerlink" title="2.4 安装Nextcloud"></a>2.4 安装Nextcloud</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Nextcloud的安装包需要去官网进行下载，这里是<a href="https://nextcloud.com/install/#instructions-server" target="_blank" rel="noopener">下载地址</a>。需要下载<code>tar.bz2</code>包。</p>
+<p><img src="%E4%B8%8B%E8%BD%BDnextcloud.png" alt=""></p>
+<p>下载完成后，需要上传到树莓派的<code>/var/www/html/</code>目录下。然后执行下面命令。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.解压文件</span></span><br><span class="line">tar jxf nextcloud-21.0.0.tar.bz2</span><br><span class="line"><span class="comment"># 2.添加data目录和授权</span></span><br><span class="line">chown -R root:root nextcloud</span><br><span class="line"><span class="comment"># 3.进入nextcloud文件夹</span></span><br><span class="line"><span class="built_in">cd</span> nextcloud</span><br><span class="line"><span class="comment"># 4.创建数据文件夹</span></span><br><span class="line">mkdir data</span><br><span class="line"><span class="comment"># 5.添加权限和授权</span></span><br><span class="line">chown -R www-data:www-data data config apps</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-初始化Nextcloud"><a href="#3-初始化Nextcloud" class="headerlink" title="3. 初始化Nextcloud"></a>3. 初始化Nextcloud</h1><h2 id="3-1-初始化"><a href="#3-1-初始化" class="headerlink" title="3.1 初始化"></a>3.1 初始化</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;完成上面步骤，就可以进行初始化Nextcloud了，在电脑浏览器中输入地址：<code>树莓派ip:8080/nextcloud</code>。比如：<code>192.162.1.110:8080/nextcloud</code>。则可以打开nextcloud的登陆界面，选择用户名和密码，以及输入数据库用户名和密码，完成设置。如下：</p>
+<p><img src="%E5%88%9D%E5%A7%8B%E5%8C%96nextcloud.png" alt=""></p>
+<blockquote>
+<p>关于数据目录，这里先默认选择<code>/var/www/html/nextcloud/data</code>。至于使用挂载目录，后面会讲到。如果想在初始化时就更换为挂载目录，可直接查看<a href="#guazai">挂载外设</a>。</p>
+</blockquote>
+<p>如果你的初始化出现下面错误，说创建数据库用户失败。这是因为在第一次初始化nextcloud的时候会在<code>/var/www/html/nextcloud/config</code>中创建一个config.php文件，文件记录nextcloud的配置信息。如果是第一次初始化，config.php中记录的数据库用户名会变成起初连接数据库的用户名加1。这里只需要手动的把1删除，之后再重新进行初始化操作，便可完成。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'dbname'</span> =&gt; <span class="string">'nextcloud'</span>,</span><br><span class="line"><span class="string">'dbhost'</span> =&gt; <span class="string">'localhost:3306'</span>,</span><br><span class="line"><span class="string">'dbport'</span> =&gt; <span class="string">''</span>,</span><br><span class="line"><span class="string">'dbtavleprefix'</span> =&gt; <span class="string">'oc_'</span>,</span><br><span class="line"><span class="string">'mysql.utf8mb4'</span> =&gt; <span class="literal">true</span>,</span><br><span class="line"><span class="string">'dbuser'</span> =&gt; <span class="string">'oc_admin1'</span>,</span><br></pre></td></tr></table></figure>
+
+<p>如果登录出现不信任域名访问的错误，这是由于nextcloud的访问设置了白名单，所以在访问的时候需要添加白名单ip。编辑<code>config.php</code>文件，把要访问的ip或者域名添加进去。</p>
+<p><img src="%E4%B8%8D%E4%BF%A1%E4%BB%BB%E5%9F%9F%E5%90%8D%E8%AE%BF%E9%97%AE.png" alt=""></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ nano /var/www/html/nextcloud/config/config.php</span><br><span class="line"><span class="string">'trusted_domains'</span> =&gt; </span><br><span class="line">  array (</span><br><span class="line">    0 =&gt; <span class="string">'192.168.1.110:8080'</span>,</span><br><span class="line">    1 =&gt; <span class="string">'xxx.com'</span>,</span><br><span class="line">  ),</span><br></pre></td></tr></table></figure>
+
+<p>之后再进行访问，就出现登陆页面，通过设置的用户名和密码进行登录即可。首页如下。</p>
+<p><img src="%E9%A6%96%E9%A1%B5.png" alt=""></p>
+<h2 id="3-2-其他配置"><a href="#3-2-其他配置" class="headerlink" title="3.2 其他配置"></a>3.2 其他配置</h2><h3 id="3-2-1-文件上传大小限制"><a href="#3-2-1-文件上传大小限制" class="headerlink" title="3.2.1 文件上传大小限制"></a>3.2.1 文件上传大小限制</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.编辑php.ini文件</span></span><br><span class="line">$ vim /etc/php/7.3/apache2/php.ini</span><br><span class="line"><span class="comment"># 2.找到相关属性，按照下方修改</span></span><br><span class="line">upload_max_filesize = 16G</span><br><span class="line">post_max_size = 16G</span><br><span class="line">max_input_time 3600</span><br><span class="line">max_execution_time 3600</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.解决浏览器超时问题</span></span><br><span class="line">$ a2dismod reqtimeout</span><br><span class="line"><span class="comment"># 4.重启apache2</span></span><br><span class="line">$ systemctl restart apache2</span><br></pre></td></tr></table></figure>
+
+<p><span id="guazai"></span></p>
+<h3 id="3-2-2-挂载外设"><a href="#3-2-2-挂载外设" class="headerlink" title="3.2.2 挂载外设"></a>3.2.2 挂载外设</h3><p>挂载外设有两种情况，一是直接将硬盘挂载到数据目录<code>data</code>下面；二是将硬盘挂载到其他目录，把数据目录更换成挂载的目录。</p>
+<p><strong>1、硬盘挂载到数据目录<code>data</code>下面</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.备份data数据</span></span><br><span class="line">$ cp -r /var/www/html/nextcloud/data  /home/data</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.清空data目录</span></span><br><span class="line">$ rm -v /var/www/html/nextcloud/data/*</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.查看接入的硬盘</span></span><br><span class="line">$ fdisk -l</span><br><span class="line">Device     Start        End    Sectors  Size Type</span><br><span class="line">/dev/sda1     34      32767      32734   16M Microsoft reserved</span><br><span class="line">/dev/sda2  32768 3907026943 3906994176  1.8T Microsoft basic data</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4.查看硬盘的uuid和类型</span></span><br><span class="line">$ blkid /dev/sda2</span><br><span class="line">/dev/sda2: LABEL=<span class="string">"pi"</span> UUID=<span class="string">"DBK3-5F1C"</span> TYPE=<span class="string">"exfat"</span> PARTLABEL=<span class="string">"Basic data partition"</span> PARTUUID=<span class="string">"51ejn2c4-f99f-46e5-a7cn-ca4m4e8db6bc"</span></span><br><span class="line"> <span class="comment"># 5.挂载硬盘</span></span><br><span class="line">$ mount -t exfat /dev/sda2 /var/www/html/nextcloud/data</span><br><span class="line"><span class="comment"># 取消挂载  umount /dev/sda2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 6.开机自动挂载</span></span><br><span class="line"><span class="comment"># 6.1 编/etc/fstab文件 </span></span><br><span class="line">$ vim /etc/fstab</span><br><span class="line"><span class="comment"># 6.2 添加以下内容，保存退出即可</span></span><br><span class="line">UUID=<span class="string">"DBK3-5F1C"</span> /var/www/html/nextcloud/data exfat defaults,nofail 0 0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 7.之后再将data文件夹下所有文件复制回来</span></span><br><span class="line">$ cp -r  /home/data /var/www/html/nextcloud/data</span><br></pre></td></tr></table></figure>
+
+<p><strong>2、硬盘挂载到其他目录</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.创建挂载目录</span></span><br><span class="line">$ mkdir /home/nextcloud</span><br><span class="line"><span class="comment"># 添加授权</span></span><br><span class="line">chown -R root:root /home/nextcloud</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.挂载目录</span></span><br><span class="line">$ mount -t exfat /dev/sda2  /home/nextcloud</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.开机自动挂载</span></span><br><span class="line"><span class="comment"># 3.1 编/etc/fstab文件 </span></span><br><span class="line">$ vim /etc/fstab</span><br><span class="line"><span class="comment"># 3.2 添加以下内容，保存退出即可</span></span><br><span class="line">UUID=<span class="string">"DBK3-5F1C"</span> /var/www/html/nextcloud/data exfat defaults,nofail 0 0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4.将data文件夹复制到挂载目录</span></span><br><span class="line">$ cp -r /var/www/html/nextcloud/data/  /home/nextcloud/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5.修改nextcloud配置文件</span></span><br><span class="line">$ vim /var/www/html/nextcloud/config/config.php</span><br><span class="line"><span class="comment"># 将数据目录更改</span></span><br><span class="line"><span class="string">'datadirectory'</span> =&gt; <span class="string">'/home/nextcloud/data'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 6.重启apache2</span></span><br><span class="line">$ systemctl restart apache2</span><br><span class="line"></span><br><span class="line"><span class="comment"># 7.如果访问时出现目录没有权限的情况，编辑nextcloud配置文件</span></span><br><span class="line">$ vim /var/www/html/nextcloud/config/config.php</span><br><span class="line"><span class="comment"># 添加下面内容，保存重启apache2服务即可</span></span><br><span class="line"><span class="string">'check_data_directory_permissions'</span> =&gt; <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="4-性能优化"><a href="#4-性能优化" class="headerlink" title="4. 性能优化"></a>4. 性能优化</h1><h2 id="4-1-配置redis"><a href="#4-1-配置redis" class="headerlink" title="4.1 配置redis"></a>4.1 配置redis</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.安装redis</span></span><br><span class="line">$ sudo apt-get install redis-server</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.修改redis配置</span></span><br><span class="line">$ vim /etc/redis/redis.conf</span><br><span class="line"><span class="comment"># 修改daemonize 为 yes，取消以下内容的注释</span></span><br><span class="line"><span class="comment"># unixsocket /var/run/redis/redis-server.sock</span></span><br><span class="line"><span class="comment"># unixsocketperm 777</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.授权redis</span></span><br><span class="line">$ usermod -g www-data redis</span><br><span class="line">$ chown -R redis:www-data /var/run/redis</span><br><span class="line">$ redis-server /etc/redis.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4.重启redis服务</span></span><br><span class="line">$ service redis-server restart</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5.安装apcu</span></span><br><span class="line">$ sudo apt-get install php-apcu</span><br><span class="line">$ sudo apt-get install php-redis</span><br><span class="line"></span><br><span class="line"><span class="comment"># 6.修改nextcloud的配置文件</span></span><br><span class="line">$ vim /var/www/html/nextcloud/config/config.php</span><br><span class="line"><span class="comment"># 添加如下内容</span></span><br><span class="line"><span class="string">'memcache.local'</span> =&gt; <span class="string">'\OC\Memcache\APCu'</span>,</span><br><span class="line"><span class="string">'memcache.locking'</span> =&gt; <span class="string">'\OC\Memcache\Redis'</span>,</span><br><span class="line"><span class="string">'redis'</span> =&gt; </span><br><span class="line">array (</span><br><span class="line">    <span class="string">'host'</span> =&gt; <span class="string">'localhost'</span>,</span><br><span class="line">    <span class="string">'port'</span> =&gt; 6379,</span><br><span class="line">   ),</span><br><span class="line">   </span><br><span class="line"><span class="comment"># 7.重启apache2服务</span></span><br><span class="line">$ systemctl restart apache2</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-2-提高swap容量"><a href="#4-2-提高swap容量" class="headerlink" title="4.2 提高swap容量"></a>4.2 提高swap容量</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.修改配置文件</span></span><br><span class="line">$ vim /etc/dphys-swapfile</span><br><span class="line"><span class="comment"># 修改字段CONF_SWPSIZE 值，默认为100，这里修改为 2048</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.重启swap</span></span><br><span class="line">$ /etc/init.d/dphys-swapfile restart</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-3-提高sd卡速度"><a href="#4-3-提高sd卡速度" class="headerlink" title="4.3 提高sd卡速度"></a>4.3 提高sd卡速度</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.修改配置文件</span></span><br><span class="line">$ sudo vim /boot/config.txt</span><br><span class="line"><span class="comment"># 加入下面一行内容</span></span><br><span class="line">dtparam=sd_overclock=100</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.安装hdparm</span></span><br><span class="line">$ hdparm -tT /dev/mmcblk0</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以上就是用树莓派搭建Nextcloud私有云的具体步骤，用来当作笔记防止下次忘记，后续有什么新的功能在陆续添加。这次就到这了！</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/" rel="tag"><i class="fa fa-tag"></i> 服务器</a>
+          
+            <a href="/tags/%E6%A0%91%E8%8E%93%E6%B4%BE/" rel="tag"><i class="fa fa-tag"></i> 树莓派</a>
+          
+            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/01/04/%E6%A0%91%E8%8E%93%E6%B4%BE%E5%AE%89%E8%A3%85%E7%B3%BB%E7%BB%9F%E5%92%8C%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/" rel="next" title="树莓派安装系统和基础配置">
+                <i class="fa fa-chevron-left"></i> 树莓派安装系统和基础配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/shenshi.jpg"
+                alt="范秉洋" />
+            
+              <p class="site-author-name" itemprop="name">范秉洋</p>
+              <p class="site-description motion-element" itemprop="description">这个人很懒，什么也没有留下...</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-树莓派换源"><span class="nav-text">1. 树莓派换源</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-查看版本"><span class="nav-text">1.1 查看版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-修改源"><span class="nav-text">1.2 修改源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-更新源和软件"><span class="nav-text">1.3 更新源和软件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-安装软件"><span class="nav-text">2. 安装软件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-安装apache"><span class="nav-text">2.1 安装apache</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-安装php"><span class="nav-text">2.2 安装php</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-安装mariadb"><span class="nav-text">2.3 安装mariadb</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-安装Nextcloud"><span class="nav-text">2.4 安装Nextcloud</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-初始化Nextcloud"><span class="nav-text">3. 初始化Nextcloud</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-初始化"><span class="nav-text">3.1 初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-其他配置"><span class="nav-text">3.2 其他配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1-文件上传大小限制"><span class="nav-text">3.2.1 文件上传大小限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2-挂载外设"><span class="nav-text">3.2.2 挂载外设</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-性能优化"><span class="nav-text">4. 性能优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-配置redis"><span class="nav-text">4.1 配置redis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-提高swap容量"><span class="nav-text">4.2 提高swap容量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-提高sd卡速度"><span class="nav-text">4.3 提高sd卡速度</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">范秉洋</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

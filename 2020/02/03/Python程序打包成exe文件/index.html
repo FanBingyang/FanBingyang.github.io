@@ -92,7 +92,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;03&#x2F;Python%E7%A8%8B%E5%BA%8F%E6%89%93%E5%8C%85%E6%88%90exe%E6%96%87%E4%BB%B6&#x2F;%E5%AE%89%E8%A3%85pyinstaller.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;03&#x2F;Python%E7%A8%8B%E5%BA%8F%E6%89%93%E5%8C%85%E6%88%90exe%E6%96%87%E4%BB%B6&#x2F;%E6%89%93%E5%8C%85exe.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;03&#x2F;Python%E7%A8%8B%E5%BA%8F%E6%89%93%E5%8C%85%E6%88%90exe%E6%96%87%E4%BB%B6&#x2F;%E8%BF%90%E8%A1%8C.png">
-<meta property="og:updated_time" content="2020-02-07T05:21:47.080Z">
+<meta property="og:updated_time" content="2021-06-05T13:06:49.751Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;03&#x2F;Python%E7%A8%8B%E5%BA%8F%E6%89%93%E5%8C%85%E6%88%90exe%E6%96%87%E4%BB%B6&#x2F;%E5%AE%89%E8%A3%85pyinstaller.png">
 
@@ -424,7 +424,7 @@
 <p><img src="%E8%BF%90%E8%A1%8C.png" alt="运行"></p>
 <h2 id="3-引入外部文件"><a href="#3-引入外部文件" class="headerlink" title="3. 引入外部文件"></a>3. 引入外部文件</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;按照以上步骤打包exe的话，当你的代码中需要调用一些图片和资源文件的，这是不会自动导入的，需要你自己手动复制进去才行。不然 exe 文件运行时命令窗口会报错找不到这个文件。</p>
 <p>导入方法：假设<code>hello.py</code>程序中需要引入一个<code>test.txt</code>文件，<code>test.txt</code>文件和<code>hello.py</code>文件位于同一路径下。首先我们运行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyi-makespaec -F hello.py</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pyi-makespec -F hello.py</span><br></pre></td></tr></table></figure>
 
 <p>此时会生成一个<code>.spec</code>，这个文件会告诉pyinstaller如何处理你的脚本，pyinstaller创建一个exe的文件就是依靠它里面的内容进行执行的。正常情况下是不需要修改这个<code>.spec</code>文件的，除非你需要打包一个 dll 或者 so 文件或者其他数据文件。</p>
 <p>接下来我们就修改这个<code>.spec</code>文件：</p>
@@ -438,7 +438,7 @@
 
 <p>这样生成的<code>exe</code>文件就可以正常引入外部文件了。</p>
 <h2 id="4-注意事项"><a href="#4-注意事项" class="headerlink" title="4. 注意事项"></a>4. 注意事项</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1、直接运行最终的 .exe 程序，可能会出现<strong>一闪而过</strong>的情况，这种情况下要么是程序运行结束（比如直接打印的 helloWorld），要么程序出现错误退出了。这种情况下，建议在命令行 cmd 下运行 .exe 文件，这时就会有文本输出到窗口。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、<code>-i</code> 是改变图标的，图标在不同情况下(比如资源管理器文件列表前面的图标、桌面、开始菜单等)需要不一样尺寸的图标。如果尺寸不合适的话，可能出现有的地方显示正确有的显示不正确的情况。Windows的图标大小尺寸有128<em>128、64</em>64、48<em>48、32</em>32、16*16，请正确选用。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2、<code>-i</code> 是改变图标的，图标在不同情况下(比如资源管理器文件列表前面的图标、桌面、开始菜单等)需要不一样尺寸的图标。如果尺寸不合适的话，可能出现有的地方显示正确有的显示不正确的情况。Windows的图标大小尺寸有128*128、64*64、48*48、32*32、16*16，请正确选用。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3、写代码的时候应当有个良好的习惯，用什么函数导什么函数，不要上来 import 整个库，不然最后你会发现你一个 100KB 的代码打包出来有 500MB；</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4、在引入外部文件时，如果需要引入多个文件，<code>.spec</code>文件修改如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = Analysis([&apos;hello.py&apos;],</span><br><span class="line">             pathex=[&apos;G:\\CodeSpace&apos;],</span><br><span class="line">             binaries=[],</span><br><span class="line">             datas=[(&apos;test_1.txt&apos;,&apos;.&apos;),(&apos;test_2.txt&apos;,&apos;.&apos;),(&apos;XXX/test_3.txt,&apos;.&apos;),],</span><br></pre></td></tr></table></figure>
@@ -567,7 +567,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

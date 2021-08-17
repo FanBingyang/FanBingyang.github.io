@@ -99,7 +99,7 @@
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;11&#x2F;Docker%E5%88%9D%E4%BD%BF%E7%94%A8&#x2F;images.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;11&#x2F;Docker%E5%88%9D%E4%BD%BF%E7%94%A8&#x2F;ps-a.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;11&#x2F;Docker%E5%88%9D%E4%BD%BF%E7%94%A8&#x2F;search-s.png">
-<meta property="og:updated_time" content="2020-02-05T04:19:26.847Z">
+<meta property="og:updated_time" content="2021-08-17T13:54:27.607Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;11&#x2F;Docker%E5%88%9D%E4%BD%BF%E7%94%A8&#x2F;Docker%E9%95%9C%E5%83%8F.png">
 
@@ -504,6 +504,15 @@
 <p>添加Docker软件源的官方GPG密钥:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -</span><br><span class="line"></span><br><span class="line"><span class="comment"># 国内源</span></span><br><span class="line"><span class="comment"># $ curl -fsSL https://mirrors.ustc.edu.cn/linux/ubuntu/gpg | sudo apt-key add -</span></span><br></pre></td></tr></table></figure>
 
+<blockquote>
+<p>如果执行上述命令出现下面提示，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gpg: failed to start agent <span class="string">'/usr/bin/gpg-agent'</span>: No such file or directory</span><br><span class="line">gpg: can<span class="string">'t connect to the agent: No such file or directory</span></span><br></pre></td></tr></table></figure>
+
+<p>则很有可能是没有安装<strong>gpg-agent</strong>包，执行下面命令进行安装。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install gpg-agent</span><br></pre></td></tr></table></figure>
+
+<p>安装完成之后，再次去执行添加密钥的命令。</p>
+</blockquote>
 <p>使用下面命令来设置stable存储库</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo add-apt-repository <span class="string">"deb [arch=amd64] https://download.docker.com/linux/ubuntu <span class="variable">$(lsb_release -cs)</span> stable"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 国内源</span></span><br><span class="line"><span class="comment"># $ sudo add-apt-repository "deb [arch=amd64] https://mirrors.ustc.edu.cn/linux/ubuntu $(lsb_release -cs) stable"</span></span><br></pre></td></tr></table></figure>
 
@@ -804,7 +813,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -91,7 +91,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;04&#x2F;20&#x2F;Docker%E9%83%A8%E7%BD%B2%E5%BA%94%E7%94%A8&#x2F;image-20200421115234434.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;04&#x2F;20&#x2F;Docker%E9%83%A8%E7%BD%B2%E5%BA%94%E7%94%A8&#x2F;image-20200421115653201.png">
-<meta property="og:updated_time" content="2020-04-22T01:34:49.667Z">
+<meta property="og:updated_time" content="2021-01-27T14:06:21.403Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;04&#x2F;20&#x2F;Docker%E9%83%A8%E7%BD%B2%E5%BA%94%E7%94%A8&#x2F;image-20200421115234434.png">
 
@@ -531,7 +531,7 @@
 <p><strong>-v /home/nginx/conf/nginx.conf:/etc/nginx/nginx.conf</strong>：将我们自己创建的 nginx.conf 挂载到容器的 /etc/nginx/nginx.conf。</p>
 <p><strong>-v /home/nginx/logs:/var/log/nginx</strong>：将我们自己创建的 logs 挂载到容器的 /var/log/nginx。</p>
 </blockquote>
-<p>启动成功之后，就可以在本地配置我们的nginx,conf了，配置好之后重新启动容器即可生效。</p>
+<p>启动成功之后，就可以在本地配置我们的nginx.conf了，配置好之后重新启动容器即可生效。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart nginx</span><br></pre></td></tr></table></figure>
 
 <p>在nginx原来的配置文件中，它的<code>server</code>块没有直接写在nginx.conf里，而是通过<code>include /etc/nginx/conf.d/*.conf;</code>引入的。在容器的<code>/etc/nginx/conf.d/</code>目录下，有一个<code>default.conf</code>文件，进入容器</p>
@@ -683,7 +683,7 @@
               
                 <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
