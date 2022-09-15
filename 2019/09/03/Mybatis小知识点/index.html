@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -68,13 +68,13 @@
 
 
 
-  <meta name="keywords" content="Java,Mybatis," />
+  <meta name="keywords" content="Mybatis,Java," />
 
 
 
 
 
-  <link rel="alternate" href="/atom.xml" title="范秉洋的博客" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="北夜极星" type="application/atom+xml" />
 
 
 
@@ -82,11 +82,11 @@
 
 
 <meta name="description" content="Mybatis小知识点&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在这简单介绍了一下mybatis里的几个小知识点，分别是parameterMap与parameterTyppe、resultMap与resultType的区别，以及在xml文件中获取传递过来的值。同时讲解了一下怎么自定义多参数进行传值等。">
-<meta name="keywords" content="Java,Mybatis">
+<meta name="keywords" content="Mybatis,Java">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mybatis小知识点">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;09&#x2F;03&#x2F;Mybatis%E5%B0%8F%E7%9F%A5%E8%AF%86%E7%82%B9&#x2F;index.html">
-<meta property="og:site_name" content="范秉洋的博客">
+<meta property="og:site_name" content="北夜极星">
 <meta property="og:description" content="Mybatis小知识点&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在这简单介绍了一下mybatis里的几个小知识点，分别是parameterMap与parameterTyppe、resultMap与resultType的区别，以及在xml文件中获取传递过来的值。同时讲解了一下怎么自定义多参数进行传值等。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2020-02-07T05:18:03.255Z">
@@ -98,7 +98,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Gemini',
+    scheme: 'Pisces',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
@@ -126,7 +126,7 @@
 
 
 
-  <title>Mybatis小知识点 | 范秉洋的博客</title>
+  <title>Mybatis小知识点 | 北夜极星</title>
   
 
 
@@ -156,7 +156,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">范秉洋的博客</span>
+        <span class="site-title">北夜极星</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -306,7 +306,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="范秉洋的博客">
+      <meta itemprop="name" content="北夜极星">
     </span>
 
     
@@ -391,59 +391,59 @@
 <h2 id="1-parameterMap与parameterTyppe详解"><a href="#1-parameterMap与parameterTyppe详解" class="headerlink" title="1. parameterMap与parameterTyppe详解"></a>1. parameterMap与parameterTyppe详解</h2><h3 id="1-1-parameterMap类型"><a href="#1-1-parameterMap类型" class="headerlink" title="1.1 parameterMap类型"></a>1.1 parameterMap类型</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>parameterMap</code>和<code>resuletMap</code>类似，表示将查询结果集中列值的类型一一映射到Java对象属性的类型，在开发过程中不推荐这种方式。</p>
 <h3 id="1-2-parameterType类型"><a href="#1-2-parameterType类型" class="headerlink" title="1.2 parameterType类型"></a>1.2 parameterType类型</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>parameterType</code>声明输入参数的类型，将会传入这条语句中的参数类的完全限定名或别名，这个属性是可选的，因为Mybatis可以通过类型处理器<code>(TypeHandler)</code>推断出具体传入语句的参数，默认值为未设置<code>(unset)</code>。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果SQL语句接收的参数是一个JavaBean对象，要在里面写该JavaBean对象的类的全名，即<code>包名.类名</code>，如果再开头mapper中已经配置了<code>namespace</code>别名，那么只要接收参数是这个mapper包下的，就可以直接写文件名。如果接受的是基本类型，那么久可以直接写基本类型，因为基本类型在这里已经自动被扫描了，所以不需要再写包名。如果传参的参数是集合，那么只需要写集合中的对象的类型即可,而不是集合本身。</p>
 <h2 id="2-resultMap与resultType详解"><a href="#2-resultMap与resultType详解" class="headerlink" title="2. resultMap与resultType详解"></a>2. resultMap与resultType详解</h2><h3 id="2-1-resultMap类型"><a href="#2-1-resultMap类型" class="headerlink" title="2.1 resultMap类型"></a>2.1 resultMap类型</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;外部<code>resultMap</code>的命名引用。表示将查询结果集中的列一一映射到bean对象的各个属性。映射的查询结果集中的列标签可以根据需要灵活变化，并且，在映射关系中，还可以通过typeHandler设置实现查询结果值的类型转换，比如布尔型与0/1的类型转换。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在外部可以自定义一个<code>resultMap</code>。注入返回值类型 ,自定义结果集映射规则，自定义某个JavaBean的封装规则.如以下代码：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- id：唯一id，方便引用。</span></span><br><span class="line"><span class="comment">    type：自定义规则的Java类。 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">resultMap</span> <span class="attr">type</span>=<span class="string">"Orders"</span> <span class="attr">id</span>=<span class="string">"orders"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- result：定义普通列封装规则 </span></span><br><span class="line"><span class="comment">            column：指定数据库中的哪一列列名</span></span><br><span class="line"><span class="comment">            property：指定对应的javaBean中的属性名</span></span><br><span class="line"><span class="comment">            jdbcType：指定对应数据库中属性的类型</span></span><br><span class="line"><span class="comment">    --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"User_id"</span> <span class="attr">property</span>=<span class="string">"userId"</span> <span class="attr">jdbcType</span>=<span class="string">"INTEGER"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">result</span> <span class="attr">column</span>=<span class="string">"User_name"</span> <span class="attr">property</span>=<span class="string">"userName"</span>  <span class="attr">jdbcType</span>=<span class="string">"VARCHAR"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--其他不指定的列会自动封装：我们只要写resultMap，就尽量把所有的列都写上 --&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 在写SQL的返回值时在resultMap="orders",你想返回哪个自定义的mapper，你就把自定义哪个的id写上。--&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">resultMap</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- id：唯一id，方便引用。<br>    type：自定义规则的Java类。 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">resultMap</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"Orders"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"orders"</span>&gt;</span><br>    <span class="hljs-comment">&lt;!-- result：定义普通列封装规则 <br>            column：指定数据库中的哪一列列名<br>            property：指定对应的javaBean中的属性名<br>            jdbcType：指定对应数据库中属性的类型<br>    --&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">result</span> <span class="hljs-attr">column</span>=<span class="hljs-string">"User_id"</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"userId"</span> <span class="hljs-attr">jdbcType</span>=<span class="hljs-string">"INTEGER"</span>/&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">result</span> <span class="hljs-attr">column</span>=<span class="hljs-string">"User_name"</span> <span class="hljs-attr">property</span>=<span class="hljs-string">"userName"</span>  <span class="hljs-attr">jdbcType</span>=<span class="hljs-string">"VARCHAR"</span>/&gt;</span><br>    <span class="hljs-comment">&lt;!--其他不指定的列会自动封装：我们只要写resultMap，就尽量把所有的列都写上 --&gt;</span><br>    <span class="hljs-comment">&lt;!-- 在写SQL的返回值时在resultMap="orders",你想返回哪个自定义的mapper，你就把自定义哪个的id写上。--&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">resultMap</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
 <h3 id="2-2-resultType类型"><a href="#2-2-resultType类型" class="headerlink" title="2.2 resultType类型"></a>2.2 resultType类型</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用resultType时我们应该注意:sql查询的列名要和resultType指定pojo的属性名相同，指定相同属性方可映射成功，如果sql查询的列名要和resultType指定pojo的属性名全部不相同(或是部分不相同)，则映射到pojo对象中的对应属性为null。例如有时候我们不需要查询<code>select * from user where id = ?</code>而是<code>select username,address _address where id = ?</code> 此时我们给查询的<code>address</code>列名给了一个别名<code>_address</code>，这样我们通过查询表中<code>address</code>的数据然后在将它映射到User对象时，该对象的<code>address</code>属性就为<code>null</code>，即没将从表中查询到的<code>address</code>数据映射到user对象的<code>address</code>属性中。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从这条语句中返回的期望类型的类的完全限定名或别名。 注意如果返回的是集合，那应该设置为集合包含的类型，而不是集合本身。可以使用 <code>resultType</code> 或 <code>resultMap</code>，但不能同时使用。</p>
 <h2 id="3-与-详解"><a href="#3-与-详解" class="headerlink" title="3. #{}与${}详解"></a>3. #{}与${}详解</h2><h3 id="3-1-取值"><a href="#3-1-取值" class="headerlink" title="3.1 #{}取值"></a>3.1 #{}取值</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>#{}</code>输入参数的占位符，#将传入的数据都当成一个字符串，会对传入的数据自动加上引号。在取值的时候mybatis会进行预编译。如果入参只有一个值，那么大括号中写什么多无所谓，如果传参有多个，还是写入参属性名写。最好规范一点都按入参属性名写，这样能一眼看出入参是什么。示例(ID=6)如下：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">id</span>=<span class="comment">#&#123;ID&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">where</span> <span class="hljs-keyword">id</span>=<span class="hljs-comment">#&#123;ID&#125;</span><br></code></pre></td></tr></table></figure>
 <p>会被先编译成</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">id</span>=?</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">where</span> <span class="hljs-keyword">id</span>=?<br></code></pre></td></tr></table></figure>
 <p>然后再用ID的值(6)去替代<code>?</code>。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>\#{}</code>因为有预编译，显得更安全。如果传入参数值中有<code>#</code>使用<code>#{}</code>,<em>(<code>#</code>在sql中表示注释)</em>，不会使<code>#</code>后面的sql失效。当入参的name=’hh#’，示例如下：<br>用<code>\#{}</code>:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">name</span>=<span class="comment">#&#123;name&#125; and id=#&#123;ID&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">where</span> <span class="hljs-keyword">name</span>=<span class="hljs-comment">#&#123;name&#125; and id=#&#123;ID&#125;</span><br></code></pre></td></tr></table></figure>
 <p>执行的sql为</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">name</span>=<span class="string">'hh#'</span> <span class="keyword">and</span> <span class="keyword">id</span>=<span class="number">6</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">where</span> <span class="hljs-keyword">name</span>=<span class="hljs-string">'hh#'</span> <span class="hljs-keyword">and</span> <span class="hljs-keyword">id</span>=<span class="hljs-number">6</span><br></code></pre></td></tr></table></figure>
 <p>用<code>\${}</code>:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">name</span>=$&#123;<span class="keyword">name</span>&#125; <span class="keyword">and</span> <span class="keyword">id</span>=$&#123;<span class="keyword">ID</span>&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">where</span> <span class="hljs-keyword">name</span>=$&#123;<span class="hljs-keyword">name</span>&#125; <span class="hljs-keyword">and</span> <span class="hljs-keyword">id</span>=$&#123;<span class="hljs-keyword">ID</span>&#125;<br></code></pre></td></tr></table></figure>
 <p>执行的sql为</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">name</span>=<span class="string">'hh'</span> <span class="comment"># and id=6</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">where</span> <span class="hljs-keyword">name</span>=<span class="hljs-string">'hh'</span> <span class="hljs-comment"># and id=6</span><br></code></pre></td></tr></table></figure>
 <p>因为<code>#</code>表示注释，所以执行效果相当于</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">name</span>=<span class="string">'hh'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">where</span> <span class="hljs-keyword">name</span>=<span class="hljs-string">'hh'</span><br></code></pre></td></tr></table></figure>
 
 <p><strong><code>#{}</code>可以指定其他属性</strong><br>        如果name传入参数的值为null，mybatis会默认name值为other类型，但是oracle数据库不能处理other类型，因为会报不能识别的错误。此使就可以用jdbcType属性指定类型。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> <span class="keyword">name</span>=<span class="comment">#&#123;name,jdbcType=null&#125; and id=$&#123;ID&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">where</span> <span class="hljs-keyword">name</span>=<span class="hljs-comment">#&#123;name,jdbcType=null&#125; and id=$&#123;ID&#125;</span><br></code></pre></td></tr></table></figure>
 <p>当然也可以在mybatis配置文件中进行配置。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"jdbcTypeForNull"</span> <span class="attr">value</span>=<span class="string">"NULL"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">settings</span>&gt;</span><br>   <span class="hljs-tag">&lt;<span class="hljs-name">setting</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"jdbcTypeForNull"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"NULL"</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">settings</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
 <h3 id="3-2-取值"><a href="#3-2-取值" class="headerlink" title="3.2 ${}取值"></a>3.2 ${}取值</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>${}</code>使直接进行编译，将传入的数据直接显示生成在SQL中，使用它可能会导致SQL注入攻击，能用<code>#{}</code>的地方就不用<code>${}</code>，但是写<code>order by</code>句子的时候一定用<code>${}</code>。如果入参只有一个值，那么大括号中要写<code>value</code>，如果传参有多个，还是写入参属性名写。示例如下(ID=6)</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">id</span>=$&#123;<span class="keyword">ID</span>&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">id</span>=$&#123;<span class="hljs-keyword">ID</span>&#125;<br></code></pre></td></tr></table></figure>
 <p>执行的sql为</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">id</span>=<span class="number">6</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">id</span>=<span class="hljs-number">6</span><br></code></pre></td></tr></table></figure>
 <p>用<code>${}</code>模糊查询时(name=张)</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> username <span class="keyword">like</span> <span class="string">'%$&#123;value&#125;%'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">where</span> username <span class="hljs-keyword">like</span> <span class="hljs-string">'%$&#123;value&#125;%'</span><br></code></pre></td></tr></table></figure>
 <p>字符串拼接之后编译成</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">where</span> username <span class="keyword">like</span> <span class="string">'%张%'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> <span class="hljs-keyword">user</span> <span class="hljs-keyword">where</span> username <span class="hljs-keyword">like</span> <span class="hljs-string">'%张%'</span><br></code></pre></td></tr></table></figure>
 
 <p>jdbc不支持占位符的地方可以用<code>${}</code>进行取值，比如表名和排序字段：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> $&#123;<span class="keyword">user</span>&#125; <span class="keyword">where</span> <span class="keyword">name</span>=<span class="comment">#&#123;name&#125; and id=#&#123;ID&#125; order by $&#123;name&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> * <span class="hljs-keyword">from</span> $&#123;<span class="hljs-keyword">user</span>&#125; <span class="hljs-keyword">where</span> <span class="hljs-keyword">name</span>=<span class="hljs-comment">#&#123;name&#125; and id=#&#123;ID&#125; order by $&#123;name&#125;</span><br></code></pre></td></tr></table></figure>
 
 <h2 id="4-sql语句接收多个参数"><a href="#4-sql语句接收多个参数" class="headerlink" title="4. sql语句接收多个参数"></a>4. sql语句接收多个参数</h2><h3 id="4-1-JavaBean方法传值"><a href="#4-1-JavaBean方法传值" class="headerlink" title="4.1 JavaBean方法传值"></a>4.1 JavaBean方法传值</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当要向后台sql语句传入的参数个数是多个时，可以将要传入的参数封装成一个JavaBean，然后将这个JavaBean对象传入到mapper接口，在xml文件的sql语句通过属性名来进行取值。</p>
 <h3 id="4-2-Map方法传值"><a href="#4-2-Map方法传值" class="headerlink" title="4.2 Map方法传值"></a>4.2 Map方法传值</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;向后台sql语句传递参数多于一个，又不方便封装成JavaBean是，可以将参数封装成Map集合，以键值对<code>(key-value)</code>的形式存储，然后将该Map集合传入后台xml文件。在xml文件中，执行该语句的接收参数属性设置为<code>parameterType=&quot;Map&quot;</code>，然后在sql中取值的属性名要和map中的键值对的键<code>(key)</code>一致。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Mapper mapper；</span><br><span class="line">Map map = <span class="keyword">new</span> HashMap();</span><br><span class="line">map.put(<span class="string">"id"</span>,<span class="number">1</span>);</span><br><span class="line">map.put(<span class="string">"name"</span>,<span class="string">"张三"</span>);</span><br><span class="line"><span class="comment">//调用mapper接口</span></span><br><span class="line">mapper.insert(map);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">private</span> Mapper mapper；<br>Map map = <span class="hljs-keyword">new</span> HashMap();<br>map.put(<span class="hljs-string">"id"</span>,<span class="hljs-number">1</span>);<br>map.put(<span class="hljs-string">"name"</span>,<span class="hljs-string">"张三"</span>);<br><span class="hljs-comment">//调用mapper接口</span><br>mapper.insert(map);<br></code></pre></td></tr></table></figure>
 <p>下面是mapper中的方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">insert</span><span class="params">(Map map)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">insert</span><span class="hljs-params">(Map map)</span></span>;<br></code></pre></td></tr></table></figure>
 <p>下面是xml中的方法</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">insert</span> <span class="attr">id</span>=<span class="string">"insert"</span><span class="attr">parameterType</span>=<span class="string">"Map"</span>&gt;</span></span><br><span class="line">    insert into user (id,name) values(#&#123;id&#125;,#&#123;name&#125;)  </span><br><span class="line"><span class="tag">&lt;/<span class="name">insert</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">insert</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"insert"</span><span class="hljs-attr">parameterType</span>=<span class="hljs-string">"Map"</span>&gt;</span><br>    insert into user (id,name) values(#&#123;id&#125;,#&#123;name&#125;)  <br><span class="hljs-tag">&lt;/<span class="hljs-name">insert</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
 <h3 id="4-3-Param方法传值"><a href="#4-3-Param方法传值" class="headerlink" title="4.3 @Param方法传值"></a>4.3 @Param方法传值</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当参数较少时，也可以通过在接口的方法里注解<code>@Prama</code>，可以同时注解多个参数。<br><strong>创建接口方法</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 根据姓名和性别模糊查询</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Param</span> username 用户姓名</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Param</span> sex 用户性别</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> User对象集合</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">List&lt;User&gt; <span class="title">select</span><span class="params">(@Param(<span class="string">"name"</span>)</span>String username,@<span class="title">Param</span><span class="params">(<span class="string">"sex"</span>)</span>String sex)</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**<br> * 根据姓名和性别模糊查询<br> * <span class="hljs-doctag">@Param</span> username 用户姓名<br> * <span class="hljs-doctag">@Param</span> sex 用户性别<br> * <span class="hljs-doctag">@return</span> User对象集合<br> */</span><br><span class="hljs-function">List&lt;User&gt; <span class="hljs-title">select</span><span class="hljs-params">(@Param(<span class="hljs-string">"name"</span>)</span>String username,@<span class="hljs-title">Param</span><span class="hljs-params">(<span class="hljs-string">"sex"</span>)</span>String sex)</span>;<br></code></pre></td></tr></table></figure>
 <p>@Param(“name”)就是告诉mybatis，参数username在SQL语句中用name作为key，也就是说，mybatis帮我们完成了调用时，类似param.put(“name”,username);</p>
 <p><strong>配置SQl语句</strong></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">select</span> <span class="attr">id</span>=<span class="string">"select"</span> <span class="attr">resultMap</span>=<span class="string">"BaseResultMap"</span>&gt;</span></span><br><span class="line">    select * from user where name like '%$&#123;name&#125;%' and sex=#&#123;sex&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"select"</span> <span class="hljs-attr">resultMap</span>=<span class="hljs-string">"BaseResultMap"</span>&gt;</span><br>    select * from user where name like '%$&#123;name&#125;%' and sex=#&#123;sex&#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span><br></code></pre></td></tr></table></figure>
 <p>此处的<code>#{name}</code>对应的是@Param(“name”)中的name，需要完全一致。</p>
 <p><strong>调用</strong><br>最后在调用时只需要按参数提示直接传入对应的实际参数即可。</p>
 <h2 id="5-打印SQL语句"><a href="#5-打印SQL语句" class="headerlink" title="5. 打印SQL语句"></a>5. 打印SQL语句</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在项目测试阶段，有时候我们需要查看调用的SQL语句是那一句，可以通过log4j进行输出SQL语句，mybatis只需要配置一下配置文件就行了，在mybatis.xml文件中添加以下两行代码就可以，这样在调用到那句SQL语句的时候就可以对该语句进行输出在控制台，以方便查看。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">settings</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"mapUnderscoreToCamelCase"</span> <span class="attr">value</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">setting</span> <span class="attr">name</span>=<span class="string">"logImpl"</span> <span class="attr">value</span>=<span class="string">"STDOUT_LOGGING"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">settings</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">settings</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">setting</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"mapUnderscoreToCamelCase"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"true"</span> /&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">setting</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"logImpl"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"STDOUT_LOGGING"</span> /&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">settings</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
       
     </div>
@@ -461,9 +461,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
-          
             <a href="/tags/Mybatis/" rel="tag"><i class="fa fa-tag"></i> Mybatis</a>
+          
+            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
           
         </div>
       
@@ -559,7 +559,7 @@
                 alt="范秉洋" />
             
               <p class="site-author-name" itemprop="name">范秉洋</p>
-              <p class="site-description motion-element" itemprop="description">这个人很懒，什么也没有留下...</p>
+              <p class="site-description motion-element" itemprop="description">这个人很懒,什么也没有留下...</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -651,13 +651,14 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">范秉洋</span>
 
   
+  <br><a target="_blank" style="color:#999999;text-decoration:none;" href="https://beian.miit.gov.cn/">豫ICP备2021021697号-1</a>
 </div>
 
 

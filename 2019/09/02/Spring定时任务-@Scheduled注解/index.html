@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -74,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="范秉洋的博客" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="北夜极星" type="application/atom+xml" />
 
 
 
@@ -86,7 +86,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Spring定时任务-@Scheduled注解">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;09&#x2F;02&#x2F;Spring%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1-@Scheduled%E6%B3%A8%E8%A7%A3&#x2F;index.html">
-<meta property="og:site_name" content="范秉洋的博客">
+<meta property="og:site_name" content="北夜极星">
 <meta property="og:description" content="@Scheduled注解详解&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;有时候项目中需要用到定时任务，在某个时间点执行特定的任务，这时我们就可以使用spring中的定时任务——@Scheduled注解。下面就简单介绍一下@Scheduledd注解的使用。在springMVC项目中使用spring的定时任务步骤如下。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2020-02-07T05:18:11.235Z">
@@ -98,7 +98,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Gemini',
+    scheme: 'Pisces',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
@@ -126,7 +126,7 @@
 
 
 
-  <title>Spring定时任务-@Scheduled注解 | 范秉洋的博客</title>
+  <title>Spring定时任务-@Scheduled注解 | 北夜极星</title>
   
 
 
@@ -156,7 +156,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">范秉洋的博客</span>
+        <span class="site-title">北夜极星</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -306,7 +306,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="范秉洋的博客">
+      <meta itemprop="name" content="北夜极星">
     </span>
 
     
@@ -389,27 +389,27 @@
         <h1 id="Scheduled注解详解"><a href="#Scheduled注解详解" class="headerlink" title="@Scheduled注解详解"></a>@Scheduled注解详解</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有时候项目中需要用到定时任务，在某个时间点执行特定的任务，这时我们就可以使用spring中的定时任务——<strong>@Scheduled注解</strong>。下面就简单介绍一下<code>@Scheduledd</code>注解的使用。在springMVC项目中使用spring的定时任务步骤如下。</p>
 <a id="more"></a>
 <h2 id="1-配置springMVC-xml文件"><a href="#1-配置springMVC-xml文件" class="headerlink" title="1. 配置springMVC.xml文件"></a>1. 配置springMVC.xml文件</h2><p>加入tesk的命名空间:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xmlns:task = &quot;http://www.springframework.org/schema/task&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xmls">xmlns:task = &quot;http://www.springframework.org/schema/task&quot;<br></code></pre></td></tr></table></figure>
 
 <p>在xsi:schemaLocation中添加以下依赖:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http:<span class="comment">//www.springframework.org/schema/task</span></span><br><span class="line">http:<span class="comment">//www.springframework.org/schema/task/spring-task-4.0.xsd"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java">http:<span class="hljs-comment">//www.springframework.org/schema/task</span><br>http:<span class="hljs-comment">//www.springframework.org/schema/task/spring-task-4.0.xsd"</span><br></code></pre></td></tr></table></figure>
 
 <h2 id="2-配置定时任务的线程池"><a href="#2-配置定时任务的线程池" class="headerlink" title="2. 配置定时任务的线程池"></a>2. 配置定时任务的线程池</h2><p>推荐配置线程池，若不配置，多任务下会有问题。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">task:scheduler</span> <span class="attr">id</span>=<span class="string">"myScheduler"</span> <span class="attr">pool-size</span>=<span class="string">"5"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">task:scheduler</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"myScheduler"</span> <span class="hljs-attr">pool-size</span>=<span class="hljs-string">"5"</span>/&gt;</span><br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>id是该线程池的唯一标识，用于启动该线程池的注解驱动。poo-size是线程池的容量。</p>
 </blockquote>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;spring的定时任务默认是单线程，多个任务执行起来时间会有问题。在下面定时任务的示例代码中，A任务中设置的有<code>TimeUnit.SECONDS.sleep(20);</code>那么如存在B任务，B任务会因为A任务执行起来需要20s二被延后20s执行。当我们配置了线程池之后，多线程下B任务就不会因为A任务执行起来要20s而别延后执行了。</p>
-<h2 id="3-启动注解驱动的定时任务"><a href="#3-启动注解驱动的定时任务" class="headerlink" title="3. 启动注解驱动的定时任务"></a>3. 启动注解驱动的定时任务</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">task:annotation-driven</span> <span class="attr">scheduler</span>=<span class="string">"myScheduler"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-启动注解驱动的定时任务"><a href="#3-启动注解驱动的定时任务" class="headerlink" title="3. 启动注解驱动的定时任务"></a>3. 启动注解驱动的定时任务</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">task:annotation-driven</span> <span class="hljs-attr">scheduler</span>=<span class="hljs-string">"myScheduler"</span>/&gt;</span><br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>scheduler指的是我们配置线程池的id名称，如果没有配置线程池，那么该元素可以不写。</p>
 </blockquote>
-<h2 id="4-配置扫描包"><a href="#4-配置扫描包" class="headerlink" title="4. 配置扫描包"></a>4. 配置扫描包</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"test"</span>/&gt;</span>--&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="4-配置扫描包"><a href="#4-配置扫描包" class="headerlink" title="4. 配置扫描包"></a>4. 配置扫描包</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">context:component-scan</span> <span class="hljs-attr">base-package</span>=<span class="hljs-string">"test"</span>/&gt;</span>--&gt;<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>base-package元素是配置定时任务所在的包名。</p>
 </blockquote>
 <h2 id="5-编写定时任务"><a href="#5-编写定时任务" class="headerlink" title="5. 编写定时任务"></a>5. 编写定时任务</h2><p><code>@Scheduled</code>注解为定时任务，<code>cron</code>表达式里写执行的时机。以下代码是示例代码。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> test;</span><br><span class="line"><span class="keyword">import</span> java.text.DateFormat;</span><br><span class="line"><span class="keyword">import</span> java.text.SimpleDateFormat;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"><span class="keyword">import</span> org.joda.time.DateTime;</span><br><span class="line"><span class="keyword">import</span> org.springframework.scheduling.annotation.Scheduled;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ATask</span></span>&#123;</span><br><span class="line">       <span class="meta">@Scheduled</span>(cron=<span class="string">"0/10 * *  * * ? "</span>)   <span class="comment">//每10秒执行一次  </span></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">aTask</span><span class="params">()</span></span>&#123; </span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                    TimeUnit.SECONDS.sleep(<span class="number">20</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">            DateFormat sdf = <span class="keyword">new</span> SimpleDateFormat(<span class="string">"yyyy-MM-dd HH:mm:ss"</span>);  </span><br><span class="line">            System.out.println(sdf.format(DateTime.now().toDate())+<span class="string">"*********A任务每10秒执行一次进入测试"</span>);    </span><br><span class="line">       &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> test;<br><span class="hljs-keyword">import</span> java.text.DateFormat;<br><span class="hljs-keyword">import</span> java.text.SimpleDateFormat;<br><span class="hljs-keyword">import</span> java.util.concurrent.TimeUnit;<br><span class="hljs-keyword">import</span> org.joda.time.DateTime;<br><span class="hljs-keyword">import</span> org.springframework.scheduling.annotation.Scheduled;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Component;<br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ATask</span></span>&#123;<br>       <span class="hljs-meta">@Scheduled</span>(cron=<span class="hljs-string">"0/10 * *  * * ? "</span>)   <span class="hljs-comment">//每10秒执行一次  </span><br>       <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">aTask</span><span class="hljs-params">()</span></span>&#123; <br>            <span class="hljs-keyword">try</span> &#123;<br>                    TimeUnit.SECONDS.sleep(<span class="hljs-number">20</span>);<br>                &#125; <span class="hljs-keyword">catch</span> (InterruptedException e) &#123;<br>                    e.printStackTrace();<br>                &#125;<br>            DateFormat sdf = <span class="hljs-keyword">new</span> SimpleDateFormat(<span class="hljs-string">"yyyy-MM-dd HH:mm:ss"</span>);  <br>            System.out.println(sdf.format(DateTime.now().toDate())+<span class="hljs-string">"*********A任务每10秒执行一次进入测试"</span>);    <br>       &#125;    <br>&#125;<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>@Component泛指组件，当组件不好归类的时候，我们可以使用这个注解进行标注。    </p>
 </blockquote>
@@ -417,7 +417,7 @@
 <p>有时候启动web项目发现随着服务器启动的定时任务没有执行，这是因为xml的头文件<code>&lt;beans&gt;</code>里面的一个配置default-lazy-init=”true”。此处配置为懒加载，所以所有的bean都是懒加载，导致定时任务所在的bean根本没有实例化，里面的定时任务也没有执行，修改为default-lazy-init=”false”即可。 </p>
 </blockquote>
 <h2 id="6-Scheduled注解各参数详解"><a href="#6-Scheduled注解各参数详解" class="headerlink" title="6. @Scheduled注解各参数详解"></a>6. @Scheduled注解各参数详解</h2><h3 id="6-1-cron表达式详解"><a href="#6-1-cron表达式详解" class="headerlink" title="6.1 cron表达式详解"></a>6.1 cron表达式详解</h3><p>该参数接收一个<code>cron表达式</code>，<code>cron表达式</code>是一个字符串，字符串以5个或6个空格隔开，分开共6个或7个域，每个域代表一个含义</p>
-<h4 id="6-1-1-cron表达式语法"><a href="#6-1-1-cron表达式语法" class="headerlink" title="6.1.1 cron表达式语法"></a>6.1.1 cron表达式语法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[秒] [分] [时] [日] [月] [周] [年]</span><br></pre></td></tr></table></figure>
+<h4 id="6-1-1-cron表达式语法"><a href="#6-1-1-cron表达式语法" class="headerlink" title="6.1.1 cron表达式语法"></a>6.1.1 cron表达式语法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">[秒] [分] [时] [日] [月] [周] [年]<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>注：[年]不是必须的域，可以省略年，则一共6个域。</p>
 </blockquote>
@@ -514,19 +514,19 @@
 </ul>
 <h3 id="6-2-zone"><a href="#6-2-zone" class="headerlink" title="6.2 zone"></a>6.2 zone</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;时区。接收一个<code>java.util.TimeZone#ID</code>。<code>cron表达式</code>会基于该时区解析。默认是一个空字符串，即取服务器所在地的时区。比如我们一般使用的时区<code>Asia/Shanghai</code>。该字段我们一般留空。</p>
 <h3 id="6-3-fixedDelay"><a href="#6-3-fixedDelay" class="headerlink" title="6.3 fixedDelay"></a>6.3 fixedDelay</h3><p>上一次执行完毕时间点之后多长时间再执行。如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Scheduled</span>(fixedDelay = <span class="number">5000</span>) <span class="comment">//上一次执行完毕时间点之后5秒再执行</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Scheduled</span>(fixedDelay = <span class="hljs-number">5000</span>) <span class="hljs-comment">//上一次执行完毕时间点之后5秒再执行</span><br></code></pre></td></tr></table></figure>
 
 <h3 id="6-4-fixedDelayString"><a href="#6-4-fixedDelayString" class="headerlink" title="6.4 fixedDelayString"></a>6.4 fixedDelayString</h3><p>与<code>fixedDelay</code>意思相同，只是使用字符串的形式。唯一不同的是支持占位符。如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Scheduled</span>(fixedDelayString = <span class="string">"5000"</span>) <span class="comment">//上一次执行完毕时间点之后5秒再执行</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Scheduled</span>(fixedDelayString = <span class="hljs-string">"5000"</span>) <span class="hljs-comment">//上一次执行完毕时间点之后5秒再执行</span><br></code></pre></td></tr></table></figure>
 <p>占位符的使用(配置文件中有配置：time.fixedDelay=5000)：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Scheduled</span>(fixedDelayString = <span class="string">"$&#123;time.fixedDelay&#125;"</span>)</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">testFixedDelayString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"Execute at "</span> + System.currentTimeMillis());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Scheduled</span>(fixedDelayString = <span class="hljs-string">"$&#123;time.fixedDelay&#125;"</span>)<br><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">testFixedDelayString</span><span class="hljs-params">()</span> </span>&#123;<br>    System.out.println(<span class="hljs-string">"Execute at "</span> + System.currentTimeMillis());<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h3 id="6-5-fixedRate"><a href="#6-5-fixedRate" class="headerlink" title="6.5 fixedRate"></a>6.5 fixedRate</h3><p>上一次开始执行时间点之后多长时间再执行。如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Scheduled</span>(fixedRate = <span class="number">5000</span>) <span class="comment">//上一次开始执行时间点之后5秒再执行</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Scheduled</span>(fixedRate = <span class="hljs-number">5000</span>) <span class="hljs-comment">//上一次开始执行时间点之后5秒再执行</span><br></code></pre></td></tr></table></figure>
 
 <h3 id="6-6-fixedRateString"><a href="#6-6-fixedRateString" class="headerlink" title="6.6 fixedRateString"></a>6.6 fixedRateString</h3><p>与<code>fixedRate</code>意思相同，只是使用字符串的形式。唯一不同的是支持占位符。</p>
 <h3 id="6-7-initialDelay"><a href="#6-7-initialDelay" class="headerlink" title="6.7 initialDelay"></a>6.7 initialDelay</h3><p>第一次延迟多长时间后再执行。如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Scheduled</span>(initialDelay=<span class="number">1000</span>, fixedRate=<span class="number">5000</span>) <span class="comment">//第一次延迟1秒后执行，之后按fixedRate的规则每5秒执行一次</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Scheduled</span>(initialDelay=<span class="hljs-number">1000</span>, fixedRate=<span class="hljs-number">5000</span>) <span class="hljs-comment">//第一次延迟1秒后执行，之后按fixedRate的规则每5秒执行一次</span><br></code></pre></td></tr></table></figure>
 
 <h3 id="6-8-initialDelayString"><a href="#6-8-initialDelayString" class="headerlink" title="6.8 initialDelayString"></a>6.8 initialDelayString</h3><p>与<code>initialDelay</code>意思相同，只是使用字符串的形式。唯一不同的是支持占位符。</p>
 
@@ -644,7 +644,7 @@
                 alt="范秉洋" />
             
               <p class="site-author-name" itemprop="name">范秉洋</p>
-              <p class="site-description motion-element" itemprop="description">这个人很懒，什么也没有留下...</p>
+              <p class="site-description motion-element" itemprop="description">这个人很懒,什么也没有留下...</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -736,13 +736,14 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">范秉洋</span>
 
   
+  <br><a target="_blank" style="color:#999999;text-decoration:none;" href="https://beian.miit.gov.cn/">豫ICP备2021021697号-1</a>
 </div>
 
 

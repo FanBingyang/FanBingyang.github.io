@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -74,7 +74,7 @@
 
 
 
-  <link rel="alternate" href="/atom.xml" title="范秉洋的博客" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="北夜极星" type="application/atom+xml" />
 
 
 
@@ -86,7 +86,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker初使用">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;11&#x2F;Docker%E5%88%9D%E4%BD%BF%E7%94%A8&#x2F;index.html">
-<meta property="og:site_name" content="范秉洋的博客">
+<meta property="og:site_name" content="北夜极星">
 <meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;最近准备入坑docker，被各种安利说好用，我也准备亲自尝试一下了，但是网上那些零零散散的东西并不是一个完整的教程，官方文档看的也晕晕乎乎的，那就自以一点点踩坑，然后自己做个详细的入门笔记吧。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;11&#x2F;Docker%E5%88%9D%E4%BD%BF%E7%94%A8&#x2F;Docker%E9%95%9C%E5%83%8F.png">
@@ -109,7 +109,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Gemini',
+    scheme: 'Pisces',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
     fancybox: true,
@@ -137,7 +137,7 @@
 
 
 
-  <title>Docker初使用 | 范秉洋的博客</title>
+  <title>Docker初使用 | 北夜极星</title>
   
 
 
@@ -167,7 +167,7 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">范秉洋的博客</span>
+        <span class="site-title">北夜极星</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -317,7 +317,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="范秉洋的博客">
+      <meta itemprop="name" content="北夜极星">
     </span>
 
     
@@ -493,50 +493,50 @@
 </tr>
 </tbody></table>
 <h2 id="2-安装Docker"><a href="#2-安装Docker" class="headerlink" title="2. 安装Docker"></a>2. 安装Docker</h2><h3 id="2-1-开始安装"><a href="#2-1-开始安装" class="headerlink" title="2.1 开始安装"></a>2.1 开始安装</h3><p>由于apt官方库的docker版本可能比较旧，所以先卸载可能存在的旧版本：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get remove docker docker-engine docker-ce docker.io</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ sudo apt-get remove docker docker-engine docker-ce docker.io<br></code></pre></td></tr></table></figure>
 
 <p>更新apt包索引：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ sudo apt-get update<br></code></pre></td></tr></table></figure>
 
 <p>安装以下包以使apt可以通过HTTPS使用存储库(repository):</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common<br></code></pre></td></tr></table></figure>
 
 <p>添加Docker软件源的官方GPG密钥:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -</span><br><span class="line"></span><br><span class="line"><span class="comment"># 国内源</span></span><br><span class="line"><span class="comment"># $ curl -fsSL https://mirrors.ustc.edu.cn/linux/ubuntu/gpg | sudo apt-key add -</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -<br><br><span class="hljs-comment"># 国内源</span><br><span class="hljs-comment"># $ curl -fsSL https://mirrors.ustc.edu.cn/linux/ubuntu/gpg | sudo apt-key add -</span><br></code></pre></td></tr></table></figure>
 
 <blockquote>
 <p>如果执行上述命令出现下面提示，</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">gpg: failed to start agent <span class="string">'/usr/bin/gpg-agent'</span>: No such file or directory</span><br><span class="line">gpg: can<span class="string">'t connect to the agent: No such file or directory</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">gpg: failed to start agent <span class="hljs-string">'/usr/bin/gpg-agent'</span>: No such file or directory<br>gpg: can<span class="hljs-string">'t connect to the agent: No such file or directory</span><br></code></pre></td></tr></table></figure>
 
 <p>则很有可能是没有安装<strong>gpg-agent</strong>包，执行下面命令进行安装。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt-get install gpg-agent</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt-get install gpg-agent<br></code></pre></td></tr></table></figure>
 
 <p>安装完成之后，再次去执行添加密钥的命令。</p>
 </blockquote>
 <p>使用下面命令来设置stable存储库</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo add-apt-repository <span class="string">"deb [arch=amd64] https://download.docker.com/linux/ubuntu <span class="variable">$(lsb_release -cs)</span> stable"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 国内源</span></span><br><span class="line"><span class="comment"># $ sudo add-apt-repository "deb [arch=amd64] https://mirrors.ustc.edu.cn/linux/ubuntu $(lsb_release -cs) stable"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ sudo add-apt-repository <span class="hljs-string">"deb [arch=amd64] https://download.docker.com/linux/ubuntu <span class="hljs-variable">$(lsb_release -cs)</span> stable"</span><br><br><span class="hljs-comment"># 国内源</span><br><span class="hljs-comment"># $ sudo add-apt-repository "deb [arch=amd64] https://mirrors.ustc.edu.cn/linux/ubuntu $(lsb_release -cs) stable"</span><br></code></pre></td></tr></table></figure>
 
 <p>再更新一下apt包索引：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get update</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ sudo apt-get update<br></code></pre></td></tr></table></figure>
 
 <p>安装最新版本的Docker CE：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install -y docker-ce</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ sudo apt-get install -y docker-ce<br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>因为对docker操作需要的是管理员权限,所以普通用户操作时需要加上sudo命令,如果是管理员,,则正常输入命令,不用带sudo。</p>
 </blockquote>
 <h3 id="2-2-验证docker"><a href="#2-2-验证docker" class="headerlink" title="2.2 验证docker"></a>2.2 验证docker</h3><p>查看docker版本:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo docker version</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ sudo docker version<br></code></pre></td></tr></table></figure>
 
 <p><img src="docker%E7%89%88%E6%9C%AC.png" alt="版本"></p>
 <p>启动docker服务</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl start docker</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ sudo systemctl start docker<br></code></pre></td></tr></table></figure>
 
 <p>查看docker服务是否启动:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl status docker</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ sudo systemctl status docker<br></code></pre></td></tr></table></figure>
 
 <p><img src="docker%E8%BF%90%E8%A1%8C%E7%8A%B6%E6%80%81.png" alt="运行状态"></p>
 <h2 id="3-使用Docker"><a href="#3-使用Docker" class="headerlink" title="3. 使用Docker"></a>3. 使用Docker</h2><h3 id="3-1-MySql镜像"><a href="#3-1-MySql镜像" class="headerlink" title="3.1 MySql镜像"></a>3.1 MySql镜像</h3><p>查看现有镜像：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search mysql</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker search mysql<br></code></pre></td></tr></table></figure>
 
 <p><span id="search"></span></p>
 <p><img src="searchMysql.png" alt="serachMysql"></p>
@@ -548,13 +548,13 @@
 <p><strong>Automated：</strong>是不是私有创建的</p>
 </blockquote>
 <p>拉取mysql 5.7版本的镜像：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql:5.7</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker pull mysql:5.7<br></code></pre></td></tr></table></figure>
 
 <blockquote>
 <p>冒号后面跟的是要拉取的版本号，如果不标明版本号，则默认拉取最新版本的。</p>
 </blockquote>
 <p>运行镜像：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=123456 mysql:5.7</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run -d -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=123456 mysql:5.7<br></code></pre></td></tr></table></figure>
 
 <blockquote>
 <p><strong>-d：</strong>标识是让docker容器在后台运行。</p>
@@ -564,31 +564,31 @@
 </blockquote>
 <p>这样就已经在docker里运行了一个mysql，可以在主机上通过可视化工具进行远程连接了。</p>
 <h3 id="3-2-Tomcat镜像"><a href="#3-2-Tomcat镜像" class="headerlink" title="3.2 Tomcat镜像"></a>3.2 Tomcat镜像</h3><p>查询现有镜像：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search tomcat</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker search tomcat<br></code></pre></td></tr></table></figure>
 
 <p><img src="searchTomcat.png" alt="searchTomcat"></p>
 <p>拉取tomcat 8.5版本的镜像：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docket pull tomcat:8.5</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docket pull tomcat:8.5<br></code></pre></td></tr></table></figure>
 
 <p>查看拉取的镜像：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker images<br></code></pre></td></tr></table></figure>
 
 <p><img src="images.png" alt="images"></p>
 <p>运行tomcat镜像：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 8080:8080 --name mytomcat tomcat:8.5</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run -d -p 8080:8080 --name mytomcat tomcat:8.5<br></code></pre></td></tr></table></figure>
 
 <p>将目录下的war包部署到tomcat镜像：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp hello.war mytomcat:/usr/<span class="built_in">local</span>/tomcat/webapps/</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker cp hello.war mytomcat:/usr/<span class="hljs-built_in">local</span>/tomcat/webapps/<br></code></pre></td></tr></table></figure>
 
 <blockquote>
 <p>将war包部署到tomcat镜像就是将war包放到镜像里的wabapps文件夹里。</p>
 <p>docker cp [war包路径] [镜像名称或镜像ID]:/usr/local/tomcat/wabapps/</p>
 </blockquote>
 <p>重启镜像：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker restart mytomcat</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker restart mytomcat<br></code></pre></td></tr></table></figure>
 
 <p>进入容器内部：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it mytomcat /bin/bash</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker <span class="hljs-built_in">exec</span> -it mytomcat /bin/bash<br></code></pre></td></tr></table></figure>
 
 <blockquote>
 <p>通过以上命令就已经进入到容器内部，进行一个交互操作，退出时执行<strong>exit</strong>就行。</p>
@@ -609,7 +609,7 @@
 </ul>
 <p><strong>实例：</strong></p>
 <p>使用docker镜像tomcat:latest以后台模式运行一个容器，将容器的8080端口映射到主机8081端口，主机目录/webapps映射到容器的/webapps目录。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker -d -p 8081:8080/tcp --name mytomcat -v /webapps:/usr/<span class="built_in">local</span>/tomcat/webapps tomcat:latest</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker -d -p 8081:8080/tcp --name mytomcat -v /webapps:/usr/<span class="hljs-built_in">local</span>/tomcat/webapps tomcat:latest<br></code></pre></td></tr></table></figure>
 
 <h3 id="查看运行的容器："><a href="#查看运行的容器：" class="headerlink" title="查看运行的容器："></a>查看运行的容器：</h3><p><strong>语法：</strong>docker ps [OPTIONS]</p>
 <p>OPTIONS说明：</p>
@@ -676,10 +676,10 @@
 </ul>
 <p><strong>实例：</strong></p>
 <p>强制删除容器db01、db02</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm -f db01 db02</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker rm -f db01 db02<br></code></pre></td></tr></table></figure>
 
 <p>删除所有已经停止的容器</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm $(docker ps -a -q)</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker rm $(docker ps -a -q)<br></code></pre></td></tr></table></figure>
 
 <h3 id="删除镜像"><a href="#删除镜像" class="headerlink" title="删除镜像"></a>删除镜像</h3><p><strong>语法：</strong>docker rmi [OPTIONS] IMAGE [IMAGE…]</p>
 <p>OPTIONS说明：</p>
@@ -803,7 +803,7 @@
                 alt="范秉洋" />
             
               <p class="site-author-name" itemprop="name">范秉洋</p>
-              <p class="site-description motion-element" itemprop="description">这个人很懒，什么也没有留下...</p>
+              <p class="site-description motion-element" itemprop="description">这个人很懒,什么也没有留下...</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -895,13 +895,14 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">范秉洋</span>
 
   
+  <br><a target="_blank" style="color:#999999;text-decoration:none;" href="https://beian.miit.gov.cn/">豫ICP备2021021697号-1</a>
 </div>
 
 
